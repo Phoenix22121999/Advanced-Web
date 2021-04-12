@@ -12,9 +12,14 @@ router.route('/').get(function(req, res){
       .catch(err => res.status(400).json('Error: ' + err));
   });
   
-  router.route('/register').post(function(req, res){
+  router.route('/register').post(async function(req, res){
     let token = req.body.token;
     // console.log(token);
+    console.log('token',token)
+    if (!token) {
+
+        return res.status(400).json('Error: ' + "ko có token")
+    }
     // var newUser;
     async function verify() {
       const ticket = await client.verifyIdToken({
@@ -45,7 +50,7 @@ router.route('/').get(function(req, res){
         return res.status(400).json('Error: ' + error)
       }
     }
-  verify()  
+  await verify()  
   //     .then(function(){ })
   //     .catch(function(err) {});
 

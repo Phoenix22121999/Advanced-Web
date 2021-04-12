@@ -5,8 +5,8 @@ import { Form, Input, Button, Checkbox } from "antd";
 import { GoogleLogin } from 'react-google-login';
 import Cookies from 'universal-cookie';
 import { useHistory } from 'react-router-dom';
-import { ROUTES } from "../../utils/constant";
-const LoginContainer = ({}) => {
+import { CLIENT_ID, ROUTES } from "../../utils/constant";
+const LoginContainer = () => {
 	const cookies = new Cookies();
 	let history = useHistory();
 	const layout = {
@@ -31,8 +31,8 @@ const LoginContainer = ({}) => {
 		console.log("Failed:", errorInfo);
 	};
 
-	const responseGoogle = (value,d1) =>{
-		console.log('success',value,d1)
+	const responseGoogle = (value) =>{
+		console.log('success',value)
 
 		
 		cookies.set('token', value.accessToken, { path: '/' });
@@ -85,18 +85,23 @@ const LoginContainer = ({}) => {
 					</Form.Item>
 
 					<Form.Item {...tailLayout}>
-						<Button type="primary" htmlType="submit">
-							Submit
-						</Button>
-                        {/* <LoginButton/> */}
-						<GoogleLogin
-							clientId="491877709514-naq9vtgprh86qsun954ti1m21to4l1ro.apps.googleusercontent.com"
-							buttonText="Login"
-							isSignedIn={true}
-							onSuccess={responseGoogle}
-							// onFailure={responseGoogle}
-							cookiePolicy={'single_host_origin'}
-						/>
+						<div className='login-button-group'>
+							<Button type="primary" htmlType="submit">
+								Submit
+							</Button>
+	                        {/* <LoginButton/> */}
+							<GoogleLogin
+								clientId={CLIENT_ID}
+								buttonText="Login"
+								isSignedIn={true}
+								onSuccess={responseGoogle}
+								// onFailure={responseGoogle}
+								cookiePolicy={'single_host_origin'}
+								render={renderProps => (
+									<Button type="default" htmlType="submit" onClick={renderProps.onClick} disabled={renderProps.disabled}>Login with Google</Button>
+								  )}
+							/>
+						</div>
 					</Form.Item>
 				</Form>
 			</div>
