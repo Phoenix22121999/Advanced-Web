@@ -12,10 +12,13 @@ router.route('/').get(function(req, res){
       .catch(err => res.status(400).json('Error: ' + err));
   });
   
-  router.route('/register').post(function(req, res){
+  router.route('/login').post(function(req, res){
     let token = req.body.token;
     // console.log(token);
     // var newUser;
+    if(!token){
+      return res.status(400).json({success:false,message:"Vui Long Nhap Token"});
+    }
     async function verify() {
       const ticket = await client.verifyIdToken({
           idToken: token,
@@ -40,7 +43,7 @@ router.route('/').get(function(req, res){
       // console.log(email,name,image)
       await newUser.save();
       // const accessToken = jwt.sign({userId:newUser._id});
-      return res.json({succes:true ,message:'User added!'})
+      return res.json({succes:true ,message:'User added!',data:newUser})
       } catch (error) {
         return res.status(400).json('Error: ' + error)
       }
@@ -48,31 +51,28 @@ router.route('/').get(function(req, res){
   verify()  
   //     .then(function(){ })
   //     .catch(function(err) {});
-
-    
-  
     // newUser.save()
     //   .then(function(){ return res.json('User added!')})
     //   .catch(function(err) {return res.status(400).json('Error: ' + err)});
   });
-  router.route('/login').post(async(req,res)=>{
-    // res.send('login');
-    let token = req.body.token;
-    // let email = req.body.email;
+  // router.route('/login').post(async(req,res)=>{
+  //   // res.send('login');
+  //   let token = req.body.token;
+  //   // let email = req.body.email;
 
     
 
 
 
-    try {
-      const user = await User.findOne({email});
-      if(!user){
-        return res.status(400).json({suc: false, message:'wrong'})
-      }
-      return res.json({suc:true, message:'login complete'})
-      } catch (error) {
+  //   try {
+  //     const user = await User.findOne({email});
+  //     if(!user){
+  //       return res.status(400).json({suc: false, message:'wrong'})
+  //     }
+  //     return res.json({suc:true, message:'login complete'})
+  //     } catch (error) {
         
-      }
+  //     }
 
-  })
+  // })
   module.exports = router;
