@@ -2,6 +2,7 @@ const router = require('express').Router();
 let User = require('../model/account.model');
 const { OAuth2Client } = require('google-auth-library');
 const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 const CLIENT_ID = '785675406531-6jj2vfqpm5m06803lo5sph9ifdlgtsf6.apps.googleusercontent.com';
 const client = new OAuth2Client(CLIENT_ID);
@@ -35,7 +36,8 @@ router.route('/').get(function(req, res){
       //console.log(user);
       if(user){
         //return res.status(400).json({success:false,message:"Email already token"});
-        return res.json(user);
+        const accesToken = jwt.sign({userid: user._id},process.env.ACCESS_TOKEN);
+        return res.json({success:true , data:user, access:accesToken});
       }
       var name = payload['name'];
       var image = payload['picture'];
@@ -43,7 +45,8 @@ router.route('/').get(function(req, res){
       // console.log(email,name,image)
       await newUser.save();
       // const accessToken = jwt.sign({userId:newUser._id});
-      return res.json({succes:true ,message:'User added!',data:newUser})
+      const accesToken = jwt.sign({userid: newUser._id},process.env.ACCESS_TOKEN);
+      return res.json({succes:true ,message:'User added!',data:newUser, access: accesToken});
       } catch (error) {
         return res.status(400).json('Error: ' + error)
       }
