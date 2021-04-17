@@ -59,7 +59,7 @@ connection.once('open', () => {
 
 const usersRouter = require('./router/user');
 const postRouter = require('./router/post');
-app.use('/api', usersRouter);
+app.use('/api/users', usersRouter);
 app.use('/api/posts', postRouter);
 
 app.listen(port, function () {
