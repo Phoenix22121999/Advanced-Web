@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
+import UserReducer from './user/user.reducer';
 
 
 // save reducer to local storage
@@ -19,6 +20,7 @@ const userPersistConfig = {
 };
 
 const rootReducer = combineReducers({
+    user:UserReducer,
     
 });
 

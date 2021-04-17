@@ -4,19 +4,17 @@ const axios = require('axios');
 
 export class BaseApi {
     constructor(pathUrl) {
-        this.URL = `${API_URL}/portal/${pathUrl}`;
+        this.URL = `${API_URL}/api/${pathUrl}`;
     }
     abstract = async (path, data, token, method = METHOD_AXIOS.GET) => {
         const config = {
             method,
-            headers: token ? {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json;charset=UTF-8',
-            } : {
+            headers: 
+                {
                     'Content-Type': 'application/json;charset=UTF-8',
                 },
             url: `${this.URL}${path}`,
-            data,
+            data:{...data,token},
         }
         return axios(config)
             .then(function (response) {

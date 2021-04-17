@@ -2,12 +2,23 @@ import React from "react";
 import { connect } from "react-redux";
 import { Button, Layout, Menu } from "antd";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import { CLIENT_ID } from "../../utils/constant";
+import { CLIENT_ID, ROUTES } from "../../utils/constant";
 import { GoogleLogout } from "react-google-login";
 import "./DashBoard.scss";
 import News from "../../module/News/News";
-const { Header, Content, Footer } = Layout;
-const DashBoardContainer = (props) => {
+import Cookies from "universal-cookie";
+import { useHistory } from "react-router-dom";
+import Avatar from "antd/lib/avatar/avatar";
+import { createStructuredSelector } from "reselect";
+import { selectCurrentUser } from "../../redux/user/user.selector";
+const { Header, Content } = Layout;
+const DashBoardContainer = ({user}) => {
+	const cookies = new Cookies();
+	let history = useHistory();
+	const onLogoutSuccess = ( )=>{
+		history.push(ROUTES.LOGIN);
+		
+	}
 	return (
 		<Router>
 			<div className="dashboard-container">
@@ -22,19 +33,23 @@ const DashBoardContainer = (props) => {
 
 								{/* </Menu.Item> */}
 							</Menu>
-							<GoogleLogout
-								clientId={CLIENT_ID}
-								buttonText="Logout"
-								render={(renderProps) => (
-									<Button
-										ton
-										onClick={renderProps.onClick}
-										disabled={renderProps.disabled}
-									>
-										Logout
-									</Button>
-								)}
-							></GoogleLogout>
+							<div className="right">
+								<GoogleLogout
+									clientId={CLIENT_ID}
+									buttonText="Logout"
+									onLogoutSuccess={onLogoutSuccess}
+									render={(renderProps) => (
+										<Button
+											ton
+											onClick={renderProps.onClick}
+											disabled={renderProps.disabled}
+										>
+											Logout
+										</Button>
+									)}
+								></GoogleLogout>
+								<Avatar src={user.image}/>
+							</div>
 						</div>
 					</Header>
 					<Content style={{ padding: "0 50px" }}>
@@ -52,7 +67,9 @@ const DashBoardContainer = (props) => {
 	);
 };
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = createStructuredSelector({
+    user: selectCurrentUser,
+})
 
 const mapDispatchToProps = {};
 
