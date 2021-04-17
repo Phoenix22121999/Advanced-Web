@@ -14,7 +14,13 @@ const postSchema = new Schema({
     },
     user:{
         type: Schema.Types.ObjectId,
-        ref:'User'
-    }
+        ref:'users'
+    },
+    timePost: { 
+        type : Date, 
+        default: Date.now 
+    },
+
 })
-module.exports = mongoose.model('Post', postSchema )
+const Posts = mongoose.model('posts', postSchema);
+module.exports = Posts
