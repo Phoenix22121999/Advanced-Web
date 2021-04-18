@@ -6,11 +6,11 @@ const postSchema = new Schema({
         type:String,
         required:true,
     },
-    comment: {
+    img:[{
         type:String,
-    },
+    }],
     url:{
-        type:String,
+        type:String
     },
     user:{
         type: Schema.Types.ObjectId,
