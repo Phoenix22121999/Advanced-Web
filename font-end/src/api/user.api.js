@@ -1,16 +1,12 @@
-import { API_URL, METHOD_AXIOS } from "../utils/constant";
-import { serializeForm } from "../utils/function.utils";
 import { BaseApi } from "./base.api";
-const axios = require('axios');
-
 // user is admin
 export class UserApi extends BaseApi {
     constructor() {
-        super('api')
+        super('api/users')
     }
 
     getProfile = async (token) => {
-        const rs = await this.post('/login',undefined,token)
+        const rs = await this.post('/login/googleapi',{token})
         return rs
     }
 

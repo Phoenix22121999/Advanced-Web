@@ -1,7 +1,6 @@
 import api from '../../api/index.api';
 import UserTypes from './user.types';
-import Cookies from 'universal-cookie';
-const cookies = new Cookies();
+// import Cookies from 'universal-cookie';
 
 export const onGetProfile = (tokenId,fCallBack)=> {
     return async (dispatch) => {
@@ -10,7 +9,7 @@ export const onGetProfile = (tokenId,fCallBack)=> {
             if (result.success) {
                 dispatch({
                     type: UserTypes.GET_PROFILE_SUCCESS,
-                    payload: result.data
+                    payload: result
                 })
                 fCallBack && fCallBack(true)
             }else{

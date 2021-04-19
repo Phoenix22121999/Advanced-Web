@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { Button, Layout, Menu } from "antd";
-import { BrowserRouter as Router, Switch, Route, Link, Redirect } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { CLIENT_ID, ROUTES } from "../../utils/constant";
 import { GoogleLogout } from "react-google-login";
 import "./DashBoard.scss";
@@ -30,7 +30,7 @@ const DashBoardContainer = ({user, onGetProfile}) => {
 		if(!user){
 			onGetProfile(cookies.get(TOKEN))
 		}
-	}, [user])
+	}, [user,cookies,onGetProfile])
 
 	return (
 		<Router>

@@ -1,17 +1,35 @@
-import { Avatar } from 'antd';
-import React from 'react';
+import { Avatar, Button } from "antd";
+import React from "react";
+import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
+import "./Post.scss";
+const Post = ({ post }) => {
 
-const Post = ({post}) => {
-    return (
-        <div className="post-wrapper">
-           <div className="post-header">
-                <Avatar/>
-                <div className="post-username">
-                    dat
-                </div>
-           </div>
-        </div>
-    );
-}
+	console.log(post)
+	return (
+		<div className="post-wrapper">
+			<div className="post-header">
+				<Avatar />
+				<div className="post-username">{post.user.name}</div>
+			</div>
+			<div className="post-content">
+				{post.title}
+			</div>
+			<div className="post-footer">
+                <Button type="primary" danger>Delete</Button>
+                <Button type="primary" >Edit</Button>
+            </div>
+		</div>
+	);
+};
+const mapStateToProps = createStructuredSelector({
+})
 
-export default Post;
+const mapDispatchToProps = {
+};
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(Post);;
+

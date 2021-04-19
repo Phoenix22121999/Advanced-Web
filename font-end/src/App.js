@@ -14,7 +14,7 @@ function App() {
 		}else{
 			history.push(ROUTES.LOGIN)
 		}
-	}, [])
+	}, [history])
 
 	return (
 		<div className="App">

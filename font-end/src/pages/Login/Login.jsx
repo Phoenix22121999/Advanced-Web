@@ -37,8 +37,9 @@ const LoginContainer = ({ onGetProfile }) => {
 		// console.log("success", value);
 		const { profileObj, tokenId } = value;
 		const { email } = profileObj;
+		console.log(value)
 		if (email.match(regex)) {
-			cookies.set("token", value.tokenId, { path: "/" });
+			cookies.set("token", tokenId, { path: "/" });
 			onGetProfile(tokenId);
 			history.push(ROUTES.DASHBOARD);
 		} else {

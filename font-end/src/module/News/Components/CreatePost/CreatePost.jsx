@@ -3,7 +3,11 @@ import { Button, Divider, Input, Modal, Upload } from "antd";
 import { PlusCircleOutlined } from "@ant-design/icons";
 import "./CreatePost.scss";
 import Title from "antd/lib/typography/Title";
-const CreatePost = () => {
+import { onCreatePost } from "../../../../redux/post/post.actions";
+import { createStructuredSelector } from "reselect";
+import { selectTokenId } from "../../../../redux/user/user.selector";
+import { connect } from "react-redux";
+const CreatePost = ({onCreatePost}) => {
 	const [input, setInput] = useState("");
 	const [link, setLink] = useState("");
 	// const [base64List, setbase64List] = useState([]);
@@ -41,6 +45,15 @@ const CreatePost = () => {
 		});
 	}
 
+	const onCreate = () =>{
+		const images = fileList.map((img)=>img.thumbUrl)
+		onCreatePost({
+			title:input,
+			image:images,
+			url:link,
+		})
+	}
+
 	const onImageChange = ({ fileList: newFileList,file }) => {
 
         // console.log(getBase64(file))
@@ -50,9 +63,6 @@ const CreatePost = () => {
 		setPreviewVisible(false);
 	};
 	const dummyRequest =  async ({ file, onSuccess }) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => console.log(reader.result);
 		setTimeout(() => {
 			onSuccess("ok");
 		}, 0);
@@ -72,7 +82,7 @@ const CreatePost = () => {
 			>
 				Thêm Bài Viết
 			</Button>
-			<Modal visible={isAdd} onCancel={onClose}>
+			<Modal visible={isAdd} onCancel={onClose} onOk={onCreate}>
 				<div className="create-post-modal">
                     <Title level={4}>Nội Dung</Title>
 					<Input.TextArea
@@ -115,5 +125,15 @@ const CreatePost = () => {
 		</div>
 	);
 };
+const mapStateToProps = createStructuredSelector({
+    // tokenId: selectTokenId,
+})
 
-export default CreatePost;
+const mapDispatchToProps = {
+	onCreatePost,
+};
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(CreatePost);;

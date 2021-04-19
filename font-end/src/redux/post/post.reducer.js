@@ -1,3 +1,4 @@
+import { addDataInArr } from "../../utils/function.utils";
 import PostTypes from "./post.types";
 
 const INITIAL_STATE = {
@@ -12,6 +13,11 @@ const PostReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 posts: payload,
+            }
+        case PostTypes.CREATE_POST_SUCCESS:
+            return{
+                ...state,
+                posts: addDataInArr(state.posts,payload)
             }
         // case UserTypes.LOGOUT_SUCCESS:
         //     return {
@@ -34,4 +40,4 @@ const PostReducer = (state = INITIAL_STATE, action) => {
     }
 };
 
-export default UserReducer;
+export default PostReducer;
