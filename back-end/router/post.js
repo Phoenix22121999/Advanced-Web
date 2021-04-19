@@ -82,7 +82,7 @@ router.delete('/:PostId/comment/:CommentId',gateToken, async(req,res)=>{
 router.get('/', gateToken ,async(req,res)=>{
     const userid = req.userId; // sau khi qua gateToken thì gateToken sẽ gắn userId sau khi decode với accessToken vào trong req
     try{
-        const result = await Post.find({user:userid}).populate('user',['name','email']);
+        const result = await Post.find({user:userid}).populate('user');
         res.json({success: true , data: result});
     }catch(err){
         res.json({success:false, message: e.message});
