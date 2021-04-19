@@ -20,7 +20,7 @@ const FacultySchema = new Schema({
     },
     faculty:{
         type:String,
-        enum: ['Công Nghệ Thông Tin','Dược','Luật','Toán','Kế Toán','Điện']
+        enum: ['Công Nghệ Thông Tin','Dược','Luật','Toán','Kế Toán','Điện','Admin']
     },
     img:{
         type:String

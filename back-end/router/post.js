@@ -3,19 +3,10 @@ const Post = require('../model/post.model');
 const Comment = require('../model/comment.model');
 const gateToken = require('../middleware/veriFy')
 
-// @router api/posts GET
-// dùng để lấy tất cả bài post 
 
-router.get('/', gateToken ,async(req,res)=>{
-    const userid = req.userId; // sau khi qua gateToken thì gateToken sẽ gắn userId sau khi decode với accessToken vào trong req
-    try{
-        const result = await Post.find({user:userid}).populate('user',['name','email']);
-        res.json({success: true , data: result});
-    }catch(err){
-        res.json({success:false, message: e.message});
-    }
-})
-//@router post comment len bai viet;
+//-------------------------------------------------------------BINH LUAN--------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------------------------
+//@router get comment len bai viet;
 router.get('/:id/comment', async(req,res)=>{
     const postId = req.params.id;
     try{
@@ -25,6 +16,7 @@ router.get('/:id/comment', async(req,res)=>{
         res.json({success:false, message:err.message})
     }
 })
+//@route post comment lên bài viết
 router.post('/:id/comment',gateToken,async(req,res)=>{
     const postId = req.params.id;
     const userId = req.userId;
@@ -41,7 +33,61 @@ router.post('/:id/comment',gateToken,async(req,res)=>{
         res.json({success:false, message: e.message})
     }
 })
+//@route api/{id của bài viết}/comment/{id của comment lấy sau khi add comment vào trong moongose}
+// dùng để cập nhật lại comment của người dùng
+router.put('/:PostId/comment/:CommentId',gateToken, async(req,res)=>{
+    const userId = req.userId;
+    const CommentId = req.params.CommentId;
+    const{content} = req.body;
+    if(!content){
+        return res.status(404).json({success:false , message: 'Content is require'})
+    }
+    try{
+        let updatedComment = ({content});
+        const updateCondition = {_id :CommentId , user: userId};
+        updatedComment = await Comment.findOneAndUpdate(updateCondition, updatedComment, {new: true}); 
+        if(!updatedComment){
+            return res.status(401).json({sucess: false , message : 'Comment not found or not authorized'})
+        }
+            return res.json({success:true , message : "update Thanh Cong", data: updatedComment});
+    }catch(err){
+        res.json({success:false, message: err.message})
+    }
+    //res.json({success:true, data:{idPost, idComment}});
+})
+//@route api/{id của bài viết}/comment/{id của comment lấy sau khi add comment vào trong moongose}
+// dùng để xóa comment
 
+router.delete('/:PostId/comment/:CommentId',gateToken, async(req,res)=>{
+    const CommentId = req.params.CommentId;// tham số truyền vào cùng với đường dẫn
+    const userId = req.userId;// sau khi qua gateToken thì gateToken sẽ gắn userId sau khi decode với accessToken vào trong req
+    try{
+        const deleteCondition = {_id : CommentId , user: userId};
+        const deletedComment = await Comment.findByIdAndDelete(deleteCondition);
+        if(!deletedComment){
+            return res.status(401).json({sucess: false , message : 'post not found or not authorized'})
+        }
+            return res.json({success:true , message : "Xoa Thanh Cong", data: deletedComment});
+    }catch(err){
+        res.json({success:false, message: err.message})
+    }   
+    // res.json(idPost)
+})
+
+//-------------------------------------------------------------BÀI VIẾT--------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------------------------
+
+// @router api/posts GET
+// dùng để lấy tất cả bài post 
+router.get('/', gateToken ,async(req,res)=>{
+    const userid = req.userId; // sau khi qua gateToken thì gateToken sẽ gắn userId sau khi decode với accessToken vào trong req
+    try{
+        const result = await Post.find({user:userid}).populate('user',['name','email']);
+        res.json({success: true , data: result});
+    }catch(err){
+        res.json({success:false, message: e.message});
+    }
+})
 // @route api/posts POST
 // dùng để đăng bài lên
 router.post('/', gateToken ,async(req,res)=>{
@@ -68,14 +114,13 @@ router.post('/', gateToken ,async(req,res)=>{
 router.put('/:id', gateToken ,async(req,res)=>{
     const user = req.userId // sau khi qua gateToken thì gateToken sẽ gắn userId sau khi decode với accessToken vào trong req
     const idPost = req.params.id
-    const{title , comment ,url,image} = req.body;
-    // console.log(req.userId , req.body)
+    const{title ,url,image} = req.body;
+    console.log(req.userId , req.body)
     if(!title){
         return res.status(404).json({success:false , message: 'Title is require'})
     }
     try{
-        let updated = ({title , comment: comment || ' ',image, url});
-        console.log(updated,idPost,user)
+        let updatedPost = ({title ,image, url});
         const updateCondition = {_id : idPost , user: user};
         updatedPost = await Post.findOneAndUpdate(updateCondition, updatedPost, {new: true}); 
         // console.log(updated);

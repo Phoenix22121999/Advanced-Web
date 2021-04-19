@@ -1,4 +1,4 @@
-const Router = require('express').Router();
+const router = require('express').Router();
 const User = require('../model/account.model');
 const Faculty = require('../model/accFaculty.model');
 const { OAuth2Client } = require('google-auth-library');
@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken');
 const { validationResult } = require('express-validator');
 const gateRegister = require('../validator/validation');
 const gateLogin = require('../validator/validationLogin');
+const gateToken = require('../middleware/veriFy');
 const bcrypt = require('bcrypt');
 const multer = require('multer');
 const fs = require('fs');
@@ -17,13 +18,13 @@ require('dotenv').config();
 const CLIENT_ID ="491877709514-naq9vtgprh86qsun954ti1m21to4l1ro.apps.googleusercontent.com"// ID của t can sai chung 1 cai nen sai của t cho giong
 const client = new OAuth2Client(CLIENT_ID);
 
-Router.get('/', (req, res) => {
+router.get('/', (req, res) => {
   User.find()
     .then(users => res.json(users))
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
-Router.post('/login/googleapi', (req, res) => {
+router.post('/login/googleapi', (req, res) => {
   let token = req.body.token;
   // console.log(token);
   // var newUser;
@@ -68,7 +69,7 @@ Router.post('/login/googleapi', (req, res) => {
 
 //router post register dùng để đăng ký tên người dùng chỉ do admin khởi tạo với các giá trị
 // email , password , picture , faculty  
-Router.post('/register',gateRegister, async (req, res) => {
+router.post('/register',gateRegister, async (req, res) => {
   // console.log(req.body);
   let result = validationResult(req);
   if (result.errors.length === 0) {
@@ -105,9 +106,8 @@ Router.post('/register',gateRegister, async (req, res) => {
     res.json({ success:true, message: mess })
   }
 })
-
 //router post Login sẽ được gọi khi các khoa đăng nhập vào hệ thống với tài khoản của khoa
-Router.post('/login',gateLogin,async(req,res)=>{
+router.post('/login',gateLogin,async(req,res)=>{
   let result = validationResult(req);
   if (result.errors.length === 0) {
     let { email, password} = req.body;
@@ -137,4 +137,28 @@ Router.post('/login',gateLogin,async(req,res)=>{
     res.json({ code: 1, message: mess })
   }
 })
-module.exports = Router;
+
+router.put('/',gateToken ,async(req,res)=>{
+    const userId =  req.userId;
+    const{image, name} = req.body;
+    if(!image || !name){
+      return res.status(404).json({success:false , message: 'name or image is require'});
+    }
+    try{
+      let updatedUser = ({image, name});
+      const updateCondition = {_id: userId};
+      updatedUser = await User.findOneAndUpdate(updateCondition, updatedUser, {new: true}); 
+      if(!updatedUser){
+        return res.status(401).json({sucess: false , message : 'Comment not found or not authorized'})
+    }
+    return res.json({success:true , message : "update Thanh Cong", data: updatedUser});
+
+    }catch(err){
+      res.json({success:false, message: err.message})
+    }
+})
+
+
+
+
+module.exports = router;

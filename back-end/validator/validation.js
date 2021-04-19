@@ -1,5 +1,5 @@
 const {check }= require('express-validator');
-const litsFaculty = ['Công Nghệ Thông Tin','Dược','Luật','Toán','Kế Toán','Điện']
+const litsFaculty = ['Công Nghệ Thông Tin','Dược','Luật','Toán','Kế Toán','Điện','Admin']
 module.exports = [
     check('email').exists().withMessage('vui lòng nhập email ')
     .notEmpty().withMessage('email Không được để trống')

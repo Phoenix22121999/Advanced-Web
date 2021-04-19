@@ -11,7 +11,8 @@ const commentSchema = new Schema({
         ref: 'posts'
     },
     content:{
-        type:String
+        type:String,
+        require:true
     },
     timePost: { 
         type : Date, 
