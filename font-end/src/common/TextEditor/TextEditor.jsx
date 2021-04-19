@@ -17,7 +17,6 @@ const TextEditor = ({ placeholder = "Nhập nội dung", onChange, initialValues
     },[content])
 
     useEffect(() => {
-        console.log(initialValues)
         if(initialValues) {
             const contentState = ContentState.createFromBlockArray(convertFromHTML(initialValues))
             setContent(() => EditorState.createWithContent(contentState))

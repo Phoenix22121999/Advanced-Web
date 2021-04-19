@@ -4,7 +4,7 @@ const axios = require('axios');
 
 export class BaseApi {
     constructor(pathUrl) {
-        this.URL = `${API_URL}/api/${pathUrl}`;
+        this.URL = `${API_URL}/${pathUrl}`;
     }
     abstract = async (path, data, token, method = METHOD_AXIOS.GET) => {
         const config = {
@@ -12,9 +12,10 @@ export class BaseApi {
             headers: 
                 {
                     'Content-Type': 'application/json;charset=UTF-8',
+                    "Authorzition": `bearer ${token}`
                 },
             url: `${this.URL}${path}`,
-            data:{...data,token},
+            data:{...data},
         }
         return axios(config)
             .then(function (response) {

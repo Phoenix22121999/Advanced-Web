@@ -25,16 +25,16 @@ const LoginContainer = ({ onGetProfile }) => {
 		//   span: 16,
 		// },
 	};
-	const onFinish = (values) => {
-		console.log("Success:", values);
-	};
+	// const onFinish = (values) => {
+	// 	console.log("Success:", values);
+	// };
 
-	const onFinishFailed = (errorInfo) => {
-		console.log("Failed:", errorInfo);
-	};
+	// const onFinishFailed = (errorInfo) => {
+	// 	console.log("Failed:", errorInfo);
+	// };
 
 	const responseGoogle = (value) => {
-		console.log("success", value);
+		// console.log("success", value);
 		const { profileObj, tokenId } = value;
 		const { email } = profileObj;
 		if (email.match(regex)) {
@@ -45,13 +45,9 @@ const LoginContainer = ({ onGetProfile }) => {
 			message.error("Phải đăng nhập bằng mail sinh viên");
 		}
 	};
+	// console.log('render login')
 
-	const onRequest = (value, d) => {
-		console.log("onRequest", value, d);
-
-		// cookies.set('token', value.accessToken, { path: '/' });
-		// history.push(ROUTES.DASHBOARD)
-	};
+	
 	return (
 		<div className="login-container">
 			<div className="form-wrapper">
@@ -60,8 +56,8 @@ const LoginContainer = ({ onGetProfile }) => {
 					{...layout}
 					name="basic"
 					initialValues={{ remember: true }}
-					onFinish={onFinish}
-					onFinishFailed={onFinishFailed}
+					// onFinish={onFinish}
+					// onFinishFailed={onFinishFailed}
 				>
 					<Form.Item
 						label="Username"
@@ -106,9 +102,9 @@ const LoginContainer = ({ onGetProfile }) => {
 							<GoogleLogin
 								clientId={CLIENT_ID}
 								buttonText="Login"
-								isSignedIn={true}
+								// isSignedIn={true}
 								onSuccess={responseGoogle}
-								onRequest={onRequest}
+								// onRequest={onRequest}
 								// onFailure={responseGoogle}
 								cookiePolicy={"single_host_origin"}
 								render={(renderProps) => (

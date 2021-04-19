@@ -6,11 +6,11 @@ const axios = require('axios');
 // user is admin
 export class UserApi extends BaseApi {
     constructor() {
-        super('')
+        super('api')
     }
 
     getProfile = async (token) => {
-        const rs = await this.post('login',undefined,token)
+        const rs = await this.post('/login',undefined,token)
         return rs
     }
 
