@@ -122,7 +122,7 @@ router.put('/:id', gateToken ,async(req,res)=>{
     try{
         let updatedPost = ({title ,image, url});
         const updateCondition = {_id : idPost , user: user};
-        updatedPost = await Post.findOneAndUpdate(updateCondition, updatedPost, {new: true}); 
+        updatedPost = await Post.findOneAndUpdate(updateCondition, updatedPost, {new: true}).populate('user',['name','email','_id','image']); 
         // console.log(updated);
         if(!updatedPost){
             return res.status(401).json({sucess: false , message : 'post not found or not authorized'})
