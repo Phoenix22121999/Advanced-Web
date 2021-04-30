@@ -1,4 +1,4 @@
-import { addDataInArr } from "../../utils/function.utils";
+import { addDataInArr, updateDataInArr } from "../../utils/function.utils";
 import PostTypes from "./post.types";
 
 const INITIAL_STATE = {
@@ -30,11 +30,11 @@ const PostReducer = (state = INITIAL_STATE, action) => {
         //         currentUser: { ...payload },
         //     }
         // case UserTypes.GET_USER_SETTINGS_SUCCESS:
-        // case UserTypes.UPDATE_USER_SETTINGS_SUCCESS:
-        //     return {
-        //         ...state,
-        //         userSettings: payload
-        //     }
+        case PostTypes.UPDATE_POST_SUCCESS:
+            return {
+                ...state,
+                posts: updateDataInArr(state.posts,payload)
+            }
         default:
             return state;
     }

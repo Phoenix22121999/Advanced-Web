@@ -14,3 +14,8 @@ export const METHOD_AXIOS = {
 	DELETE: "delete",
 };
 export const TOKEN = 'token'
+
+export const MODE = {
+	ADD:"ADD",
+	EDIT:"EDIT"
+}

@@ -6,8 +6,8 @@ import PostTypes from './post.types';
 export const onCreatePost = (data,fCallBack)=> {
     return async (dispatch,getState) => {
         try {
-            const {tokenId} = getState().user
-            const result = await api.postApi.createPost({token:tokenId,data})
+            const {token} = getState().user
+            const result = await api.postApi.createPost({token,data})
             if (result.success) {
                 dispatch({
                     type: PostTypes.CREATE_POST_SUCCESS,
@@ -28,11 +28,34 @@ export const onCreatePost = (data,fCallBack)=> {
 export const onGetPostsList = (data,fCallBack)=> {
     return async (dispatch,getState) => {
         try {
-            const {tokenId} = getState().user
-            const result = await api.postApi.getAllPost({token:tokenId})
+            const {token} = getState().user
+            const result = await api.postApi.getAllPost({token})
             if (result.success) {
                 dispatch({
                     type: PostTypes.GET_POST_LIST_SUCCESS,
+                    payload: result.data
+                })
+                fCallBack && fCallBack(true)
+            }else{
+                fCallBack && fCallBack(false, result.message)
+            }
+        }
+        catch (err) {
+            fCallBack && fCallBack(false, err.message)
+        }
+    }
+}
+
+export const onUpdatePost = ({id,...data},fCallBack)=> {
+    return async (dispatch,getState) => {
+        try {
+            const {token} = getState().user
+            // const id = getState().user.currentUser["_id"]
+            const result = await api.postApi.updatePost({id,token,data:{...data}})
+            console.log(result)
+            if (result.success) {
+                dispatch({
+                    type: PostTypes.UPDATE_POST_SUCCESS,
                     payload: result.data
                 })
                 fCallBack && fCallBack(true)
