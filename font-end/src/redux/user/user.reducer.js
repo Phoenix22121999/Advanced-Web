@@ -2,6 +2,8 @@ import UserTypes from "./user.types";
 
 const INITIAL_STATE = {
     currentUser: null,
+    tokenGoogle:null,
+    token:null,
 };
 
 const UserReducer = (state = INITIAL_STATE, action) => {
@@ -10,7 +12,8 @@ const UserReducer = (state = INITIAL_STATE, action) => {
         case UserTypes.GET_PROFILE_SUCCESS:
             return {
                 ...state,
-                currentUser: payload,
+                currentUser: payload.data,
+                token:payload.access,
             }
         // case UserTypes.LOGOUT_SUCCESS:
         //     return {

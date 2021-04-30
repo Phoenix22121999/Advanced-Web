@@ -1,20 +1,20 @@
 import "./App.css";
 import { DashBoard, Login } from "./pages";
+import "react-multi-carousel/lib/styles.css";
 import { ROUTES } from "./utils/constant";
 import { Route, Switch, Redirect, useHistory } from 'react-router-dom';
 import { useEffect } from "react";
-import Cookies from 'universal-cookie';
+import { checkLogin } from "./utils/function.utils";
 
-const cookies = new Cookies();
 function App() {
 	let history = useHistory();
 	useEffect(() => {
-		if(cookies.get("token")){
+		if(checkLogin()){
 			history.push(ROUTES.DASHBOARD)
 		}else{
 			history.push(ROUTES.LOGIN)
 		}
-	}, [])
+	}, [history])
 
 	return (
 		<div className="App">

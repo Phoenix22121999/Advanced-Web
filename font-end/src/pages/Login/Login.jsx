@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import "./Login.scss";
 import { Form, Input, Button, Checkbox, message } from "antd";
@@ -7,6 +7,7 @@ import Cookies from "universal-cookie";
 import { useHistory } from "react-router-dom";
 import { CLIENT_ID, ROUTES } from "../../utils/constant";
 import { onGetProfile } from "../../redux/user/user.actions";
+import { checkLogin } from "../../utils/function.utils";
 const LoginContainer = ({ onGetProfile }) => {
 	const cookies = new Cookies();
 	let history = useHistory();
@@ -32,13 +33,20 @@ const LoginContainer = ({ onGetProfile }) => {
 	// const onFinishFailed = (errorInfo) => {
 	// 	console.log("Failed:", errorInfo);
 	// };
+	useEffect(() => {
+		if(checkLogin()){
+			history.push(ROUTES.DASHBOARD)
+		}else{
+			history.push(ROUTES.LOGIN)
+		}
+	}, [history])
 
 	const responseGoogle = (value) => {
 		// console.log("success", value);
 		const { profileObj, tokenId } = value;
 		const { email } = profileObj;
 		if (email.match(regex)) {
-			cookies.set("token", value.tokenId, { path: "/" });
+			cookies.set("token", tokenId, { path: "/" });
 			onGetProfile(tokenId);
 			history.push(ROUTES.DASHBOARD);
 		} else {

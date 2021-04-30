@@ -1,9 +1,22 @@
 import { API_URL } from "./constant"
+import Cookies from "universal-cookie";
+const cookies = new Cookies();
 
 export const getDateFromTimestamp = (value) => {
     return new Date(value * 1000).toLocaleString()
 }
 
+export const checkLogin = ()=>{
+    if(cookies.get("token")){
+        return true
+    }else{
+        return false
+    }
+}
+
+export const getToken = () =>{
+    return cookies.get("token")
+}
 
 export const addDataInArr = (data, itemAdd) => {
     if (!data) {
@@ -17,7 +30,7 @@ export const updateDataInArr = (data, itemUpdate) => {
         return null
     }
     return data.map(item => {
-        if (item.id === itemUpdate.id) {
+        if (item._id === itemUpdate._id) {
             return itemUpdate
         }
         return item

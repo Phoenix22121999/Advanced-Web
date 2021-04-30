@@ -7,12 +7,13 @@ export class BaseApi {
         this.URL = `${API_URL}/${pathUrl}`;
     }
     abstract = async (path, data, token, method = METHOD_AXIOS.GET) => {
+        console.log(data,token)
         const config = {
             method,
             headers: 
                 {
                     'Content-Type': 'application/json;charset=UTF-8',
-                    "Authorzition": `bearer ${token}`
+                    'Authorization': `Bearer ${token}`
                 },
             url: `${this.URL}${path}`,
             data:{...data},

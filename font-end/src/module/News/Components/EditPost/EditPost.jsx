@@ -45,12 +45,13 @@ const CreatePost = ({onCreatePost}) => {
 	}
 
 	const onCreate = () =>{
-		const images = fileList.map((img)=>img.thumbUrl)
-		onCreatePost({
-			title:input,
-			image:images,
-			url:link,
-		})
+		console.log('fileList')
+		// const images = fileList.map((img)=>img.thumbUrl)
+		// onCreatePost({
+		// 	title:input,
+		// 	image:images,
+		// 	url:link,
+		// })
 	}
 
 	const onImageChange = ({ fileList: newFileList,file }) => {
@@ -71,6 +72,10 @@ const CreatePost = ({onCreatePost}) => {
         setLink(e.target.value)
     }
 
+	const ok = () =>{
+		console.log('ss')
+	}
+
 	return (
 		<div className="create-post">
 			<Button
@@ -81,7 +86,7 @@ const CreatePost = ({onCreatePost}) => {
 			>
 				Thêm Bài Viết
 			</Button>
-			<Modal visible={isAdd} onCancel={onClose} onOk={onCreate}>
+			<Modal visible={isAdd} onCancel={onClose} onOk={ok}>
 				<div className="create-post-modal">
                     <Title level={4}>Nội Dung</Title>
 					<Input.TextArea

@@ -1,36 +1,36 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { Button, Layout, Menu } from "antd";
-import { BrowserRouter as Router, Switch, Route, Link, Redirect } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { CLIENT_ID, ROUTES } from "../../utils/constant";
 import { GoogleLogout } from "react-google-login";
 import "./DashBoard.scss";
 import News from "../../module/News/News";
 import Cookies from "universal-cookie";
-import { useHistory  } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import Avatar from "antd/lib/avatar/avatar";
 import { createStructuredSelector } from "reselect";
 import { selectCurrentUser } from "../../redux/user/user.selector";
 import { onGetProfile } from "../../redux/user/user.actions";
-import {TOKEN} from "../../utils/constant"
-import { UserOutlined } from '@ant-design/icons';
+import { UserOutlined } from "@ant-design/icons";
+import { getToken } from "../../utils/function.utils";
 
 const { Header, Content } = Layout;
-const DashBoardContainer = ({user, onGetProfile}) => {
+const DashBoardContainer = ({ user, onGetProfile }) => {
 	const cookies = new Cookies();
 	// let { path, url } = useRouteMatch();
 	let history = useHistory();
-	const onLogoutSuccess = async ( )=>{
-		cookies.remove('token')
+	const onLogoutSuccess = async () => {
+		cookies.remove("token");
 		history.push(ROUTES.LOGIN);
-	}
-
+	};
 
 	useEffect(() => {
-		if(!user){
-			onGetProfile(cookies.get(TOKEN))
+		console.log(user);
+		if (!user) {
+			onGetProfile(getToken());
 		}
-	}, [user])
+	}, [user, onGetProfile]);
 
 	return (
 		<Router>
@@ -38,7 +38,11 @@ const DashBoardContainer = ({user, onGetProfile}) => {
 				<Layout className="layout">
 					<Header>
 						<div className="dashboard-header">
-							<Menu theme="dark" mode="horizontal" defaultSelectedKeys={[ROUTES.NEWS]}>
+							<Menu
+								theme="dark"
+								mode="horizontal"
+								defaultSelectedKeys={[ROUTES.NEWS]}
+							>
 								<Menu.Item key={ROUTES.NEWS}>
 									<Link to={ROUTES.NEWS}>News</Link>
 								</Menu.Item>
@@ -64,23 +68,29 @@ const DashBoardContainer = ({user, onGetProfile}) => {
 										</Button>
 									)}
 								></GoogleLogout>
-								{user?<Avatar src={user.image}/>:<Avatar icon={<UserOutlined />}/>}
+								{user ? (
+									<Avatar src={user.image} />
+								) : (
+									<Avatar icon={<UserOutlined />} />
+								)}
 							</div>
 						</div>
 					</Header>
 					<Content style={{ padding: "0 50px" }}>
 						<div className="dashboard-content">
-							<Switch>
-								<Route exact path={ROUTES.NEWS}>
-									<News />
-								</Route>
-								<Route exact path={ROUTES.DASHBOARD}>
-									<News />
-								</Route>
-								{/* <Route exact path={ROUTES.DASHBOARD}>
+							{user && (
+								<Switch>
+									<Route exact path={ROUTES.NEWS}>
+										<News />
+									</Route>
+									<Route exact path={ROUTES.DASHBOARD}>
+										<News />
+									</Route>
+									{/* <Route exact path={ROUTES.DASHBOARD}>
 									<Redirect to={ROUTES.NEWS} /> 
 								</Route> */}
-							</Switch>
+								</Switch>
+							)}
 						</div>
 					</Content>
 				</Layout>
@@ -90,8 +100,8 @@ const DashBoardContainer = ({user, onGetProfile}) => {
 };
 
 const mapStateToProps = createStructuredSelector({
-    user: selectCurrentUser,
-})
+	user: selectCurrentUser,
+});
 
 const mapDispatchToProps = {
 	onGetProfile,
