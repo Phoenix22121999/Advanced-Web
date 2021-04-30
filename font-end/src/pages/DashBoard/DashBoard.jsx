@@ -26,7 +26,6 @@ const DashBoardContainer = ({ user, onGetProfile }) => {
 	};
 
 	useEffect(() => {
-		console.log(user);
 		if (!user) {
 			onGetProfile(getToken());
 		}

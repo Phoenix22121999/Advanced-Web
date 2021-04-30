@@ -3,7 +3,7 @@ import Modal from 'antd/lib/modal/Modal';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { onCreatePost, onGetPostsList, onUpdatePost } from '../../redux/post/post.actions';
+import { onCreatePost, onDeletePost, onGetPostsList, onUpdatePost } from '../../redux/post/post.actions';
 import { selectPostList } from '../../redux/post/post.selector';
 import { selectToken } from '../../redux/user/user.selector';
 // import CreatePost from './Components/CreatePost/CreatePost';
@@ -12,8 +12,7 @@ import { PlusCircleOutlined } from "@ant-design/icons";
 import Title from 'antd/lib/typography/Title';
 import { MODE } from '../../utils/constant';
 
-const News = ({posts,onGetPostsList,onUpdatePost}) => {
-    console.log({posts})
+const News = ({posts,onGetPostsList,onUpdatePost,onDeletePost}) => {
 	useEffect(() => {
 		if(!posts){
 			onGetPostsList()
@@ -132,8 +131,14 @@ const News = ({posts,onGetPostsList,onUpdatePost}) => {
     }
 
     const handleDelete = () =>{
-        
+        onDeletePost(deleteID,onDeleteCallback)
     }
+
+	const onDeleteCallback = (isSuccess) => {
+		if(isSuccess){
+			setDeleteVidible(false)
+		}
+	}
 
     return (
         <div>
@@ -212,7 +217,8 @@ const mapStateToProps = createStructuredSelector({
 const mapDispatchToProps = {
 	onGetPostsList,
     onCreatePost,
-    onUpdatePost
+    onUpdatePost,
+	onDeletePost
 };
 
 export default connect(

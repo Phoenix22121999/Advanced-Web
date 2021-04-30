@@ -19,7 +19,6 @@ export class PostApi extends BaseApi {
         return rs
     }
     updatePost = async ({token,id,data}) => {
-        console.log(id,token,data)
         const rs = await this.put(`/posts/${id}`,data,token)
         return rs
     }

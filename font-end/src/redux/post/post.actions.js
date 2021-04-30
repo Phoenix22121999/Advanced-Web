@@ -52,10 +52,32 @@ export const onUpdatePost = ({id,...data},fCallBack)=> {
             const {token} = getState().user
             // const id = getState().user.currentUser["_id"]
             const result = await api.postApi.updatePost({id,token,data:{...data}})
-            console.log(result)
+            // console.log(result)
             if (result.success) {
                 dispatch({
                     type: PostTypes.UPDATE_POST_SUCCESS,
+                    payload: result.data
+                })
+                fCallBack && fCallBack(true)
+            }else{
+                fCallBack && fCallBack(false, result.message)
+            }
+        }
+        catch (err) {
+            fCallBack && fCallBack(false, err.message)
+        }
+    }
+}
+
+export const onDeletePost = (id,fCallBack)=> {
+    return async (dispatch,getState) => {
+        try {
+            const {token} = getState().user
+            // const id = getState().user.currentUser["_id"]
+            const result = await api.postApi.deletePost({id,token})
+            if (result.success) {
+                dispatch({
+                    type: PostTypes.DELETE_POST_SUCCESS,
                     payload: result.data
                 })
                 fCallBack && fCallBack(true)

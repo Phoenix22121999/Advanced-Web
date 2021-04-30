@@ -1,10 +1,11 @@
-import { Avatar, Button, Modal } from "antd";
+import { Avatar, Modal } from "antd";
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import Carousel from "react-multi-carousel";
 import "./Post.scss";
-
+import { Menu, Dropdown } from "antd";
+import {MoreOutlined} from '@ant-design/icons';
 const responsive = {
 	superLargeDesktop: {
 		// the naming can be any, depends on you.
@@ -25,27 +26,55 @@ const responsive = {
 	},
 };
 
-const Post = ({ post,edit }) => {
+const Post = ({ post, edit, deletePost }) => {
 	const [previewVisible, setPreviewVisible] = useState(false);
 	const [previewImage, setPreviewImage] = useState();
 	const handleCloseReview = () => {
 		setPreviewVisible(false);
 	};
 
-	const onImageClick = (image) =>{
-		setPreviewImage(image)
-		setPreviewVisible(true)
-	}
+	const onImageClick = (image) => {
+		setPreviewImage(image);
+		setPreviewVisible(true);
+	};
 
-	const onEdit = () =>{
-		edit(post)
-	}
+	const onEdit = () => {
+		edit(post);
+	};
+	const onDelete = () => {
+		deletePost(post._id);
+	};
+
+	const menu = (
+		<Menu>
+			<Menu.Item key="0">
+				<div type="primary" danger onClick={onDelete}>
+					Delete
+				</div>
+			</Menu.Item>
+			<Menu.Divider />
+			<Menu.Item key="1">
+				<div type="primary" onClick={onEdit}>
+					Edit
+				</div>
+			</Menu.Item>
+		</Menu>
+	);
 
 	return (
 		<div className="post-wrapper">
 			<div className="post-header">
-				<Avatar src={post.user.iamge}/>
-				<div className="post-username">{post.user.name}</div>
+				<div className='post-header-left'>
+					<Avatar src={post.user.iamge} />
+					<div className="post-username">{post.user.name}</div>
+				</div>
+				<div className='post-header-right'>
+				<Dropdown overlay={menu}>
+					<div>
+						<MoreOutlined rotate={90}/>
+					</div>
+				</Dropdown>
+				</div>
 			</div>
 			<div className="post-content">
 				<div className="post-text">{post.title}</div>
@@ -57,14 +86,13 @@ const Post = ({ post,edit }) => {
 						responsive={responsive}
 						draggable={false}
 						removeArrowOnDeviceType={["mobile"]}
-						
 					>
 						{post.img &&
 							post.img.map((image) => {
 								return (
 									<img
 										className="image"
-										onClick={()=>onImageClick(image)}
+										onClick={() => onImageClick(image)}
 										src={image}
 										alt="1"
 									/>
@@ -74,10 +102,19 @@ const Post = ({ post,edit }) => {
 				</div>
 			</div>
 			<div className="post-footer">
-				<Button type="primary" danger>
+				{/* <Button type="primary" danger onClick={onDelete}>
 					Delete
 				</Button>
-				<Button type="primary" onClick={onEdit}>Edit</Button>
+				<Button type="primary" onClick={onEdit}>Edit</Button> */}
+			</div>
+			<div className="post-comment">
+				<div className = "post-comment">
+					Comment
+				</div>
+				{/* <Button type="primary" danger onClick={onDelete}>
+					Delete
+				</Button>
+				<Button type="primary" onClick={onEdit}>Edit</Button> */}
 			</div>
 			<Modal
 				visible={previewVisible}

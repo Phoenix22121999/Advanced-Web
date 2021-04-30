@@ -47,7 +47,7 @@ export const deleteDataInArr = (data, itemDelete) => {
     if (!data) {
         return null;
     }
-    return data.filter(item => item.id !== itemDelete.id)
+    return data.filter(item => item._id !== itemDelete._id)
 }
 
 export const getLinkImg = (value) => {

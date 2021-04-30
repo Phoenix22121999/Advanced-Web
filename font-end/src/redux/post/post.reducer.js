@@ -1,4 +1,4 @@
-import { addDataInArr, updateDataInArr } from "../../utils/function.utils";
+import { addDataInArr, deleteDataInArr, updateDataInArr } from "../../utils/function.utils";
 import PostTypes from "./post.types";
 
 const INITIAL_STATE = {
@@ -34,6 +34,11 @@ const PostReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 posts: updateDataInArr(state.posts,payload)
+            }
+        case PostTypes.DELETE_POST_SUCCESS:
+            return {
+                ...state,
+                posts: deleteDataInArr(state.posts,payload)
             }
         default:
             return state;
