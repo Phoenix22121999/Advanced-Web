@@ -10,7 +10,7 @@ const gateToken = require('../middleware/veriFy')
 router.get('/:id/comment', async(req,res)=>{
     const postId = req.params.id;
     try{
-        const result = await Comment.find({post:postId}).populate('post',['title']).populate('user',['name','email']);
+        const result = await Comment.find({post:postId}).populate('post').populate('user',['name','email']);
         res.json({success:true, data:result});
     }catch(err){
         res.json({success:false, message:err.message})
@@ -85,7 +85,7 @@ router.get('/', gateToken ,async(req,res)=>{
         const result = await Post.find({user:userid}).populate('user');
         res.json({success: true , data: result});
     }catch(err){
-        res.json({success:false, message: e.message});
+        res.json({success:false, message: err.message});
     }
 })
 // @route api/posts POST
@@ -106,7 +106,7 @@ router.post('/', gateToken ,async(req,res)=>{
 
         res.json({success:true, message: "Them thanh Cong",post:newPost})
     }catch(err){
-        res.json({success:false, message: e.message})
+        res.json({success:false, message: err.message})
     }
 })
 // @router api/posts PUT
@@ -149,6 +149,5 @@ router.delete('/:id',gateToken, async(req,res)=>{
     }   
     // res.json(idPost)
 })
-
 
 module.exports = router

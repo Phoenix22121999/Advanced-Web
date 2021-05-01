@@ -157,7 +157,9 @@ router.put('/',gateToken ,async(req,res)=>{
       res.json({success:false, message: err.message})
     }
 })
-
+router.post('/test',(req,res)=>{
+   console.log(req.body);
+})
 
 
 
