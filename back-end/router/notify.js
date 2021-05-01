@@ -31,6 +31,7 @@ router.post('/',gateToken, async(req,res)=>{
         res.json({success:false , message:err.message })
     }
 })
+//sửa đổi thông báo
 router.put('/:idNotify',gateToken, async(req,res)=>{
     const idNotify = req.params.idNotify;
     const khoaId = req.userId;
@@ -53,6 +54,7 @@ router.put('/:idNotify',gateToken, async(req,res)=>{
         res.json({success:false, message: err.message})
     }
 })
+// dùng để xóa thông báo
 router.delete('/:idNotify',gateToken,async(req,res)=>{
     const idNotify = req.params.idNotify;
     const khoaId = req.userId;

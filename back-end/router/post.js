@@ -150,5 +150,4 @@ router.delete('/:id',gateToken, async(req,res)=>{
     // res.json(idPost)
 })
 
-
 module.exports = router
