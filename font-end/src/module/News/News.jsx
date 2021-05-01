@@ -11,8 +11,9 @@ import Post from './Components/Post/Post';
 import { PlusCircleOutlined } from "@ant-design/icons";
 import Title from 'antd/lib/typography/Title';
 import { MODE } from '../../utils/constant';
+import api from '../../api/index.api';
 
-const News = ({posts,onGetPostsList,onUpdatePost,onDeletePost}) => {
+const News = ({posts,onGetPostsList,onUpdatePost,onDeletePost,onCreatePost}) => {
 	useEffect(() => {
 		if(!posts){
 			onGetPostsList()
@@ -63,14 +64,15 @@ const News = ({posts,onGetPostsList,onUpdatePost,onDeletePost}) => {
 
 	const onCreate = () =>{
         if(mode === MODE.ADD){
-            const images = fileList.map((img)=>img.thumbUrl)
+			console.log('add',fileList)
+            const images = fileList.map((img)=>img.response.data)
             onCreatePost({
                 title:input,
                 image:images,
                 url:link,
             },onCreateSuccess)
         }else{
-            const images = fileList.map((img)=>img.thumbUrl)
+			const images = fileList.map((img)=>img.response.data)
             onUpdatePost({
                 title:input,
                 image:images,
@@ -96,9 +98,12 @@ const News = ({posts,onGetPostsList,onUpdatePost,onDeletePost}) => {
 		setPreviewVisible(false);
 	};
 	const dummyRequest =  async ({ file, onSuccess }) => {
-		setTimeout(() => {
-			onSuccess("ok");
-		}, 0);
+		console.log(file)
+		const rs = await api.uploadApi.methodWithFormData({image:file})
+		onSuccess(rs)
+		// setTimeout(() => {
+		// 	onSuccess("ok");
+		// }, 0);
 	};
 
     const onLinkChange = (e) => {

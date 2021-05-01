@@ -1,4 +1,4 @@
-import { Avatar, Modal } from "antd";
+import { Avatar, Button, Comment, Input, message, Modal } from "antd";
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
@@ -6,6 +6,7 @@ import Carousel from "react-multi-carousel";
 import "./Post.scss";
 import { Menu, Dropdown } from "antd";
 import {MoreOutlined} from '@ant-design/icons';
+import { onCreateComment } from '../../../../redux/post/post.actions'
 const responsive = {
 	superLargeDesktop: {
 		// the naming can be any, depends on you.
@@ -26,8 +27,9 @@ const responsive = {
 	},
 };
 
-const Post = ({ post, edit, deletePost }) => {
+const Post = ({ post, edit, deletePost, onCreateComment }) => {
 	const [previewVisible, setPreviewVisible] = useState(false);
+	const [comment, setComment] = useState('');
 	const [previewImage, setPreviewImage] = useState();
 	const handleCloseReview = () => {
 		setPreviewVisible(false);
@@ -61,6 +63,26 @@ const Post = ({ post, edit, deletePost }) => {
 		</Menu>
 	);
 
+	const onCommentChange = (e) => {
+		setComment(e.target.value)
+	}
+
+	const handleCreateComment = (e) => {
+		console.log('in')
+		if(comment.trim()!==""){
+			let data = {
+				comment
+			}
+			onCreateComment({data,id:post._id},onCreateCommentCallBack)
+		}else{
+			message.error("Empty comment")
+		}
+
+	}
+	const onCreateCommentCallBack = (isSuccess,rs) =>  {
+		console.log(rs)
+	}
+
 	return (
 		<div className="post-wrapper">
 			<div className="post-header">
@@ -88,7 +110,7 @@ const Post = ({ post, edit, deletePost }) => {
 						removeArrowOnDeviceType={["mobile"]}
 					>
 						{post.img &&
-							post.img.map((image) => {
+							post.img.map((image,index) => {
 								return (
 									<img
 										className="image"
@@ -102,19 +124,24 @@ const Post = ({ post, edit, deletePost }) => {
 				</div>
 			</div>
 			<div className="post-footer">
-				{/* <Button type="primary" danger onClick={onDelete}>
-					Delete
+				<Input placeholder="comment" value={comment} onChange={onCommentChange}/>
+				<Button type="primary" danger onClick={handleCreateComment}>
+					Comment
 				</Button>
-				<Button type="primary" onClick={onEdit}>Edit</Button> */}
+				{/* <Button type="primary" onClick={onEdit}>Edit</Button> */}
 			</div>
 			<div className="post-comment">
-				<div className = "post-comment">
+				{/* <div className = "post-comment">
 					Comment
-				</div>
-				{/* <Button type="primary" danger onClick={onDelete}>
-					Delete
-				</Button>
-				<Button type="primary" onClick={onEdit}>Edit</Button> */}
+				</div> */}
+				<Comment 
+					content={
+					<p>
+						We supply a series of design principles, practical patterns and high quality design
+						resources (Sketch and Axure), to help people create their product prototypes beautifully
+						and efficiently.
+				  	</p>
+				}/>
 			</div>
 			<Modal
 				visible={previewVisible}
@@ -133,6 +160,6 @@ const Post = ({ post, edit, deletePost }) => {
 };
 const mapStateToProps = createStructuredSelector({});
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = {onCreateComment};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Post);

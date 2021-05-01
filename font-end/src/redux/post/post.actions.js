@@ -6,6 +6,7 @@ import PostTypes from './post.types';
 export const onCreatePost = (data,fCallBack)=> {
     return async (dispatch,getState) => {
         try {
+            console.log("đ")
             const {token} = getState().user
             const result = await api.postApi.createPost({token,data})
             if (result.success) {
@@ -81,6 +82,29 @@ export const onDeletePost = (id,fCallBack)=> {
                     payload: result.data
                 })
                 fCallBack && fCallBack(true)
+            }else{
+                fCallBack && fCallBack(false, result.message)
+            }
+        }
+        catch (err) {
+            fCallBack && fCallBack(false, err.message)
+        }
+    }
+}
+
+export const onCreateComment = ({id,data},fCallBack)=> {
+    return async (dispatch,getState) => {
+        try {
+            const {token} = getState().user
+            console.log('in 2')
+            // const id = getState().user.currentUser["_id"]
+            const result = await api.commentApi.createComment({id,token,data})
+            if (result.success) {
+                // dispatch({
+                //     type: PostTypes.DELETE_POST_SUCCESS,
+                //     payload: result.data
+                // })
+                fCallBack && fCallBack(true,result.data)
             }else{
                 fCallBack && fCallBack(false, result.message)
             }
