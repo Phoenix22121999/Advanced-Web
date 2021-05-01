@@ -30,7 +30,6 @@ const DashBoardContainer = ({ user, onGetProfile }) => {
 			onGetProfile(getToken());
 		}
 	}, [user, onGetProfile]);
-
 	return (
 		<Router>
 			<div className="dashboard-container">
@@ -45,12 +44,6 @@ const DashBoardContainer = ({ user, onGetProfile }) => {
 								<Menu.Item key={ROUTES.NEWS}>
 									<Link to={ROUTES.NEWS}>News</Link>
 								</Menu.Item>
-								{/* <Menu.Item key="test">
-									<Link to="/test">Test</Link>
-								</Menu.Item> */}
-								{/* <Menu.Item key="logout"> */}
-
-								{/* </Menu.Item> */}
 							</Menu>
 							<div className="right">
 								<GoogleLogout
@@ -59,7 +52,6 @@ const DashBoardContainer = ({ user, onGetProfile }) => {
 									onLogoutSuccess={onLogoutSuccess}
 									render={(renderProps) => (
 										<Button
-											ton
 											onClick={renderProps.onClick}
 											disabled={renderProps.disabled}
 										>
@@ -68,7 +60,7 @@ const DashBoardContainer = ({ user, onGetProfile }) => {
 									)}
 								></GoogleLogout>
 								{user ? (
-									<Avatar src={user.image} />
+									<Avatar src={user?.image?.data?.url} />
 								) : (
 									<Avatar icon={<UserOutlined />} />
 								)}
@@ -85,9 +77,6 @@ const DashBoardContainer = ({ user, onGetProfile }) => {
 									<Route exact path={ROUTES.DASHBOARD}>
 										<News />
 									</Route>
-									{/* <Route exact path={ROUTES.DASHBOARD}>
-									<Redirect to={ROUTES.NEWS} /> 
-								</Route> */}
 								</Switch>
 							)}
 						</div>

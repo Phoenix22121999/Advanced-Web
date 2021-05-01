@@ -1,14 +1,14 @@
-import { Avatar, Button, Comment, Input, message, Modal } from "antd";
+import { Avatar, Modal } from "antd";
 import React, { useState } from "react";
-import { connect } from "react-redux";
-import { createStructuredSelector } from "reselect";
+// import { connect } from "react-redux";
+// import { createStructuredSelector } from "reselect";
 import Carousel from "react-multi-carousel";
 import "./Post.scss";
 import { Menu, Dropdown } from "antd";
 import {MoreOutlined} from '@ant-design/icons';
 // import { onCreateComment } from '../../../../redux/post/post.actions'
 import CommentComponent from "../Comment/Comment";
-import { onCreateComment } from "../../../../redux/Comment/comment.actions";
+// import { onCreateComment } from "../../../../redux/Comment/comment.actions";
 const responsive = {
 	superLargeDesktop: {
 		// the naming can be any, depends on you.
@@ -63,14 +63,12 @@ const Post = ({ post, edit, deletePost}) => {
 		</Menu>
 	);
 
-
-
 	return (
 		<div className="post-wrapper">
 			<div className="post-header">
 				<div className='post-header-left'>
-					<Avatar src={post.user.image} />
-					<div className="post-username">{post.user.name}</div>
+					<Avatar src={post.user?.image?.data?.url} />
+					<div className="post-username">{post.user?.name}</div>
 				</div>
 				<div className='post-header-right'>
 				<Dropdown overlay={menu}>

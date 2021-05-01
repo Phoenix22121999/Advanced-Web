@@ -1,5 +1,5 @@
 import { Button, Comment, Input, message } from 'antd';
-import Avatar from 'antd/lib/avatar/avatar';
+// import Avatar from 'antd/lib/avatar/avatar';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -9,18 +9,20 @@ const CommentComponent = ({postId,onGetComment,onCreateComment}) => {
 
 	const [comment, setComment] = useState('');
     const [commentList, setCommentList] = useState([])
-    useEffect(async () => {
-        const rs = await onGetComment({id:postId})
-        setCommentList(rs)
-        console.log('rs',rs)
-    }, [postId])
+    useEffect(() => {
+        const getComment = async () => {
+            let rs = await onGetComment({id:postId})
+            setCommentList(rs)        
+        }
+        getComment()
+        
+    }, [postId,onGetComment,setCommentList])
 
 	const onCommentChange = (e) => {
 		setComment(e.target.value)
 	}
 
     const handleCreateComment = (e) => {
-		console.log('in')
 		if(comment.trim()!==""){
 			let data = {
 				comment
@@ -34,7 +36,7 @@ const CommentComponent = ({postId,onGetComment,onCreateComment}) => {
 	const onCreateCommentCallBack = (isSuccess,rs) =>  {
 		console.log(rs)
 	}
-
+    console.log(commentList)
     return (
         <div className='post-commnent-wrapper'>
             <div className = "post-commnent-input">
@@ -46,9 +48,10 @@ const CommentComponent = ({postId,onGetComment,onCreateComment}) => {
             {
                 commentList&&commentList.map((cmt)=>{
                     return <Comment
+                        avatar={cmt.user?.image?.data.url}
                         content={
                             <p>
-                                cmt.
+                                {cmt.content}
                             </p>
                         }
                     />

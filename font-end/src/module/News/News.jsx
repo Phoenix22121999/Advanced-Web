@@ -64,7 +64,7 @@ const News = ({posts,onGetPostsList,onUpdatePost,onDeletePost,onCreatePost}) => 
 
 	const onCreate = () =>{
         if(mode === MODE.ADD){
-			console.log('add',fileList)
+			// console.log('add',fileList)
             const images = fileList.map((img)=>img.response.data)
             onCreatePost({
                 title:input,
@@ -98,7 +98,7 @@ const News = ({posts,onGetPostsList,onUpdatePost,onDeletePost,onCreatePost}) => 
 		setPreviewVisible(false);
 	};
 	const dummyRequest =  async ({ file, onSuccess }) => {
-		console.log(file)
+		// console.log(file)
 		const rs = await api.uploadApi.methodWithFormData({image:file})
 		onSuccess(rs)
 		// setTimeout(() => {

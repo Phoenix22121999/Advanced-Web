@@ -12,7 +12,7 @@ export const onCreatePost = (data,fCallBack)=> {
             if (result.success) {
                 dispatch({
                     type: PostTypes.CREATE_POST_SUCCESS,
-                    payload: result
+                    payload: result.post
                 })
                 fCallBack && fCallBack(true)
             }else{
