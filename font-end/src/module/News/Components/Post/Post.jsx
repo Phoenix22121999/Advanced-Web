@@ -6,7 +6,9 @@ import Carousel from "react-multi-carousel";
 import "./Post.scss";
 import { Menu, Dropdown } from "antd";
 import {MoreOutlined} from '@ant-design/icons';
-import { onCreateComment } from '../../../../redux/post/post.actions'
+// import { onCreateComment } from '../../../../redux/post/post.actions'
+import CommentComponent from "../Comment/Comment";
+import { onCreateComment } from "../../../../redux/Comment/comment.actions";
 const responsive = {
 	superLargeDesktop: {
 		// the naming can be any, depends on you.
@@ -27,9 +29,8 @@ const responsive = {
 	},
 };
 
-const Post = ({ post, edit, deletePost, onCreateComment }) => {
+const Post = ({ post, edit, deletePost}) => {
 	const [previewVisible, setPreviewVisible] = useState(false);
-	const [comment, setComment] = useState('');
 	const [previewImage, setPreviewImage] = useState();
 	const handleCloseReview = () => {
 		setPreviewVisible(false);
@@ -46,7 +47,6 @@ const Post = ({ post, edit, deletePost, onCreateComment }) => {
 	const onDelete = () => {
 		deletePost(post._id);
 	};
-
 	const menu = (
 		<Menu>
 			<Menu.Item key="0">
@@ -63,31 +63,13 @@ const Post = ({ post, edit, deletePost, onCreateComment }) => {
 		</Menu>
 	);
 
-	const onCommentChange = (e) => {
-		setComment(e.target.value)
-	}
 
-	const handleCreateComment = (e) => {
-		console.log('in')
-		if(comment.trim()!==""){
-			let data = {
-				comment
-			}
-			onCreateComment({data,id:post._id},onCreateCommentCallBack)
-		}else{
-			message.error("Empty comment")
-		}
-
-	}
-	const onCreateCommentCallBack = (isSuccess,rs) =>  {
-		console.log(rs)
-	}
 
 	return (
 		<div className="post-wrapper">
 			<div className="post-header">
 				<div className='post-header-left'>
-					<Avatar src={post.user.iamge} />
+					<Avatar src={post.user.image} />
 					<div className="post-username">{post.user.name}</div>
 				</div>
 				<div className='post-header-right'>
@@ -113,9 +95,10 @@ const Post = ({ post, edit, deletePost, onCreateComment }) => {
 							post.img.map((image,index) => {
 								return (
 									<img
+										key={`image-${post._id}-${index}`}
 										className="image"
-										onClick={() => onImageClick(image)}
-										src={image}
+										onClick={() => onImageClick(image.data.url)}
+										src={image.data.url}
 										alt="1"
 									/>
 								);
@@ -124,24 +107,14 @@ const Post = ({ post, edit, deletePost, onCreateComment }) => {
 				</div>
 			</div>
 			<div className="post-footer">
-				<Input placeholder="comment" value={comment} onChange={onCommentChange}/>
-				<Button type="primary" danger onClick={handleCreateComment}>
-					Comment
-				</Button>
+				
 				{/* <Button type="primary" onClick={onEdit}>Edit</Button> */}
 			</div>
 			<div className="post-comment">
 				{/* <div className = "post-comment">
 					Comment
 				</div> */}
-				<Comment 
-					content={
-					<p>
-						We supply a series of design principles, practical patterns and high quality design
-						resources (Sketch and Axure), to help people create their product prototypes beautifully
-						and efficiently.
-				  	</p>
-				}/>
+				<CommentComponent postId={post._id}/> 
 			</div>
 			<Modal
 				visible={previewVisible}
@@ -158,8 +131,9 @@ const Post = ({ post, edit, deletePost, onCreateComment }) => {
 		</div>
 	);
 };
-const mapStateToProps = createStructuredSelector({});
+// const mapStateToProps = createStructuredSelector({});
 
-const mapDispatchToProps = {onCreateComment};
+// const mapDispatchToProps = {};
 
-export default connect(mapStateToProps, mapDispatchToProps)(Post);
+// export default connect(mapStateToProps, mapDispatchToProps)(Post);
+export default Post;
