@@ -59,8 +59,10 @@ connection.once('open', () => {
 
 const usersRouter = require('./router/user');
 const postRouter = require('./router/post');
+const notifyRouter = require('./router/notify');
 app.use('/api/users', usersRouter);
 app.use('/api/posts', postRouter);
+app.use('/api/notify',notifyRouter);
 
 app.listen(port, function () {
     console.log(`Sever is runing in port: http://localhost:${port}`);
