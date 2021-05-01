@@ -10,7 +10,8 @@ const gateToken = require('../middleware/veriFy')
 router.get('/:id/comment', async(req,res)=>{
     const postId = req.params.id;
     try{
-        const result = await Comment.find({post:postId}).populate('post').populate('user',['name','email']);
+        const result = await Comment.find({post:postId}).populate('user');
+        //const result = await Comment.find({post:postId}).populate('post').populate('user');
         res.json({success:true, data:result});
     }catch(err){
         res.json({success:false, message:err.message})
@@ -28,7 +29,8 @@ router.post('/:id/comment',gateToken,async(req,res)=>{
         }
         const newComment = new Comment({user:userId , post: postId ,content});
         await newComment.save();
-        res.json({success:true, message:"Comment thanh Cong", data:newComment});
+        const result = await Comment.find({_id: newComment._id}).populate('user');
+        res.json({success:true, message:"Comment thanh Cong", data: result});
     }catch(err){
         res.json({success:false, message: e.message})
     }
@@ -79,8 +81,8 @@ router.delete('/:PostId/comment/:CommentId',gateToken, async(req,res)=>{
 
 // @router api/posts GET
 // dùng để lấy tất cả bài post 
-router.get('/', gateToken ,async(req,res)=>{
-    const userid = req.userId; // sau khi qua gateToken thì gateToken sẽ gắn userId sau khi decode với accessToken vào trong req
+router.get('/:userId' ,async(req,res)=>{
+    const userid = req.params.userId; // sau khi qua gateToken thì gateToken sẽ gắn userId sau khi decode với accessToken vào trong req
     try{
         const result = await Post.find({user:userid}).populate('user');
         res.json({success: true , data: result});
@@ -91,7 +93,7 @@ router.get('/', gateToken ,async(req,res)=>{
 // @route api/posts POST
 // dùng để đăng bài lên
 router.post('/', gateToken ,async(req,res)=>{
-    const user = req.userId // sau khi qua gateToken thì gateToken sẽ gắn userId sau khi decode với accessToken vào trong req
+    const userid = req.userId // sau khi qua gateToken thì gateToken sẽ gắn userId sau khi decode với accessToken vào trong req
     const{title , comment ,url, image} = req.body;
     // console.log(user,req.body)
     // console.log(req.body);
@@ -99,12 +101,11 @@ router.post('/', gateToken ,async(req,res)=>{
         return res.status(404).json({success:false , message: 'Title is require'})
     }
     try{
-        const newPost = new Post({title , comment ,img:image,url,user});
-        
+        const newPost = new Post({title , comment ,img:image,url,user:userid});
         await newPost.save();
-        // console.log(newPost)
-
-        res.json({success:true, message: "Them thanh Cong",post:newPost})
+        const result = await Post.find({_id: newPost._id}).populate('user')
+        // console.log(result)
+        res.json({success:true, message: "Them thanh Cong",post: newPost})
     }catch(err){
         res.json({success:false, message: err.message})
     }
