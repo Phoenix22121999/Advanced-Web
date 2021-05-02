@@ -114,7 +114,7 @@ router.post('/register', gateRegister, async (req, res) => {
       let newFaculty = new Faculty({
         email: email,
         password: hashed,
-        img: picture,
+        image: picture,
         faculty: faculty
       })
       // console.log(newFaculty)
