@@ -3,23 +3,30 @@ import { BaseApi } from "./base.api";
 // user is admin
 export class PostApi extends BaseApi {
     constructor() {
-        super('api')
+        super('api/posts')
     }
 
-    getAllPost = async ({token,id}) => {
-        const rs = await this.get(`/posts/${id}`,undefined,token)
+    getAllPost = async ({token}) => {
+        const rs = await this.get(`/getAll`,undefined,token)
         return rs
     }
+
+    
+    getPost = async ({token,id}) => {
+        const rs = await this.get(`/${id}`,undefined,token)
+        return rs
+    }
+
     createPost = async ({token,data}) => {
-        const rs = await this.post('/posts',data,token)
+        const rs = await this.post('/',data,token)
         return rs
     }
     deletePost = async ({token,id}) => {
-        const rs = await this.delete(`/posts/${id}`,undefined,token)
+        const rs = await this.delete(`/${id}`,undefined,token)
         return rs
     }
     updatePost = async ({token,id,data}) => {
-        const rs = await this.put(`/posts/${id}`,data,token)
+        const rs = await this.put(`/${id}`,data,token)
         return rs
     }
 }

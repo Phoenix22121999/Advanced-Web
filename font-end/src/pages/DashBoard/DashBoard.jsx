@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { Button, Layout, Menu } from "antd";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import { CLIENT_ID, ROUTES } from "../../utils/constant";
+import { CLIENT_ID, ROUTES, ROLE } from "../../utils/constant";
 import { GoogleLogout } from "react-google-login";
 import "./DashBoard.scss";
 import News from "../../module/News/News";
@@ -14,6 +14,7 @@ import { selectCurrentUser } from "../../redux/user/user.selector";
 import { onGetProfile } from "../../redux/user/user.actions";
 import { UserOutlined } from "@ant-design/icons";
 import { getToken } from "../../utils/function.utils";
+import Admin from "../../module/Admin/Admin";
 
 const { Header, Content } = Layout;
 const DashBoardContainer = ({ user, onGetProfile }) => {
@@ -44,23 +45,43 @@ const DashBoardContainer = ({ user, onGetProfile }) => {
 								<Menu.Item key={ROUTES.NEWS}>
 									<Link to={ROUTES.NEWS}>News</Link>
 								</Menu.Item>
+								{user?.faculty && user.faculty === ROLE.ADMIN && (
+									<Menu.Item key={ROUTES.ADMIN}>
+										<Link to={ROUTES.ADMIN}>Admin</Link>
+									</Menu.Item>
+								)}
 							</Menu>
 							<div className="right">
-								<GoogleLogout
-									clientId={CLIENT_ID}
-									buttonText="Logout"
-									onLogoutSuccess={onLogoutSuccess}
-									render={(renderProps) => (
-										<Button
-											onClick={renderProps.onClick}
-											disabled={renderProps.disabled}
-										>
-											Logout
-										</Button>
-									)}
-								></GoogleLogout>
+								{user?.faculty ? (
+									<Button
+										onClick={onLogoutSuccess}
+										// disabled={renderProps.disabled}
+									>
+										Logout
+									</Button>
+								) : (
+									<GoogleLogout
+										clientId={CLIENT_ID}
+										buttonText="Logout"
+										onLogoutSuccess={onLogoutSuccess}
+										render={(renderProps) => (
+											<Button
+												onClick={renderProps.onClick}
+												disabled={renderProps.disabled}
+											>
+												Logout
+											</Button>
+										)}
+									></GoogleLogout>
+								)}
+
 								{user ? (
-									<Avatar src={user?.image?.data?.url} />
+									<Avatar
+										src={
+											user?.image?.data?.url ||
+											user?.image?.url
+										}
+									/>
 								) : (
 									<Avatar icon={<UserOutlined />} />
 								)}
@@ -76,6 +97,9 @@ const DashBoardContainer = ({ user, onGetProfile }) => {
 									</Route>
 									<Route exact path={ROUTES.DASHBOARD}>
 										<News />
+									</Route>
+									<Route exact path={ROUTES.ADMIN}>
+										<Admin />
 									</Route>
 								</Switch>
 							)}

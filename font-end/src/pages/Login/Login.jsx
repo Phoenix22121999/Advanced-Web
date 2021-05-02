@@ -6,9 +6,9 @@ import { GoogleLogin } from "react-google-login";
 import Cookies from "universal-cookie";
 import { useHistory } from "react-router-dom";
 import { CLIENT_ID, ROUTES } from "../../utils/constant";
-import { onGetProfile } from "../../redux/user/user.actions";
+import { onLoginWithGoogle, onLogin } from "../../redux/user/user.actions";
 import { checkLogin } from "../../utils/function.utils";
-const LoginContainer = ({ onGetProfile }) => {
+const LoginContainer = ({ onLoginWithGoogle, onLogin }) => {
 	const cookies = new Cookies();
 	let history = useHistory();
 	const regex = new RegExp("@+student.tdtu.edu.vn$", "g");
@@ -26,36 +26,38 @@ const LoginContainer = ({ onGetProfile }) => {
 		//   span: 16,
 		// },
 	};
-	// const onFinish = (values) => {
-	// 	console.log("Success:", values);
-	// };
-
-	// const onFinishFailed = (errorInfo) => {
-	// 	console.log("Failed:", errorInfo);
-	// };
 	useEffect(() => {
-		if(checkLogin()){
-			history.push(ROUTES.DASHBOARD)
-		}else{
-			history.push(ROUTES.LOGIN)
+		if (checkLogin()) {
+			history.push(ROUTES.DASHBOARD);
+		} else {
+			history.push(ROUTES.LOGIN);
 		}
-	}, [history])
+	}, [history]);
 
 	const responseGoogle = (value) => {
 		// console.log("success", value);
 		const { profileObj, tokenId } = value;
 		const { email } = profileObj;
 		if (email.match(regex)) {
-			cookies.set("token", tokenId, { path: "/" });
-			onGetProfile(tokenId);
-			history.push(ROUTES.DASHBOARD);
+			onLoginWithGoogle(tokenId,onLoginCallback);
+			// history.push(ROUTES.DASHBOARD);
 		} else {
 			message.error("Phải đăng nhập bằng mail sinh viên");
 		}
 	};
 	// console.log('render login')
+	const onFinish = (value) => {
+		onLogin(value, onLoginCallback);
+	};
 
-	
+	const onLoginCallback = (isSuccess, rs) => {
+		console.log(isSuccess,rs)
+		if (isSuccess) {
+			cookies.set("token", rs.access, { path: "/" });
+			history.push(ROUTES.DASHBOARD);
+		}
+	};
+
 	return (
 		<div className="login-container">
 			<div className="form-wrapper">
@@ -64,12 +66,12 @@ const LoginContainer = ({ onGetProfile }) => {
 					{...layout}
 					name="basic"
 					initialValues={{ remember: true }}
-					// onFinish={onFinish}
+					onFinish={onFinish}
 					// onFinishFailed={onFinishFailed}
 				>
 					<Form.Item
-						label="Username"
-						name="username"
+						label="Email"
+						name="email"
 						rules={[
 							{
 								required: true,
@@ -93,13 +95,13 @@ const LoginContainer = ({ onGetProfile }) => {
 						<Input.Password />
 					</Form.Item>
 
-					<Form.Item
+					{/* <Form.Item
 						{...tailLayout}
 						name="remember"
 						valuePropName="checked"
 					>
 						<Checkbox>Remember me</Checkbox>
-					</Form.Item>
+					</Form.Item> */}
 
 					<Form.Item {...tailLayout}>
 						<div className="login-button-group">
@@ -137,7 +139,8 @@ const LoginContainer = ({ onGetProfile }) => {
 const mapStateToProps = (state) => ({});
 
 const mapDispatchToProps = {
-	onGetProfile,
+	onLoginWithGoogle,
+	onLogin,
 };
 
 export const Login = connect(

@@ -5,9 +5,12 @@ import React, { useState } from "react";
 import Carousel from "react-multi-carousel";
 import "./Post.scss";
 import { Menu, Dropdown } from "antd";
-import {MoreOutlined} from '@ant-design/icons';
+import { MoreOutlined } from "@ant-design/icons";
 // import { onCreateComment } from '../../../../redux/post/post.actions'
 import CommentComponent from "../Comment/Comment";
+import { selectCurrentUser } from "../../../../redux/user/user.selector";
+import { createStructuredSelector } from "reselect";
+import { connect } from "react-redux";
 // import { onCreateComment } from "../../../../redux/Comment/comment.actions";
 const responsive = {
 	superLargeDesktop: {
@@ -29,7 +32,7 @@ const responsive = {
 	},
 };
 
-const Post = ({ post, edit, deletePost}) => {
+const Post = ({ post, edit, deletePost, user }) => {
 	const [previewVisible, setPreviewVisible] = useState(false);
 	const [previewImage, setPreviewImage] = useState();
 	const handleCloseReview = () => {
@@ -50,7 +53,7 @@ const Post = ({ post, edit, deletePost}) => {
 	const menu = (
 		<Menu>
 			<Menu.Item key="0">
-				<div type="primary" danger onClick={onDelete}>
+				<div type="primary" danger={true} onClick={onDelete}>
 					Delete
 				</div>
 			</Menu.Item>
@@ -66,17 +69,19 @@ const Post = ({ post, edit, deletePost}) => {
 	return (
 		<div className="post-wrapper">
 			<div className="post-header">
-				<div className='post-header-left'>
+				<div className="post-header-left">
 					<Avatar src={post.user?.image?.data?.url} />
 					<div className="post-username">{post.user?.name}</div>
 				</div>
-				<div className='post-header-right'>
-				<Dropdown overlay={menu}>
-					<div>
-						<MoreOutlined rotate={90}/>
+				{user._id === post.user._id && (
+					<div className="post-header-right">
+						<Dropdown overlay={menu}>
+							<div>
+								<MoreOutlined rotate={90} />
+							</div>
+						</Dropdown>
 					</div>
-				</Dropdown>
-				</div>
+				)}
 			</div>
 			<div className="post-content">
 				<div className="post-text">{post.title}</div>
@@ -90,12 +95,14 @@ const Post = ({ post, edit, deletePost}) => {
 						removeArrowOnDeviceType={["mobile"]}
 					>
 						{post.img &&
-							post.img.map((image,index) => {
+							post.img.map((image, index) => {
 								return (
 									<img
 										key={`image-${post._id}-${index}`}
 										className="image"
-										onClick={() => onImageClick(image.data.url)}
+										onClick={() =>
+											onImageClick(image.data.url)
+										}
 										src={image.data.url}
 										alt="1"
 									/>
@@ -105,14 +112,13 @@ const Post = ({ post, edit, deletePost}) => {
 				</div>
 			</div>
 			<div className="post-footer">
-				
 				{/* <Button type="primary" onClick={onEdit}>Edit</Button> */}
 			</div>
 			<div className="post-comment">
 				{/* <div className = "post-comment">
 					Comment
 				</div> */}
-				<CommentComponent postId={post._id}/> 
+				<CommentComponent postId={post._id} />
 			</div>
 			<Modal
 				visible={previewVisible}
@@ -129,9 +135,11 @@ const Post = ({ post, edit, deletePost}) => {
 		</div>
 	);
 };
-// const mapStateToProps = createStructuredSelector({});
+const mapStateToProps = createStructuredSelector({
+	user: selectCurrentUser,
+});
 
-// const mapDispatchToProps = {};
+const mapDispatchToProps = {};
 
-// export default connect(mapStateToProps, mapDispatchToProps)(Post);
-export default Post;
+export default connect(mapStateToProps, mapDispatchToProps)(Post);
+// export default Post;
