@@ -11,7 +11,7 @@ export const onGetProfile = (token,fCallBack)=> {
                     type: UserTypes.GET_PROFILE_SUCCESS,
                     payload: result
                 })
-                fCallBack && fCallBack(true)
+                fCallBack && fCallBack(true,result)
             }else{
                 fCallBack && fCallBack(false, result.message)
             }
@@ -22,3 +22,63 @@ export const onGetProfile = (token,fCallBack)=> {
     }
 }
 
+export const onLogin = (data,fCallBack)=> {
+    return async (dispatch) => {
+        try {
+            const result = await api.userApi.login(data)
+            if (result.success) {
+                dispatch({
+                    type: UserTypes.GET_PROFILE_SUCCESS,
+                    payload: result
+                })
+                fCallBack && fCallBack(true,result)
+            }else{
+                fCallBack && fCallBack(false, result.message)
+            }
+        }
+        catch (err) {
+            fCallBack && fCallBack(false, err.message)
+        }
+    }
+}
+
+export const onLoginWithGoogle = (data,fCallBack)=> {
+    return async (dispatch) => {
+        try {
+            const result = await api.userApi.loginWithGoogle(data)
+            if (result.success) {
+                dispatch({
+                    type: UserTypes.GET_PROFILE_SUCCESS,
+                    payload: result
+                })
+                fCallBack && fCallBack(true,result)
+            }else{
+                fCallBack && fCallBack(false, result.message)
+            }
+        }
+        catch (err) {
+            fCallBack && fCallBack(false, err.message)
+        }
+    }
+}
+
+
+export const onRegister = (data,fCallBack)=> {
+    return async (dispatch) => {
+        try {
+            const result = await api.userApi.register(data)
+            if (result.success) {
+                // dispatch({
+                //     type: UserTypes.GET_PROFILE_SUCCESS,
+                //     payload: result
+                // })
+                fCallBack && fCallBack(true,result)
+            }else{
+                fCallBack && fCallBack(false, result.message)
+            }
+        }
+        catch (err) {
+            fCallBack && fCallBack(false, err.message)
+        }
+    }
+}

@@ -6,10 +6,22 @@ export class UserApi extends BaseApi {
     }
 
     getProfile = async (token) => {
+        const rs = await this.post('/loginAccessToken',undefined,token)
+        return rs
+    }
+
+    loginWithGoogle = async (token) => {
         const rs = await this.post('/login/googleapi',{token})
         return rs
     }
 
-    
+    login = async (data) => {
+        const rs = await this.post('/login',data)
+        return rs
+    }
 
+    register = async (data) => {
+        const rs = await this.post('/register',data)
+        return rs
+    }
 }

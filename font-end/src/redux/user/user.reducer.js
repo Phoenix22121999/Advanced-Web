@@ -15,11 +15,6 @@ const UserReducer = (state = INITIAL_STATE, action) => {
                 currentUser: payload.data,
                 token:payload.access,
             }
-        // case UserTypes.LOGOUT_SUCCESS:
-        //     return {
-        //         ...state,
-        //         currentUser: null,
-        //     }
         case UserTypes.UPDATE_PROFILE_SUCCESS:
             return {
                 ...state,

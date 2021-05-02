@@ -58,7 +58,7 @@ const CommentComponent = ({postId,onGetComment,onCreateComment,user,onDeleteComm
         <div className='post-commnent-wrapper'>
             <div className = "post-commnent-input">
                 <Input placeholder="comment" value={comment} onChange={onCommentChange}/>
-				<Button type="primary" danger onClick={handleCreateComment}>
+				<Button type="primary" danger={true} onClick={handleCreateComment}>
 					Comment
 				</Button>
             </div>

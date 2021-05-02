@@ -114,7 +114,7 @@ router.post('/register', gateRegister, async (req, res) => {
       let newFaculty = new Faculty({
         email: email,
         password: hashed,
-        img: picture,
+        image: picture,
         faculty: faculty
       })
       // console.log(newFaculty)
@@ -123,7 +123,7 @@ router.post('/register', gateRegister, async (req, res) => {
       const accesToken = jwt.sign({ userid: newFaculty._id }, process.env.ACCESS_TOKEN);
       return res.json({ success: true, message: 'User added!', data: newFaculty, access: accesToken });
     } catch (err) {
-      return res.status(400).json('Error: ' + error)
+      return res.status(400).json('Error: ' + err)
     }
   } else {
     let values = result.mapped();
