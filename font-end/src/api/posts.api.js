@@ -6,8 +6,8 @@ export class PostApi extends BaseApi {
         super('api')
     }
 
-    getAllPost = async ({token}) => {
-        const rs = await this.get('/posts',undefined,token)
+    getAllPost = async ({token,id}) => {
+        const rs = await this.get(`/posts/${id}`,undefined,token)
         return rs
     }
     createPost = async ({token,data}) => {

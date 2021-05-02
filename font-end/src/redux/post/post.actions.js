@@ -6,7 +6,6 @@ import PostTypes from './post.types';
 export const onCreatePost = (data,fCallBack)=> {
     return async (dispatch,getState) => {
         try {
-            console.log("đ")
             const {token} = getState().user
             const result = await api.postApi.createPost({token,data})
             if (result.success) {
@@ -29,8 +28,8 @@ export const onCreatePost = (data,fCallBack)=> {
 export const onGetPostsList = (data,fCallBack)=> {
     return async (dispatch,getState) => {
         try {
-            const {token} = getState().user
-            const result = await api.postApi.getAllPost({token})
+            const {token,currentUser} = getState().user
+            const result = await api.postApi.getAllPost({id:currentUser._id,token})
             if (result.success) {
                 dispatch({
                     type: PostTypes.GET_POST_LIST_SUCCESS,

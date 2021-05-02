@@ -25,7 +25,7 @@ const CommentComponent = ({postId,onGetComment,onCreateComment}) => {
     const handleCreateComment = (e) => {
 		if(comment.trim()!==""){
 			let data = {
-				comment
+				content:comment
 			}
 			onCreateComment({data,id:postId},onCreateCommentCallBack)
 		}else{
@@ -34,9 +34,11 @@ const CommentComponent = ({postId,onGetComment,onCreateComment}) => {
 
 	}
 	const onCreateCommentCallBack = (isSuccess,rs) =>  {
-		console.log(rs)
+        if(isSuccess){
+            setCommentList([...commentList,...rs])
+            setComment('')
+        }
 	}
-    console.log(commentList)
     return (
         <div className='post-commnent-wrapper'>
             <div className = "post-commnent-input">
