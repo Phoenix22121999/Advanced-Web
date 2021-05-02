@@ -165,6 +165,15 @@ router.post('/login', gateLogin, async (req, res) => {
     res.json({ code: 1, message: mess })
   }
 })
+router.post('/loginAccessToken',gateToken, async(req,res)=>{
+  const userId = req.userId;
+  try{
+    const facul = await Faculty.findOne({_id: userId});
+    res.json({success:true, data:facul});
+  }catch(error){
+    res.json({success:false, message: e.message})
+  }
+})
 
 router.put('/', gateToken, async (req, res) => {
   const userId = req.userId;
