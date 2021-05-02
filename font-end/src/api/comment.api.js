@@ -14,8 +14,8 @@ export class CommentApi extends BaseApi {
         const rs = await this.post(`/${id}/comment`,data,token)
         return rs
     }
-    deleteComment = async ({token,id}) => {
-        const rs = await this.delete(`/posts/${id}`,undefined,token)
+    deleteComment = async ({token,postID,commentID}) => {
+        const rs = await this.delete(`/${postID}/comment/${commentID}`,undefined,token)
         return rs
     }
     updateComment = async ({token,id,data}) => {
