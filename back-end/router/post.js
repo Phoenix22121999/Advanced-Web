@@ -81,6 +81,14 @@ router.delete('/:PostId/comment/:CommentId',gateToken, async(req,res)=>{
 
 // @router api/posts GET
 // dùng để lấy tất cả bài post 
+router.get('/getAll', async(req,res)=>{
+    try{
+        const result = await Post.find().populate('user');
+        res.json({success:true, data:result})
+    }catch(error){
+        res.json({success:false, message: error.message })
+    }
+})
 router.get('/:userId' ,async(req,res)=>{
     const userid = req.params.userId; // sau khi qua gateToken thì gateToken sẽ gắn userId sau khi decode với accessToken vào trong req
     try{

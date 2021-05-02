@@ -78,8 +78,7 @@ router.post('/login/googleapi', (req, res) => {
         await newUser.save();
         const accesToken = jwt.sign({ userid: newUser._id }, process.env.ACCESS_TOKEN);
         return res.json({ succes: true, message: 'User added!', data: newUser, access: accesToken});
-      })
-        .catch(error => error)
+      }).catch(error => error)
       // console.log(rs)
 
 
