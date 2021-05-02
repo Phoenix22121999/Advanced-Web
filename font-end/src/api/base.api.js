@@ -7,7 +7,6 @@ export class BaseApi {
         this.URL = `${API_URL}/${pathUrl}`;
     }
     abstract = async (path, data, token, method = METHOD_AXIOS.GET) => {
-        console.log(data,token)
         const config = {
             method,
             headers: 

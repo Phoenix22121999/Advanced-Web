@@ -7,6 +7,7 @@ export const onCreateComment = ({id,data},fCallBack)=> {
             const {token} = getState().user
             // const id = getState().user.currentUser["_id"]
             const result = await api.commentApi.createComment({id,token,data})
+            console.log(result)
             if (result.success) {
                 // dispatch({
                 //     type: PostTypes.DELETE_POST_SUCCESS,
