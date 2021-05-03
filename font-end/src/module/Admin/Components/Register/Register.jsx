@@ -64,7 +64,7 @@ const Register = ({onRegister}) => {
     const onFinish = (value) =>{
         const {avatar,password2,password,email} = value
         console.log(password2,password)
-        if(password2!=password){
+        if(password2!==password){
             message.error("Password incorrect")
             return
         }

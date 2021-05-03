@@ -1,4 +1,5 @@
-import { Button, Divider, Input, Upload } from "antd";
+import { Button, Divider, Input, Menu, Upload } from "antd";
+import './News.scss'
 import Modal from "antd/lib/modal/Modal";
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
@@ -17,6 +18,11 @@ import { PlusCircleOutlined } from "@ant-design/icons";
 import Title from "antd/lib/typography/Title";
 import { MODE } from "../../utils/constant";
 import api from "../../api/index.api";
+import { selectNotificationList } from "../../redux/notification/notification.selector";
+import { onGetNotificationList } from "../../redux/notification/notification.actions";
+import Sider from "antd/lib/layout/Sider";
+import SubMenu from "antd/lib/menu/SubMenu";
+import Layout, { Content } from "antd/lib/layout/layout";
 
 const News = ({
 	posts,
@@ -24,12 +30,21 @@ const News = ({
 	onUpdatePost,
 	onDeletePost,
 	onCreatePost,
+	notifications,
+	onGetNotificationList,
 }) => {
 	useEffect(() => {
 		if (!posts) {
 			onGetPostList();
 		}
 	}, [posts, onGetPostList]);
+
+	useEffect(() => {
+		if (!notifications) {
+			onGetNotificationList();
+		}
+	}, [notifications, onGetNotificationList]);
+
 	const [input, setInput] = useState("");
 	const [link, setLink] = useState("");
 	const [selectedId, setSelectedId] = useState();
@@ -164,81 +179,97 @@ const News = ({
 	return (
 		<div className="news-container">
 			{/* <CreatePost/> */}
-			<Button
-				size="large"
-				shape="round"
-				icon={<PlusCircleOutlined />}
-				onClick={onClick}
-			>
-				Thêm Bài Viết
-			</Button>
-			<Divider />
-			{posts &&
-				posts.map((post) => {
-					return (
-						<Post
-							key={post._id}
-							post={post}
-							edit={edit}
-							deletePost={deletePost}
-						/>
-					);
-				})}
-			<div className="create-post">
-				<Modal visible={isAdd} onCancel={onClose} onOk={onCreate}>
-					<div className="create-post-modal">
-						<Title level={4}>Nội Dung</Title>
-						<Input.TextArea
-							value={input}
-							allowClear
-							onChange={onChange}
-							placeholder="input your new post"
-						/>
-						<Divider />
-						<Title level={4}>Thêm Hình</Title>
-						<Upload
-							// action={getBase64}
-							// beforeUpload={(a) => false}
-							customRequest={customRequest}
-							name="đ"
-							onPreview={handlePreview}
-							listType="picture-card"
-							fileList={fileList}
-							onChange={onImageChange}
+			<Layout>
+				
+				<Content className="news-contents">
+					<Button
+						size="large"
+						shape="round"
+						icon={<PlusCircleOutlined />}
+						onClick={onClick}
+					>
+						Thêm Bài Viết
+					</Button>
+					<Divider />
+					{posts &&
+						posts.map((post) => {
+							return (
+								<Post
+									key={post._id}
+									post={post}
+									edit={edit}
+									deletePost={deletePost}
+								/>
+							);
+						})}
+					<div className="create-post">
+						<Modal
+							visible={isAdd}
+							onCancel={onClose}
+							onOk={onCreate}
 						>
-							Ảnh
-						</Upload>
-						<Divider />
-						<Title level={4}>Thêm Link Video</Title>
-						<Input value={link} onChange={onLinkChange}></Input>
+							<div className="create-post-modal">
+								<Title level={4}>Nội Dung</Title>
+								<Input.TextArea
+									value={input}
+									allowClear
+									onChange={onChange}
+									placeholder="input your new post"
+								/>
+								<Divider />
+								<Title level={4}>Thêm Hình</Title>
+								<Upload
+									// action={getBase64}
+									// beforeUpload={(a) => false}
+									customRequest={customRequest}
+									name="đ"
+									onPreview={handlePreview}
+									listType="picture-card"
+									fileList={fileList}
+									onChange={onImageChange}
+								>
+									Ảnh
+								</Upload>
+								<Divider />
+								<Title level={4}>Thêm Link Video</Title>
+								<Input
+									value={link}
+									onChange={onLinkChange}
+								></Input>
+							</div>
+						</Modal>
+						<Modal
+							visible={deleteVidible}
+							onCancel={handleDeleteClose}
+							onOk={handleDelete}
+						>
+							<h4>Delete</h4>
+						</Modal>
+						<Modal
+							visible={previewVisible}
+							title={previewTitle}
+							footer={null}
+							onCancel={handleCloseReview}
+						>
+							<img
+								alt="example"
+								style={{ width: "100%" }}
+								src={previewImage}
+							/>
+						</Modal>
 					</div>
-				</Modal>
-				<Modal
-					visible={deleteVidible}
-					onCancel={handleDeleteClose}
-					onOk={handleDelete}
-				>
-					<h4>Delete</h4>
-				</Modal>
-				<Modal
-					visible={previewVisible}
-					title={previewTitle}
-					footer={null}
-					onCancel={handleCloseReview}
-				>
-					<img
-						alt="example"
-						style={{ width: "100%" }}
-						src={previewImage}
-					/>
-				</Modal>
-			</div>
+				</Content>
+				<Sider className="site-layout-background" width={300}>
+					
+				</Sider>
+			</Layout>
 		</div>
 	);
 };
 const mapStateToProps = createStructuredSelector({
 	token: selectToken,
 	posts: selectPostList,
+	notifications: selectNotificationList,
 });
 
 const mapDispatchToProps = {
@@ -246,6 +277,7 @@ const mapDispatchToProps = {
 	onCreatePost,
 	onUpdatePost,
 	onDeletePost,
+	onGetNotificationList,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(News);

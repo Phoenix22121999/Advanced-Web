@@ -15,6 +15,8 @@ import { onGetProfile } from "../../redux/user/user.actions";
 import { UserOutlined } from "@ant-design/icons";
 import { getToken } from "../../utils/function.utils";
 import Admin from "../../module/Admin/Admin";
+import Account from "../../module/Account/Account";
+import Notification from "../../module/Notification/Notification";
 
 const { Header, Content } = Layout;
 const DashBoardContainer = ({ user, onGetProfile }) => {
@@ -34,7 +36,6 @@ const DashBoardContainer = ({ user, onGetProfile }) => {
 	return (
 		<Router>
 			<div className="dashboard-container">
-				<Layout className="layout">
 					<Header>
 						<div className="dashboard-header">
 							<Menu
@@ -45,11 +46,18 @@ const DashBoardContainer = ({ user, onGetProfile }) => {
 								<Menu.Item key={ROUTES.NEWS}>
 									<Link to={ROUTES.NEWS}>News</Link>
 								</Menu.Item>
+								<Menu.Item key={ROUTES.ACCOUNT}>
+										<Link to={ROUTES.ACCOUNT}>Account</Link>
+								</Menu.Item>								
+								<Menu.Item key={ROUTES.NOTIFICATION}>
+										<Link to={ROUTES.NOTIFICATION}>Notification</Link>
+								</Menu.Item>
 								{user?.faculty && user.faculty === ROLE.ADMIN && (
 									<Menu.Item key={ROUTES.ADMIN}>
 										<Link to={ROUTES.ADMIN}>Admin</Link>
 									</Menu.Item>
 								)}
+								
 							</Menu>
 							<div className="right">
 								{user?.faculty ? (
@@ -88,7 +96,8 @@ const DashBoardContainer = ({ user, onGetProfile }) => {
 							</div>
 						</div>
 					</Header>
-					<Content style={{ padding: "0 50px" }}>
+				<Layout className="layout">
+					<Content>
 						<div className="dashboard-content">
 							{user && (
 								<Switch>
@@ -101,10 +110,17 @@ const DashBoardContainer = ({ user, onGetProfile }) => {
 									<Route exact path={ROUTES.ADMIN}>
 										<Admin />
 									</Route>
+									<Route exact path={ROUTES.ACCOUNT}>
+										<Account />
+									</Route>
+									<Route exact path={ROUTES.NOTIFICATION}>
+										<Notification />
+									</Route>
 								</Switch>
 							)}
 						</div>
 					</Content>
+					
 				</Layout>
 			</div>
 		</Router>
