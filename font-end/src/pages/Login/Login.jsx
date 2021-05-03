@@ -51,7 +51,7 @@ const LoginContainer = ({ onLoginWithGoogle, onLogin }) => {
 	};
 
 	const onLoginCallback = (isSuccess, rs) => {
-		console.log(isSuccess,rs)
+		// console.log(isSuccess,rs)
 		if (isSuccess) {
 			cookies.set("token", rs.access, { path: "/" });
 			history.push(ROUTES.DASHBOARD);

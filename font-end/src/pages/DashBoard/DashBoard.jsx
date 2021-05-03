@@ -28,9 +28,16 @@ const DashBoardContainer = ({ user, onGetProfile }) => {
 		history.push(ROUTES.LOGIN);
 	};
 
+	const onGetProfileCallback = (isSuccess) => {
+		if (isSuccess) {
+			cookies.set("token", rs.access, { path: "/" });
+			history.push(ROUTES.DASHBOARD);
+		}
+	}
+
 	useEffect(() => {
 		if (!user) {
-			onGetProfile(getToken());
+			onGetProfile(getToken(),onGetProfileCallback);
 		}
 	}, [user, onGetProfile]);
 	return (

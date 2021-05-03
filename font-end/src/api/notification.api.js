@@ -17,7 +17,7 @@ export class NotificationApi extends BaseApi {
     }
 
     createNotification = async ({token,data}) => {
-        const rs = await this.post('/',data,token)
+        const rs = await this.post('',data,token)
         return rs
     }
     deleteNotification = async ({token,id}) => {

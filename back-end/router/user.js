@@ -195,7 +195,8 @@ router.post('/loginAccessToken',gateToken, async(req,res)=>{
   const userId = req.userId;
   try{
     const facul = await Faculty.findOne({_id: userId});
-    res.json({success:true, data:facul});
+    const accesToken = jwt.sign({ userid: facul._id }, process.env.ACCESS_TOKEN);
+    res.json({success:true, data:facul,access: accesToken});
   }catch(error){
     res.json({success:false, message: error.message})
   }

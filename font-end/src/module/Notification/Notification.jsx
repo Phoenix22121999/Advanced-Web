@@ -5,8 +5,9 @@ import { createStructuredSelector } from "reselect";
 import { PlusCircleOutlined } from "@ant-design/icons";
 import "./Notification.scss";
 import { selectCurrentUser } from "../../redux/user/user.selector";
+import { onCreateNotification } from "../../redux/notification/notification.actions";
 const {Option} = Select
-const Notification = ({user}) => {
+const Notification = ({user,onCreateNotification}) => {
 	const [addNotificationVisible, setAddNotificationVisible] = useState(false);
 	const onAddNotificationClick = () => {
 		setAddNotificationVisible(true);
@@ -14,6 +15,7 @@ const Notification = ({user}) => {
 	const onCloseModal = () => {
 		setAddNotificationVisible(false);
 	};
+	
 	const layout = {
 		labelCol: { span: 4 },
 		wrapperCol: { span: 20 },
@@ -21,6 +23,17 @@ const Notification = ({user}) => {
 	const tailLayout = {
 		wrapperCol: { offset: 8, span: 16 },
 	};
+
+	const onFinish = (value) =>{
+		onCreateNotification(value,onCreateNotificationCallback)
+	}
+
+	const onCreateNotificationCallback = (isSuccess,rs) =>{
+		if(isSuccess){
+			setAddNotificationVisible(false)
+		}
+	}
+
 	return (
 		<div className="notification-container">
 			<Button
@@ -37,7 +50,7 @@ const Notification = ({user}) => {
 						{...layout}
 						name="basic"
 						// initialValues={{ remember: true }}
-						// onFinish={onFinish}
+						onFinish={onFinish}
 						// onFinishFailed={onFinishFailed}
 					>
 						<Form.Item
@@ -105,7 +118,7 @@ const mapStateToProps = createStructuredSelector({
 	user: selectCurrentUser
 });
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = {onCreateNotification};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Notification);
 // export default Notification;
