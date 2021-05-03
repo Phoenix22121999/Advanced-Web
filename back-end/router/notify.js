@@ -16,7 +16,7 @@ router.get('/',gateToken,async(req,res)=>{
 // thêm thông báo của khoa vào thông báo
 router.post('/',gateToken, async(req,res)=>{
     const khoaId = req.userId;
-    const {content , title} = req.body;
+    const {content , title, faculty} = req.body;
     if(!content){
         return res.status(404).json({success:false , message: 'Content is require'})
     }
@@ -24,7 +24,7 @@ router.post('/',gateToken, async(req,res)=>{
         return res.status(404).json({success:false , message: 'title is require'})
     }
     try{
-        const newNotify = new Notify({title,content,faculty:khoaId});
+        const newNotify = new Notify({title,content,user:khoaId,faculty});
         await newNotify.save();
         res.json({success:true , message: "Them Thong Bao Thanh Công",data:newNotify});
     }catch(err){
