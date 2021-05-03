@@ -2,17 +2,42 @@ const router = require('express').Router();
 const Notify = require('../model/notify.model');
 const gateToken = require('../middleware/veriFy')
 
+// //lấy thông báo của khoa sau khi đăng nhập
+// router.get('/',gateToken,async(req,res)=>{
+//     const khoaId = req.userId;
+//     try{
+//         const result = await Notify.find({faculty:khoaId}).populate('faculty',["_id","email","img","faculty"]);
+//         res.json({success:true , data:result })
+//     }catch(err){
+//         res.json({success:false , message:err.message })
+//     }
+//     // res.json({success: true, message:"welcome my notify Router"})
+// })
 //lấy thông báo của khoa sau khi đăng nhập
-router.get('/',gateToken,async(req,res)=>{
-    const khoaId = req.userId;
+router.get('/all',async(req,res)=>{
+    // const khoaId = req.userId;
     try{
-        const result = await Notify.find({faculty:khoaId}).populate('faculty',["_id","email","img","faculty"]);
-        res.json({success:false , data:result })
+        // const result = await Notify.find()
+        const result = await Notify.find().populate('faculty',["_id","email","image","faculty"]);
+        res.json({success:true , data:result })
     }catch(err){
         res.json({success:false , message:err.message })
     }
     // res.json({success: true, message:"welcome my notify Router"})
 })
+// //lấy thông báo của khoa 
+router.get('/:userId' ,async(req,res)=>{
+    const userid = req.params.userId; // sau khi qua gateToken thì gateToken sẽ gắn userId sau khi decode với accessToken vào trong req
+    try{
+        const result = await Notify.find({faculty:userid}).populate('faculty',["_id","email","image","faculty"]);
+        res.json({success: true , data: result});
+    }catch(err){
+        res.json({success:false, message: err.message});
+    }
+})
+
+
+
 // thêm thông báo của khoa vào thông báo
 router.post('/',gateToken, async(req,res)=>{
     const khoaId = req.userId;

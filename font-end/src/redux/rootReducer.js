@@ -3,6 +3,7 @@ import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import UserReducer from './user/user.reducer';
 import PostReducer from './post/post.reducer';
+import NotificationReducer from './notification/notification.reducer';
 
 
 // save reducer to local storage
@@ -23,6 +24,7 @@ const rootPersistConfig = {
 const rootReducer = combineReducers({
     user:UserReducer,
     posts:PostReducer,
+    notifications:NotificationReducer
 });
 
 export default persistReducer(rootPersistConfig, rootReducer)
