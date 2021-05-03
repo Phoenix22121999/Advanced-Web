@@ -1,10 +1,12 @@
-import { Button, Form, Input, Modal } from "antd";
+import { Button, Form, Input, Modal, Select } from "antd";
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { PlusCircleOutlined } from "@ant-design/icons";
 import "./Notification.scss";
-const Notification = ({}) => {
+import { selectCurrentUser } from "../../redux/user/user.selector";
+const {Option} = Select
+const Notification = ({user}) => {
 	const [addNotificationVisible, setAddNotificationVisible] = useState(false);
 	const onAddNotificationClick = () => {
 		setAddNotificationVisible(true);
@@ -39,12 +41,12 @@ const Notification = ({}) => {
 						// onFinishFailed={onFinishFailed}
 					>
 						<Form.Item
-							label="Username"
-							name="username"
+							label="Title"
+							name="title"
 							rules={[
 								{
 									required: true,
-									message: "Please input your username!",
+									message: "Please input title!",
 								},
 							]}
 						>
@@ -52,16 +54,40 @@ const Notification = ({}) => {
 						</Form.Item>
 
 						<Form.Item
-							label="Password"
-							name="password"
+							label="Content"
+							name="content"
 							rules={[
 								{
 									required: true,
-									message: "Please input your password!",
+									message: "Please input content !",
 								},
 							]}
 						>
-							<Input.Password />
+							<Input.TextArea />
+						</Form.Item>
+						<Form.Item
+							label="Faculty"
+							name="faculty"
+							rules={[
+								{
+									required: true,
+									message: "Please choose faculty !",
+								},
+							]}
+						>
+							<Select allowClear>
+								{
+									user.faculty?.map((faculty)=>{
+										return (
+										<Option key={`${user._id}-${faculty}`} value={faculty}>
+												{
+													faculty
+												}
+											</Option>
+										)
+									})
+								}
+							</Select>
 						</Form.Item>
 
 						<Form.Item {...tailLayout}>
@@ -76,7 +102,7 @@ const Notification = ({}) => {
 	);
 };
 const mapStateToProps = createStructuredSelector({
-	// user: selectC,
+	user: selectCurrentUser
 });
 
 const mapDispatchToProps = {};

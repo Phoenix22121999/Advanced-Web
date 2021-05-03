@@ -63,7 +63,6 @@ const Register = ({onRegister}) => {
 	};
     const onFinish = (value) =>{
         const {avatar,password2,password,email} = value
-        console.log(password2,password)
         if(password2!==password){
             message.error("Password incorrect")
             return
@@ -73,7 +72,7 @@ const Register = ({onRegister}) => {
         delete value.avatar
         delete value.password2
         value.picture=picture
-
+		// console.log(value)
         onRegister(value,onRegisterCallback)
     }
     const onRegisterCallback = (isSuccess,rs) =>{
@@ -143,6 +142,7 @@ const Register = ({onRegister}) => {
 						placeholder="Select faculty"
 						// onChange={onGenderChange}
 						allowClear
+						mode="multiple"
 					>
 						{FACULTY.map((faculty) => {
 							return <Option value={faculty}>{faculty}</Option>;

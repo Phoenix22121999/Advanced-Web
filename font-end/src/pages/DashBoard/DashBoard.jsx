@@ -52,7 +52,7 @@ const DashBoardContainer = ({ user, onGetProfile }) => {
 								<Menu.Item key={ROUTES.NOTIFICATION}>
 										<Link to={ROUTES.NOTIFICATION}>Notification</Link>
 								</Menu.Item>
-								{user?.faculty && user.faculty === ROLE.ADMIN && (
+								{user?.faculty && user.faculty.includes(ROLE.ADMIN) && (
 									<Menu.Item key={ROUTES.ADMIN}>
 										<Link to={ROUTES.ADMIN}>Admin</Link>
 									</Menu.Item>
