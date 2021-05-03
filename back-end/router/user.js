@@ -145,7 +145,7 @@ router.post('/login', gateLogin, async (req, res) => {
       if (!facul) {
         return res.status(400).json({ success: false, message: "email or pass không đúng" });
       }
-      let hashed = bcrypt.hashSync(password, 10);
+      // let hashed = bcrypt.hashSync(password, 10);
       let validaPass = bcrypt.compareSync(password, facul.password);
       if (!validaPass) {
         return res.status(400).json({ success: false, message: "email or pass không đúng" })
@@ -165,15 +165,43 @@ router.post('/login', gateLogin, async (req, res) => {
     res.json({ code: 1, message: mess })
   }
 })
+
+router.put('/changePassword',gateToken, async(req,res)=>{
+  const userId = req.userId;
+  const {oldpassword , newPassword} = req.body;
+  try{
+    const facul = await Faculty.findOne({_id: userId});
+    let validaPass = bcrypt.compareSync(oldpassword, facul.password);
+    if(!validaPass){
+      return res.status(400).json({ success: false, message: "Thông tin không chính xác" })
+    }
+    let hashed = bcrypt.hashSync(newPassword, 10);
+    let updatedUser= ({ password: hashed });
+    const updateCondition = { _id: userId };
+    updatedUser = await Faculty.findOneAndUpdate(updateCondition, updatedUser, { new: true });
+    if (!updatedUser) {
+      return res.status(401).json({ sucess: false, message: 'Password not correct or not authorized' })
+    }
+    return res.json({ success: true, message: "update Thanh Cong", data: updatedUser });
+  }catch(error){
+    res.json({success:false, message: error.message})
+  }
+  
+})
+
+
+
 router.post('/loginAccessToken',gateToken, async(req,res)=>{
   const userId = req.userId;
   try{
     const facul = await Faculty.findOne({_id: userId});
     res.json({success:true, data:facul});
   }catch(error){
-    res.json({success:false, message: e.message})
+    res.json({success:false, message: error.message})
   }
 })
+
+
 
 router.put('/', gateToken, async (req, res) => {
   const userId = req.userId;
