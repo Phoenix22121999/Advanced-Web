@@ -6,8 +6,7 @@ const gateToken = require('../middleware/veriFy')
 
 // //lấy thông báo của khoa sau khi đăng nhập
 router.get('/',async(req,res)=>{
-    var io = req.app.get('socketio');
-    io.emit("message", "hi!");
+
     res.json("hahaha")
     // console.log(io)
     // const khoaId = req.userId;
@@ -51,6 +50,8 @@ router.get('/:userId', async (req, res) => {
 // thêm thông báo của khoa vào thông báo
 router.post('/', gateToken, async (req, res) => {
     const khoaId = req.userId;
+    var io = req.app.get('socketio');
+    
     const { content, title, faculty } = req.body;
     if (!content) {
         return res.status(404).json({ success: false, message: 'Content is require' })
@@ -62,6 +63,7 @@ router.post('/', gateToken, async (req, res) => {
         const newNotify = new Notify({ title, content, user: khoaId, faculty });
         await newNotify.save();
         res.json({ success: true, message: "Them Thong Bao Thanh Công", data: newNotify });
+        io.emit("message",newNotify);
 
     } catch (err) {
         res.json({ success: false, message: err.message })

@@ -70,10 +70,12 @@ app.use('/api/notify',notifyRouter);
 const server = app.listen(port, function () {
     console.log(`Sever is runing in port: http://localhost:${port}`);
 })
-// const io = require('socket.io')(server);
+const io = require('socket.io')(server);
 // io.on('connection',(socket)=>{
-//     socket.on('message',(value)=>{
-//         console.log(socket.id, value)
-//     })
+
+//     console.log('Hello my name is ')
+//     // socket.on('message',(value)=>{
+//     //     console.log(socket.id, value)
+//     // })
 // })
-// app.set('socketio', io);
+app.set('socketio', io);
