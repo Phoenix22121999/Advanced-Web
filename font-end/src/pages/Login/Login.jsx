@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import "./Login.scss";
-import { Form, Input, Button, Checkbox, message } from "antd";
+import { Form, Input, Button, message } from "antd";
 import { GoogleLogin } from "react-google-login";
 import Cookies from "universal-cookie";
 import { useHistory } from "react-router-dom";
@@ -94,14 +94,6 @@ const LoginContainer = ({ onLoginWithGoogle, onLogin }) => {
 					>
 						<Input.Password />
 					</Form.Item>
-
-					{/* <Form.Item
-						{...tailLayout}
-						name="remember"
-						valuePropName="checked"
-					>
-						<Checkbox>Remember me</Checkbox>
-					</Form.Item> */}
 
 					<Form.Item {...tailLayout}>
 						<div className="login-button-group">

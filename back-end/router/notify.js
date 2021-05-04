@@ -18,7 +18,7 @@ router.get('/all',async(req,res)=>{
     // const khoaId = req.userId;
     try{
         // const result = await Notify.find()
-        const result = await Notify.find().populate('faculty',["_id","email","image","faculty"]);
+        const result = await Notify.find().populate('user',["_id","email","image","faculty"]);
         res.json({success:true , data:result })
     }catch(err){
         res.json({success:false , message:err.message })
