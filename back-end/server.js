@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser');
 const { OAuth2Client } = require('google-auth-library');
 const CLIENT_ID = '491877709514-naq9vtgprh86qsun954ti1m21to4l1ro.apps.googleusercontent.com';
 const client = new OAuth2Client(CLIENT_ID);
+
 require('dotenv').config();
 
 const app = express();
@@ -17,18 +18,20 @@ app.use(express.json());
 app.set('view engine', 'ejs');
 app.use(cookieParser());
 app.use(express.static('public'));
+app.use(express.static('views'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-  
+
 
 
 app.get('/', (req, res) => {
     res.render('index');
 })
-
 app.get('/login', (req, res) => {
     res.render('login');
 })
+
+
 
 // app.post('/login', (req, res) => {
 //     let token = req.body.token;
@@ -64,6 +67,15 @@ app.use('/api/users', usersRouter);
 app.use('/api/posts', postRouter);
 app.use('/api/notify',notifyRouter);
 
-app.listen(port, function () {
+const server = app.listen(port, function () {
     console.log(`Sever is runing in port: http://localhost:${port}`);
 })
+const io = require('socket.io')(server);
+// io.on('connection',(socket)=>{
+
+//     console.log('Hello my name is ')
+//     // socket.on('message',(value)=>{
+//     //     console.log(socket.id, value)
+//     // })
+// })
+app.set('socketio', io);
