@@ -1,0 +1,822 @@
+{
+	"info": {
+		"_postman_id": "c0114d12-3a51-4558-be54-f66c82901bfd",
+		"name": "WebAdvance",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "AddAccGoogle",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"content-type": true
+				}
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOiI2MDdjMDk2OTZjYTc1YTc3MTg5ZTk1ODgiLCJpYXQiOjE2MTk4NTIyNjV9.lYX34vYl2MdefdqTdkJMvOVoXLWper6t8F_Eoxuu_tk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"token\":\"eyJhbGciOiJSUzI1NiIsImtpZCI6Ijc3MjA5MTA0Y2NkODkwYTVhZWRkNjczM2UwMjUyZjU0ZTg4MmYxM2MiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJhY2NvdW50cy5nb29nbGUuY29tIiwiYXpwIjoiNDkxODc3NzA5NTE0LW5hcTl2dGdwcmg4NnFzdW45NTR0aTFtMjF0bzRsMXJvLmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwiYXVkIjoiNDkxODc3NzA5NTE0LW5hcTl2dGdwcmg4NnFzdW45NTR0aTFtMjF0bzRsMXJvLmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwic3ViIjoiMTE2NjQ5NzE2NTE0NDc5MDI1MzE2IiwiaGQiOiJzdHVkZW50LnRkdHUuZWR1LnZuIiwiZW1haWwiOiI1MTcwMjAxN0BzdHVkZW50LnRkdHUuZWR1LnZuIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImF0X2hhc2giOiJoOFJnMS1BZjZ5a2RvczFibXFZMzR3IiwibmFtZSI6Ik5nw7QgTWluaCBIaeG6v3UiLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUFUWEFKenRMMmszMTAyaEcyMFlGLVVpVE5vdDNiVlVlTFg2c05VeXI5OD1zOTYtYyIsImdpdmVuX25hbWUiOiJOZ8O0IiwiZmFtaWx5X25hbWUiOiJNaW5oIEhp4bq_dSIsImxvY2FsZSI6ImVuIiwiaWF0IjoxNjE5ODg3NTcxLCJleHAiOjE2MTk4OTExNzEsImp0aSI6IjQxYzAyMmExMjU2MmRlYjhkMmNhZDdmYzVkNzhiYzZkMTUyMTdmNWMifQ.BBvE6iSexhbKhu54Sb3IpC0sc7JxvCkXJdV2YoGofzxUB0G2XW_dXWGlKsV19w3OT1yD3x14v6eOh6A52I6FoA0cy2Sxzc8o9eQ-Bvylj6Khz1k7vrizdVPhj4zeVI-p6a0y5wmBt2wr-SW7a_NJw2OX8Ny1Qwo5ZzNN_YuQZbQtFbvP1AP5NouuofmAevDRmPLWAiKPp78eFQfozTZHsTG5V-SCaYn1c5KRMt4c112zQBXhY4JHWIRWupi9sR60J0OHoYXID62lMU2H_go46LpsY1TdsdoCG6IN_3dJJ05lOLuqNbA5Oy5F8JV_bvAzicJtU3HLlZdhtDiDcA_wdQ\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/users/login/googleapi",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"users",
+						"login",
+						"googleapi"
+					]
+				},
+				"description": "    "
+			},
+			"response": []
+		},
+		{
+			"name": "AddPost",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"content-type": true
+				}
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOiI2MDhkOGIyMDczMzZmMTJlYzA4YTQyODciLCJpYXQiOjE2MTk4ODg5Mjh9.Al4WCAIqVP6vhgwzITSmmSepaH-vNuutLlkWXUWy0Hs",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\":\"Hom Nay An Gi 1 \",\r\n    \"url\": \"https://www.youtube.com/watch?v=SUCIB3sHod8\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/posts/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"posts",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddComment",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"content-type": true
+				}
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOiI2MDhkOGIyMDczMzZmMTJlYzA4YTQyODciLCJpYXQiOjE2MTk4ODg5Mjh9.Al4WCAIqVP6vhgwzITSmmSepaH-vNuutLlkWXUWy0Hs",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Au",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"content\":\"Test Comment 1 \"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/posts/608d8b7a7336f12ec08a4288/comment",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"posts",
+						"608d8b7a7336f12ec08a4288",
+						"comment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdatePost",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"content-type": true
+				}
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOiI2MDcwMDM3NjMxOTgyOTA2YTQ4MzMyYmUiLCJpYXQiOjE2MTk1MzI3OTV9.oRa8C_XFRRvsBCdrOjxUoGoxpMlnzQGuc8ADKi7hDc8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\":\"Hoc Lap Trinh 2 Hieu Cap Nhat Theo ý Đạt lần 2\",\r\n    \"url\":\"topdev1 .com\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/posts/607bffa66821fdcc14fd5ab3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"posts",
+						"607bffa66821fdcc14fd5ab3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddAccGoogle1",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"token\":\"eyJhbGciOiJSUzI1NiIsImtpZCI6Ijc3MjA5MTA0Y2NkODkwYTVhZWRkNjczM2UwMjUyZjU0ZTg4MmYxM2MiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJhY2NvdW50cy5nb29nbGUuY29tIiwiYXpwIjoiNDkxODc3NzA5NTE0LW5hcTl2dGdwcmg4NnFzdW45NTR0aTFtMjF0bzRsMXJvLmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwiYXVkIjoiNDkxODc3NzA5NTE0LW5hcTl2dGdwcmg4NnFzdW45NTR0aTFtMjF0bzRsMXJvLmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwic3ViIjoiMTE2NjQ5NzE2NTE0NDc5MDI1MzE2IiwiaGQiOiJzdHVkZW50LnRkdHUuZWR1LnZuIiwiZW1haWwiOiI1MTcwMjAxN0BzdHVkZW50LnRkdHUuZWR1LnZuIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImF0X2hhc2giOiJ0ck5saVhOSFNiU1JnRzJIQmFaa05BIiwibmFtZSI6Ik5nw7QgTWluaCBIaeG6v3UiLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUFUWEFKenRMMmszMTAyaEcyMFlGLVVpVE5vdDNiVlVlTFg2c05VeXI5OD1zOTYtYyIsImdpdmVuX25hbWUiOiJOZ8O0IiwiZmFtaWx5X25hbWUiOiJNaW5oIEhp4bq_dSIsImxvY2FsZSI6ImVuIiwiaWF0IjoxNjIwMTMyMzcwLCJleHAiOjE2MjAxMzU5NzAsImp0aSI6ImRjYzE1ZDQ4ZmE2MjdlZmJjNTA0NjYwYTRjMjM4NmFmMzI3MDAyZjAifQ.sIKF4Ojb1ap1ZkIuVKO7mYOkD7BRKzabG1N-rCC3AB8UyuXaeKg_VdMWTOLF_lk1chDJlAPpoFQOoOd9IwsOsWCR9qIuomEBtrCJjOi0jo9RujLtZujx5-KakL7H-bMieKRFhvQKi-3rsnwKBuG--gR8EvVFmowMPBjxj12Oh6H3zVl75ZWTVnlWrSjNOjyHma6SVNjSr9GD2d-U_gc_zUcJxd-2wE9TxOyayhyN2R8TEFkvNXuZ3iC_WIbhe45eZr3zvFKJHMmHCYf8ZTehiHQ9EFyfyB2zRS5nGFr8p_r7HyXscPxwLdWwvhyYM89gv01Cg4MAo19niHVTOAFtMQ\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/users/login/googleapi",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"users",
+						"login",
+						"googleapi"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeletePost",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOiI2MDcwMDM3NjMxOTgyOTA2YTQ4MzMyYmUiLCJpYXQiOjE2MTg0NzczNjh9.xHFZTu0FvDkhmS3J2mcbJ5chKF99cVmcVfNqu6h5bd0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/posts/607800d262ad813618b03d56",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"posts",
+						"607800d262ad813618b03d56"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "RegisterAccForm",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"LAW@tdtu.edu.vn\",\r\n    \"password\":\"LAW123\",\r\n    \"picture\":{\r\n        \"id\": \"mSSDMQx\",\r\n        \"title\": \"avatar\",\r\n        \"url_viewer\": \"https://ibb.co/mSSDMQx\",\r\n        \"url\": \"https://i.ibb.co/b77W8pf/avatar.png\",\r\n        \"display_url\": \"https://i.ibb.co/b77W8pf/avatar.png\",\r\n        \"size\": 83585,\r\n        \"time\": \"1619967224\",\r\n        \"expiration\": \"0\",\r\n        \"image\": {\r\n            \"filename\": \"avatar.png\",\r\n            \"name\": \"avatar\",\r\n            \"mime\": \"image/png\",\r\n            \"extension\": \"png\",\r\n            \"url\": \"https://i.ibb.co/b77W8pf/avatar.png\"\r\n        },\r\n        \"thumb\": {\r\n            \"filename\": \"avatar.png\",\r\n            \"name\": \"avatar\",\r\n            \"mime\": \"image/png\",\r\n            \"extension\": \"png\",\r\n            \"url\": \"https://i.ibb.co/mSSDMQx/avatar.png\"\r\n        },\r\n        \"delete_url\": \"https://ibb.co/mSSDMQx/b16dc94abd0bde008d8bcbf747d0771e\"\r\n    },\r\n    \"faculty\":\"Luật\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/users/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"users",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LoginWithAccForm",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"LAW@tdtu.edu.vn\",\r\n    \"password\":\"LAW123\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/users/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LoadComment",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:5000/api/posts/608d8b7a7336f12ec08a4288/comment",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"posts",
+						"608d8b7a7336f12ec08a4288",
+						"comment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateComment",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOiI2MDc0NjE5YWQwMzM4ZTRlMjQ0NWVlMzgiLCJpYXQiOjE2MTg4MDQwOTd9.u5oHX7lZqXPPYG1cy8Bol3hICTwX8FeAL7J8v2QBt1M",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"content\":\"Hom nay Update Comment\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/posts/607bffa66821fdcc14fd5ab3/comment/607d32c1bf3ccd0225f4fbd5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"posts",
+						"607bffa66821fdcc14fd5ab3",
+						"comment",
+						"607d32c1bf3ccd0225f4fbd5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteComment",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOiI2MDc0NjE5YWQwMzM4ZTRlMjQ0NWVlMzgiLCJpYXQiOjE2MTg4MDQwOTd9.u5oHX7lZqXPPYG1cy8Bol3hICTwX8FeAL7J8v2QBt1M",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/posts/607bffa66821fdcc14fd5ab3/comment/607d32c1bf3ccd0225f4fbd5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"posts",
+						"607bffa66821fdcc14fd5ab3",
+						"comment",
+						"607d32c1bf3ccd0225f4fbd5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateUser",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOiI2MDkxNDIzNWNmYjY2ODM1Njg3MWY2YzMiLCJpYXQiOjE2MjAxMzI0MDV9.owLrXW-m4fZ2RWMOPl8hUoPbIdEUfPmhc0XeLM7OsWk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"Nolan Ngo\",\r\n    \"Class\":\"17050201\",\r\n    \"faculty\":\"Công Nghệ Thông Tin\",\r\n    \"image\": {\r\n            \"data\": {\r\n                \"id\": \"JCfQ7GF\",\r\n                \"title\": \"AATXAJzt-L2k3102h-G20-YF-Ui-TNot3b-VUe-LX6s-NUyr98-s96-c\",\r\n                \"url_viewer\": \"https://ibb.co/JCfQ7GF\",\r\n                \"url\": \"https://i.ibb.co/st0HwNJ/AATXAJzt-L2k3102h-G20-YF-Ui-TNot3b-VUe-LX6s-NUyr98-s96-c.png\",\r\n                \"display_url\": \"https://i.ibb.co/st0HwNJ/AATXAJzt-L2k3102h-G20-YF-Ui-TNot3b-VUe-LX6s-NUyr98-s96-c.png\",\r\n                \"size\": 991,\r\n                \"time\": \"1620132406\",\r\n                \"expiration\": \"0\",\r\n                \"image\": {\r\n                    \"filename\": \"AATXAJzt-L2k3102h-G20-YF-Ui-TNot3b-VUe-LX6s-NUyr98-s96-c.png\",\r\n                    \"name\": \"AATXAJzt-L2k3102h-G20-YF-Ui-TNot3b-VUe-LX6s-NUyr98-s96-c\",\r\n                    \"mime\": \"image/png\",\r\n                    \"extension\": \"png\",\r\n                    \"url\": \"https://i.ibb.co/st0HwNJ/AATXAJzt-L2k3102h-G20-YF-Ui-TNot3b-VUe-LX6s-NUyr98-s96-c.png\"\r\n                },\r\n                \"thumb\": {\r\n                    \"filename\": \"AATXAJzt-L2k3102h-G20-YF-Ui-TNot3b-VUe-LX6s-NUyr98-s96-c.png\",\r\n                    \"name\": \"AATXAJzt-L2k3102h-G20-YF-Ui-TNot3b-VUe-LX6s-NUyr98-s96-c\",\r\n                    \"mime\": \"image/png\",\r\n                    \"extension\": \"png\",\r\n                    \"url\": \"https://i.ibb.co/JCfQ7GF/AATXAJzt-L2k3102h-G20-YF-Ui-TNot3b-VUe-LX6s-NUyr98-s96-c.png\"\r\n                },\r\n                \"delete_url\": \"https://ibb.co/JCfQ7GF/0d94cae64d5ca5bf8cedd47673f34651\"\r\n            },\r\n            \"success\": true,\r\n            \"status\": 200\r\n    }\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getPostWithPostID",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/posts/60949e7184c5d743c4d0ee01",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"posts",
+						"60949e7184c5d743c4d0ee01"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getNotify",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/notify/user/608ffc8ae60d484c80d3fd03",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"notify",
+						"user",
+						"608ffc8ae60d484c80d3fd03"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "postNotify",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOiI2MDhmZmM4YWU2MGQ0ODRjODBkM2ZkMDMiLCJpYXQiOjE2MjAxMzE4MzF9.BI0q4UhQTH5bKqajwI6SifJeXPvOCVR13314MXoJvls",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\":\"test Thong Bao 6\",\r\n    \"content\":\"Noi Dung 6\",\r\n    \"faculty\":\"Luật\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/notify",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"notify"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateNotify",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOiI2MDdjMDk2OTZjYTc1YTc3MTg5ZTk1ODgiLCJpYXQiOjE2MTk4NTIyNjV9.lYX34vYl2MdefdqTdkJMvOVoXLWper6t8F_Eoxuu_tk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\":\"test Thong Bao 3\",\r\n    \"content\":\"Update thanh Thong Bao 3\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/notify/608d008160067a3768b5427e",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"notify",
+						"608d008160067a3768b5427e"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteNotify",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOiI2MDdjMDk2OTZjYTc1YTc3MTg5ZTk1ODgiLCJpYXQiOjE2MTk4NTIyNjV9.lYX34vYl2MdefdqTdkJMvOVoXLWper6t8F_Eoxuu_tk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/notify/608d008160067a3768b5427e",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"notify",
+						"608d008160067a3768b5427e"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "testPostImageAPI",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "key",
+							"value": "f74da55ae5e3abbe8f8b431f2523f045",
+							"type": "text"
+						},
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/D:/avatar.png"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://api.imgbb.com/1/upload",
+					"protocol": "https",
+					"host": [
+						"api",
+						"imgbb",
+						"com"
+					],
+					"path": [
+						"1",
+						"upload"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllPost",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/posts/getAll",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"posts",
+						"getAll"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "loginWithAccessToken",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOiI2MDhlYmVmMmNmYzEyMDM5YzAzNWEwZjciLCJpYXQiOjE2MTk5NzA1Mjd9.IKdoWQlilwEtm-xDjjE-o6g2TopPCI6kNia9KNAf0ZQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/users/loginAccessToken",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"users",
+						"loginAccessToken"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "changePassword",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOiI2MDhlZDAzMGVlM2QxYzQ1ZmM0MTI3YjQiLCJpYXQiOjE2MjAwNDIzNzl9.nu_zs_7VhIPOBQhAKWgtSakXvy5_zdrYgQug47dU5NY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"oldpassword\":\"Admin123\",\r\n    \"newPassword\":\"123456\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/users/changePassword",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"users",
+						"changePassword"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getPostWithUserId",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/posts/user/608d8ded98266e3708f40d12",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"posts",
+						"user",
+						"608d8ded98266e3708f40d12"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
