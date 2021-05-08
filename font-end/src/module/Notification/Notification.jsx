@@ -42,34 +42,38 @@ const Notification = ({ user, onCreateNotification, notifications }) => {
 	};
 
 	const onFilterChange = (value) => {
-		console.log(value)
-		if(value==="all"){
-			setFilterList(notifications)
-		}else{
-			let tmp = notifications.filter((item)=>item.faculty===value)
-			setFilterList(tmp)
+		console.log(value);
+		if (value === "all") {
+			setFilterList(notifications);
+		} else {
+			let tmp = notifications.filter((item) => item.faculty === value);
+			setFilterList(tmp);
 		}
-	}
+	};
 
 	return (
 		<div className="notification-container">
 			<div className="notification-action">
-				<Button
-					size="large"
-					// shape="round"
-					icon={<PlusCircleOutlined />}
-					onClick={onAddNotificationClick}
-				>
-					Thêm Thông Báo
-				</Button>
+				{user.faculty && (
+					<Button
+						size="large"
+						// shape="round"
+						icon={<PlusCircleOutlined />}
+						onClick={onAddNotificationClick}
+					>
+						Thêm Thông Báo
+					</Button>
+				)}
 				<div className="notification-faculty-selecter">
-					<Select size="large" defaultValue="all" onChange={onFilterChange}>
-						<Option value='all'>All</Option>
-						{
-							FACULTY.map((faculty)=>(
-								<Option value={faculty}>{faculty}</Option>
-							))
-						}
+					<Select
+						size="large"
+						defaultValue="all"
+						onChange={onFilterChange}
+					>
+						<Option value="all">All</Option>
+						{FACULTY.map((faculty) => (
+							<Option value={faculty}>{faculty}</Option>
+						))}
 					</Select>
 				</div>
 			</div>
@@ -149,17 +153,13 @@ const Notification = ({ user, onCreateNotification, notifications }) => {
 						<Card
 							title={notification.title}
 							extra={<div>More</div>}
-							style={{marginTop: 16 }}
+							style={{ marginTop: 16 }}
 						>
+							<p>{notification.faculty}</p>
 							<p>
-								{
-									notification.faculty
-								}
-							</p>
-							<p>
-								{
-									moment(notification.createdAt).format('MMMM Do YYYY, h:mm:ss a')
-								}
+								{moment(notification.createdAt).format(
+									"MMMM Do YYYY, h:mm:ss a"
+								)}
 							</p>
 						</Card>
 					);

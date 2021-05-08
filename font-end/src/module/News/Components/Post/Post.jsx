@@ -48,7 +48,7 @@ const Post = ({ post, edit, deletePost, user }) => {
 		edit(post);
 	};
 	const onDelete = () => {
-		deletePost(post._id);
+		deletePost(post?._id);
 	};
 	const menu = (
 		<Menu>
@@ -65,7 +65,7 @@ const Post = ({ post, edit, deletePost, user }) => {
 			</Menu.Item>
 		</Menu>
 	);
-
+		console.log(user,post)
 	return (
 		<div className="post-wrapper">
 			<div className="post-header">

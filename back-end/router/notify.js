@@ -27,7 +27,7 @@ router.get('/all', async (req, res) => {
     // const khoaId = req.userId;
     try {
         // const result = await Notify.find()
-        const result = await Notify.find().populate('faculty', ["_id", "email", "image", "faculty"]);
+        const result = await Notify.find().populate('user', ["_id", "email", "image", "faculty"]);
         res.json({ success: true, data: result })
     } catch (err) {
         res.json({ success: false, message: err.message })
@@ -38,7 +38,7 @@ router.get('/all', async (req, res) => {
 router.get('/:userId', async (req, res) => {
     const userid = req.params.userId; // sau khi qua gateToken thì gateToken sẽ gắn userId sau khi decode với accessToken vào trong req
     try {
-        const result = await Notify.find({ faculty: userid }).populate('faculty', ["_id", "email", "image", "faculty"]);
+        const result = await Notify.find({ faculty: userid }).populate('user', ["_id", "email", "image", "faculty"]);
         res.json({ success: true, data: result });
     } catch (err) {
         res.json({ success: false, message: err.message });

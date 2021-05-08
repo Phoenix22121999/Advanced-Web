@@ -70,7 +70,11 @@ app.use('/api/notify',notifyRouter);
 const server = app.listen(port, function () {
     console.log(`Sever is runing in port: http://localhost:${port}`);
 })
-const io = require('socket.io')(server);
+const io = require('socket.io')(server,{
+    cors: {
+      origin: '*',
+    }
+});
 // io.on('connection',(socket)=>{
 
 //     console.log('Hello my name is ')

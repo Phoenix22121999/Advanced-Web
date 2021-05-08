@@ -18,6 +18,10 @@ export const getToken = () =>{
     return cookies.get("token")
 }
 
+export const setToken = (value,) =>{
+    cookies.set("token",value,{ path: "/" })
+}
+
 export const addDataInArr = (data, itemAdd) => {
     if (!data) {
         return [{...itemAdd}]

@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { Button, Layout, Menu } from "antd";
+import { Button, Layout, Menu, notification } from "antd";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import { CLIENT_ID, ROUTES, ROLE } from "../../utils/constant";
+import { CLIENT_ID, ROUTES, ROLE, API_URL } from "../../utils/constant";
 import { GoogleLogout } from "react-google-login";
 import "./DashBoard.scss";
 import News from "../../module/News/News";
@@ -13,14 +13,16 @@ import { createStructuredSelector } from "reselect";
 import { selectCurrentUser } from "../../redux/user/user.selector";
 import { onGetProfile } from "../../redux/user/user.actions";
 import { UserOutlined } from "@ant-design/icons";
-import { getToken } from "../../utils/function.utils";
+import { getToken, setToken } from "../../utils/function.utils";
 import Admin from "../../module/Admin/Admin";
 import Account from "../../module/Account/Account";
 import Notification from "../../module/Notification/Notification";
-
+import socketIOClient from "socket.io-client";
+import moment from 'moment'
 const { Header, Content } = Layout;
+const cookies = new Cookies();
 const DashBoardContainer = ({ user, onGetProfile }) => {
-	const cookies = new Cookies();
+	
 	// let { path, url } = useRouteMatch();
 	let history = useHistory();
 	const onLogoutSuccess = async () => {
@@ -28,18 +30,31 @@ const DashBoardContainer = ({ user, onGetProfile }) => {
 		history.push(ROUTES.LOGIN);
 	};
 
-	const onGetProfileCallback = (isSuccess) => {
-		if (isSuccess) {
-			cookies.set("token", rs.access, { path: "/" });
-			history.push(ROUTES.DASHBOARD);
-		}
-	}
+
 
 	useEffect(() => {
+		const onGetProfileCallback = (isSuccess,rs) => {
+			if (isSuccess) {
+				setToken(rs.access)
+				history.push(ROUTES.DASHBOARD);
+			}
+		}
 		if (!user) {
 			onGetProfile(getToken(),onGetProfileCallback);
 		}
-	}, [user, onGetProfile]);
+	}, [user, onGetProfile,history]);
+	useEffect(() => {
+		const socket = socketIOClient(API_URL);
+		socket.on("message", data => {
+			console.log("data",data)
+			if(data.user!==user._id){
+				notification.info({
+					message: `${data.title}`,
+					description:`${data.faculty} - ${moment(data.createdAt).format('MMMM Do YYYY, h:mm:ss a')}`
+				})
+			}
+		});
+	}, []);
 	return (
 		<Router>
 			<div className="dashboard-container">
