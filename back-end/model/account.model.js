@@ -8,6 +8,22 @@ const userSchema = new Schema({
         required: true,
         minlength:3
     },
+    class:{
+        type:String,
+    },
+    faculty:{
+        type:String,
+        enum: [
+        'Công Nghệ Thông Tin',
+        'Luật',
+        'Điện-Điện Tử',
+        'Mỹ Thuật Công Nghiệp',
+        'Quản Trị Kinh Doanh',
+        'Môi Trường và Bảo Hộ Lao Động',
+        'Lao Động Công Đoàn',
+        'Tài Chính Ngân Hàng',
+        ]
+    },
     image:{
         type:Object,
         required: true
