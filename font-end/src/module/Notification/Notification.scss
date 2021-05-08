@@ -2,3 +2,16 @@
     .notification-form-modal{
         padding-top: 3rem;
     }
+.notification-container{
+    .notification-action{
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        .notification-faculty-selecter{
+            margin-left: 2rem;
+            .ant-select-selector{
+                width: 30rem;
+            }
+        }
+    }
+}

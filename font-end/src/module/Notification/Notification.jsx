@@ -1,4 +1,4 @@
-import { Button, Form, Input, Modal, Select } from "antd";
+import { Button, Card, Form, Input, Modal, Select } from "antd";
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
@@ -6,16 +6,23 @@ import { PlusCircleOutlined } from "@ant-design/icons";
 import "./Notification.scss";
 import { selectCurrentUser } from "../../redux/user/user.selector";
 import { onCreateNotification } from "../../redux/notification/notification.actions";
-const {Option} = Select
-const Notification = ({user,onCreateNotification}) => {
+import moment from "moment";
+import { selectNotificationList } from "../../redux/notification/notification.selector";
+import { Link } from "react-router-dom";
+import { FACULTY } from "../../utils/constant";
+const { Option } = Select;
+const Notification = ({ user, onCreateNotification, notifications }) => {
+	// moment().format('MMMM Do YYYY, h:mm:ss a');
 	const [addNotificationVisible, setAddNotificationVisible] = useState(false);
+	const [filterList, setFilterList] = useState(notifications);
 	const onAddNotificationClick = () => {
 		setAddNotificationVisible(true);
 	};
+
 	const onCloseModal = () => {
 		setAddNotificationVisible(false);
 	};
-	
+
 	const layout = {
 		labelCol: { span: 4 },
 		wrapperCol: { span: 20 },
@@ -24,27 +31,53 @@ const Notification = ({user,onCreateNotification}) => {
 		wrapperCol: { offset: 8, span: 16 },
 	};
 
-	const onFinish = (value) =>{
-		onCreateNotification(value,onCreateNotificationCallback)
-	}
+	const onFinish = (value) => {
+		onCreateNotification(value, onCreateNotificationCallback);
+	};
 
-	const onCreateNotificationCallback = (isSuccess,rs) =>{
-		if(isSuccess){
-			setAddNotificationVisible(false)
+	const onCreateNotificationCallback = (isSuccess, rs) => {
+		if (isSuccess) {
+			setAddNotificationVisible(false);
+		}
+	};
+
+	const onFilterChange = (value) => {
+		console.log(value)
+		if(value==="all"){
+			setFilterList(notifications)
+		}else{
+			let tmp = notifications.filter((item)=>item.faculty===value)
+			setFilterList(tmp)
 		}
 	}
 
 	return (
 		<div className="notification-container">
-			<Button
-				size="large"
-				shape="round"
-				icon={<PlusCircleOutlined />}
-				onClick={onAddNotificationClick}
+			<div className="notification-action">
+				<Button
+					size="large"
+					// shape="round"
+					icon={<PlusCircleOutlined />}
+					onClick={onAddNotificationClick}
+				>
+					Thêm Thông Báo
+				</Button>
+				<div className="notification-faculty-selecter">
+					<Select size="large" defaultValue="all" onChange={onFilterChange}>
+						<Option value='all'>All</Option>
+						{
+							FACULTY.map((faculty)=>(
+								<Option value={faculty}>{faculty}</Option>
+							))
+						}
+					</Select>
+				</div>
+			</div>
+			<Modal
+				visible={addNotificationVisible}
+				onCancel={onCloseModal}
+				footer={null}
 			>
-				Thêm Thông Báo
-			</Button>
-			<Modal visible={addNotificationVisible} onCancel={onCloseModal} footer={null}>
 				<div className="notification-form-modal">
 					<Form
 						{...layout}
@@ -89,17 +122,16 @@ const Notification = ({user,onCreateNotification}) => {
 							]}
 						>
 							<Select allowClear>
-								{
-									user.faculty?.map((faculty)=>{
-										return (
-										<Option key={`${user._id}-${faculty}`} value={faculty}>
-												{
-													faculty
-												}
-											</Option>
-										)
-									})
-								}
+								{user.faculty?.map((faculty) => {
+									return (
+										<Option
+											key={`${user._id}-${faculty}`}
+											value={faculty}
+										>
+											{faculty}
+										</Option>
+									);
+								})}
 							</Select>
 						</Form.Item>
 
@@ -111,14 +143,37 @@ const Notification = ({user,onCreateNotification}) => {
 					</Form>
 				</div>
 			</Modal>
+			<div className="notification-list">
+				{filterList?.map((notification) => {
+					return (
+						<Card
+							title={notification.title}
+							extra={<div>More</div>}
+							style={{marginTop: 16 }}
+						>
+							<p>
+								{
+									notification.faculty
+								}
+							</p>
+							<p>
+								{
+									moment(notification.createdAt).format('MMMM Do YYYY, h:mm:ss a')
+								}
+							</p>
+						</Card>
+					);
+				})}
+			</div>
 		</div>
 	);
 };
 const mapStateToProps = createStructuredSelector({
-	user: selectCurrentUser
+	user: selectCurrentUser,
+	notifications: selectNotificationList,
 });
 
-const mapDispatchToProps = {onCreateNotification};
+const mapDispatchToProps = { onCreateNotification };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Notification);
 // export default Notification;

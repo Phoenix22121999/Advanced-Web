@@ -1,4 +1,4 @@
-import { Button, Divider, Input, Menu, Upload } from "antd";
+import { Button, Divider, Input, Upload } from "antd";
 import './News.scss'
 import Modal from "antd/lib/modal/Modal";
 import React, { useEffect, useState } from "react";
@@ -21,8 +21,8 @@ import api from "../../api/index.api";
 import { selectNotificationList } from "../../redux/notification/notification.selector";
 import { onGetNotificationList } from "../../redux/notification/notification.actions";
 import Sider from "antd/lib/layout/Sider";
-import SubMenu from "antd/lib/menu/SubMenu";
 import Layout, { Content } from "antd/lib/layout/layout";
+import NewNoficationList from "./Components/NewNoficationList/NewNoficationList";
 
 const News = ({
 	posts,
@@ -260,7 +260,7 @@ const News = ({
 					</div>
 				</Content>
 				<Sider className="site-layout-background" width={300}>
-					
+					<NewNoficationList notifications={notifications}/>
 				</Sider>
 			</Layout>
 		</div>
