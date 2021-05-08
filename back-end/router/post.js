@@ -89,12 +89,32 @@ router.get('/getAll', async(req,res)=>{
         res.json({success:false, message: error.message })
     }
 })
-router.get('/:userId' ,async(req,res)=>{
+//@router api/posts
+router.get('/:postId', async(req,res)=>{
+    const postid = req.params.postId;
+    try{
+        const result = await Post.findOne({_id: postid});
+        if(!result){
+            return res.status(404).json({success: false , message: "Post not found"});
+        }
+        res.json({success: true , data: result});
+    }
+    catch(error){
+        res.json({success:false , message: error.message})
+    }
+})
+
+//@ router api/posts/ :userId 
+// dùng để lấy tất cả bài viết của user đó
+router.get('/user/:userId' ,async(req,res)=>{
     const userid = req.params.userId; // sau khi qua gateToken thì gateToken sẽ gắn userId sau khi decode với accessToken vào trong req
     try{
         const result = await Post.find({user:userid}).populate('user');
+        if(!result){
+            return res.status(404).json({success:false , message: "Không tìm thấy các bài post của user này"})
+        }
         res.json({success: true , data: result});
-    }catch(err){
+    }catch(error){
         res.json({success:false, message: err.message});
     }
 })
