@@ -19,6 +19,7 @@ import Account from "../../module/Account/Account";
 import Notification from "../../module/Notification/Notification";
 import socketIOClient from "socket.io-client";
 import moment from 'moment'
+import Detail from "../../module/Detail/Detail";
 const { Header, Content } = Layout;
 const cookies = new Cookies();
 const DashBoardContainer = ({ user, onGetProfile }) => {
@@ -54,7 +55,7 @@ const DashBoardContainer = ({ user, onGetProfile }) => {
 				})
 			}
 		});
-	}, []);
+	}, [user]);
 	return (
 		<Router>
 			<div className="dashboard-container">
@@ -137,6 +138,9 @@ const DashBoardContainer = ({ user, onGetProfile }) => {
 									</Route>
 									<Route exact path={ROUTES.NOTIFICATION}>
 										<Notification />
+									</Route>
+									<Route exact path={`${ROUTES.DETAILL}/:id`}>
+										<Detail />
 									</Route>
 								</Switch>
 							)}

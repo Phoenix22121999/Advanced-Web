@@ -11,6 +11,8 @@ import CommentComponent from "../Comment/Comment";
 import { selectCurrentUser } from "../../../../redux/user/user.selector";
 import { createStructuredSelector } from "reselect";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import { ROUTES } from "../../../../utils/constant";
 // import { onCreateComment } from "../../../../redux/Comment/comment.actions";
 const responsive = {
 	superLargeDesktop: {
@@ -65,14 +67,15 @@ const Post = ({ post, edit, deletePost, user }) => {
 			</Menu.Item>
 		</Menu>
 	);
-		console.log(user,post)
 	return (
 		<div className="post-wrapper">
 			<div className="post-header">
-				<div className="post-header-left">
-					<Avatar src={post.user?.image?.data?.url} />
-					<div className="post-username">{post.user?.name}</div>
-				</div>
+				<Link to={`${ROUTES.DETAILL}/${user._id}`}>
+					<div className="post-header-left">
+						<Avatar src={post.user?.image?.data?.url} />
+						<div className="post-username">{post.user?.name}</div>
+					</div>
+				</Link>
 				{user._id === post.user._id && (
 					<div className="post-header-right">
 						<Dropdown overlay={menu}>

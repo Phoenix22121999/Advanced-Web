@@ -8,7 +8,6 @@ import { selectCurrentUser } from "../../redux/user/user.selector";
 import { onCreateNotification } from "../../redux/notification/notification.actions";
 import moment from "moment";
 import { selectNotificationList } from "../../redux/notification/notification.selector";
-import { Link } from "react-router-dom";
 import { FACULTY } from "../../utils/constant";
 const { Option } = Select;
 const Notification = ({ user, onCreateNotification, notifications }) => {

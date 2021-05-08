@@ -24,4 +24,9 @@ export class UserApi extends BaseApi {
         const rs = await this.post('/register',data)
         return rs
     }
+    
+    updatePassword = async (data,token) => {
+        const rs = await this.put('/changePassword',data,token)
+        return rs
+    }
 }

@@ -168,10 +168,10 @@ router.post('/login', gateLogin, async (req, res) => {
 
 router.put('/changePassword',gateToken, async(req,res)=>{
   const userId = req.userId;
-  const {oldpassword , newPassword} = req.body;
+  const {oldPassword , newPassword} = req.body;
   try{
     const facul = await Faculty.findOne({_id: userId});
-    let validaPass = bcrypt.compareSync(oldpassword, facul.password);
+    let validaPass = bcrypt.compareSync(oldPassword, facul.password);
     if(!validaPass){
       return res.status(400).json({ success: false, message: "Thông tin không chính xác" })
     }

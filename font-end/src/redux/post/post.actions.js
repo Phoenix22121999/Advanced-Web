@@ -48,8 +48,8 @@ export const onGetPostList = (data,fCallBack)=> {
 export const onGetPosts = (data,fCallBack)=> {
     return async (dispatch,getState) => {
         try {
-            const {token,currentUser} = getState().user
-            const result = await api.postApi.getPost({id:currentUser._id,token})
+            const {token} = getState().user
+            const result = await api.postApi.getPost({id:data,token})
             if (result.success) {
                 dispatch({
                     type: PostTypes.GET_POST_LIST_SUCCESS,
