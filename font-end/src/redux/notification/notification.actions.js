@@ -45,17 +45,17 @@ export const onGetNotificationList = (data,fCallBack)=> {
     }
 }
 
-export const onGetPosts = (data,fCallBack)=> {
+export const onGetNotification = (data,fCallBack)=> {
     return async (dispatch,getState) => {
         try {
-            const {token,currentUser} = getState().user
-            const result = await api.notificationApi.getNotification({id:currentUser._id,token})
+            const {token} = getState().user
+            const result = await api.notificationApi.getNotification({id:data,token})
             if (result.success) {
-                dispatch({
-                    type: NotificationTypes.GET_NOTIFICATION_SUCCESS,
-                    payload: result.data
-                })
-                fCallBack && fCallBack(true)
+                // dispatch({
+                //     type: NotificationTypes.GET_NOTIFICATION_SUCCESS,
+                //     payload: result.data
+                // })
+                fCallBack && fCallBack(true, result.data)
             }else{
                 fCallBack && fCallBack(false, result.message)
             }
@@ -65,6 +65,7 @@ export const onGetPosts = (data,fCallBack)=> {
         }
     }
 }
+
 
 export const onUpdatePost = ({id,...data},fCallBack)=> {
     return async (dispatch,getState) => {

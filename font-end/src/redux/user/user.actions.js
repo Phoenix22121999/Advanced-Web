@@ -104,3 +104,25 @@ export const onUpdatePassword = (data,fCallBack)=> {
         }
     }
 }
+
+export const onUpdateUser = (data,fCallBack)=> {
+    return async (dispatch,getState) => {
+        try {
+            const token = getState().user.token
+            console.log()
+            const result = await api.userApi.updateUser(data,token)
+            if (result.success) {
+                dispatch({
+                    type: UserTypes.GET_PROFILE_SUCCESS,
+                    payload: result
+                })
+                fCallBack && fCallBack(true,result)
+            }else{
+                fCallBack && fCallBack(false, result.message)
+            }
+        }
+        catch (err) {
+            fCallBack && fCallBack(false, err.message)
+        }
+    }
+}

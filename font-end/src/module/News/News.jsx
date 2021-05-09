@@ -141,11 +141,12 @@ const News = ({
 		// setSelectedPost(post)
 		setFileList(
 			post.img.map((img, key) => {
+				console.log(img)
 				return {
 					uid: key,
 					name: `Image ${key + 1}`,
-					thumbUrl: img,
-					url: img,
+					thumbUrl: img.data.image.url,
+					url: img.data.image.url,
 					status: "done",
 				};
 			})

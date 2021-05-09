@@ -8,7 +8,8 @@ import { selectCurrentUser } from "../../redux/user/user.selector";
 import { onCreateNotification } from "../../redux/notification/notification.actions";
 import moment from "moment";
 import { selectNotificationList } from "../../redux/notification/notification.selector";
-import { FACULTY } from "../../utils/constant";
+import { FACULTY, ROUTES } from "../../utils/constant";
+import { Link } from "react-router-dom";
 const { Option } = Select;
 const Notification = ({ user, onCreateNotification, notifications }) => {
 	// moment().format('MMMM Do YYYY, h:mm:ss a');
@@ -41,7 +42,6 @@ const Notification = ({ user, onCreateNotification, notifications }) => {
 	};
 
 	const onFilterChange = (value) => {
-		console.log(value);
 		if (value === "all") {
 			setFilterList(notifications);
 		} else {
@@ -150,7 +150,7 @@ const Notification = ({ user, onCreateNotification, notifications }) => {
 				{filterList?.map((notification) => {
 					return (
 						<Card
-							title={notification.title}
+							title={ <Link to = {`${ROUTES.NOTIFY_DETAIL}/${notification._id}`}>{notification.title}</Link> }
 							extra={<div>More</div>}
 							style={{ marginTop: 16 }}
 						>

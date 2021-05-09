@@ -1,0 +1,25 @@
+.notifycation-detail-wrapper{
+    display: flex;
+    flex-direction: column;
+    .notifycation-detail-title{
+        height: 10rem;
+        font-size: 30px;
+        color: #1890ff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: 900;
+    }
+    .notifycation-detail-subtitle{
+        color: #1890ff;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        font-weight: 400;
+        font-size: 25px;
+    }
+    .notifycation-detail-content{
+        padding: 5rem;
+        font-size: 15px;
+    }
+}

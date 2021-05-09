@@ -29,4 +29,8 @@ export class UserApi extends BaseApi {
         const rs = await this.put('/changePassword',data,token)
         return rs
     }
+    updateUser = async (data,token) => {
+        const rs = await this.put('/',data,token)
+        return rs
+    }
 }

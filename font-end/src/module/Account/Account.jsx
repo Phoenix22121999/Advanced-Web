@@ -5,6 +5,7 @@ import { selectCurrentUser } from "../../redux/user/user.selector";
 // import { Button, Form, Input } from "antd";
 import "./Account.scss";
 import AdminAccount from "./components/AdminAccount/AdminAccount";
+import UserAccount from "./components/UserAccount/UserAccount";
 // import { onUpdatePassword } from "../../redux/user/user.actions";
 const Account = ({ user }) => {
 
@@ -13,7 +14,7 @@ const Account = ({ user }) => {
 		<div className="account-container">
 			<div className="account-user-form">
 				{
-					user.faculty?<AdminAccount/>:<div/>
+					!user.name?<AdminAccount/>:<UserAccount/>
 				}
 			</div>
 		</div>

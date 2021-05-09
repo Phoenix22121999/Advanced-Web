@@ -16,13 +16,13 @@ const AdminAccount = ({onUpdatePassword}) => {
 	const onFinish = (value) => {
 		const { newPassword, newPassword2 } = value;
 		if (newPassword === newPassword2) {
-            onUpdatePassword(value,onUpdatePasswordCallbacll)
+            onUpdatePassword(value,onUpdatePasswordCallback)
 		}else{
             message.error("Password don't match")
         }
 	};
 
-    const onUpdatePasswordCallbacll = (isSuccess) => {
+    const onUpdatePasswordCallback = (isSuccess) => {
         if(isSuccess){
 			form.resetFields()
             message.success("Change Password Success")

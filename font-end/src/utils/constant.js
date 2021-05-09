@@ -7,7 +7,8 @@ export const ROUTES = {
 	ADMIN:"/admin",
 	ACCOUNT:"/account",
 	NOTIFICATION:"/notification",
-	DETAILL:"/detaill"
+	DETAILL:"/user/detail",
+	NOTIFY_DETAIL:"/notify/detail",
 }
 
 export const CLIENT_ID ="491877709514-naq9vtgprh86qsun954ti1m21to4l1ro.apps.googleusercontent.com"

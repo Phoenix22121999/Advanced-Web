@@ -7,7 +7,7 @@ export class NotificationApi extends BaseApi {
     }
 
     getAllNotification = async ({token}) => {
-        const rs = await this.get(`/all`,undefined,token)
+        const rs = await this.get(`/`,undefined,token)
         return rs
     }
     

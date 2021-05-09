@@ -20,6 +20,7 @@ import Notification from "../../module/Notification/Notification";
 import socketIOClient from "socket.io-client";
 import moment from 'moment'
 import Detail from "../../module/Detail/Detail";
+import NotifyDetail from "../../module/NotifyDetail/NotifyDetail";
 const { Header, Content } = Layout;
 const cookies = new Cookies();
 const DashBoardContainer = ({ user, onGetProfile }) => {
@@ -83,7 +84,7 @@ const DashBoardContainer = ({ user, onGetProfile }) => {
 								
 							</Menu>
 							<div className="right">
-								{user?.faculty ? (
+								{!user?.name ? (
 									<Button
 										onClick={onLogoutSuccess}
 										// disabled={renderProps.disabled}
@@ -141,6 +142,9 @@ const DashBoardContainer = ({ user, onGetProfile }) => {
 									</Route>
 									<Route exact path={`${ROUTES.DETAILL}/:id`}>
 										<Detail />
+									</Route>
+									<Route exact path={`${ROUTES.NOTIFY_DETAIL}/:id`}>
+										<NotifyDetail />
 									</Route>
 								</Switch>
 							)}

@@ -70,7 +70,7 @@ const Post = ({ post, edit, deletePost, user }) => {
 	return (
 		<div className="post-wrapper">
 			<div className="post-header">
-				<Link to={`${ROUTES.DETAILL}/${user._id}`}>
+				<Link to={`${ROUTES.DETAILL}/${post.user._id}`}>
 					<div className="post-header-left">
 						<Avatar src={post.user?.image?.data?.url} />
 						<div className="post-username">{post.user?.name}</div>
