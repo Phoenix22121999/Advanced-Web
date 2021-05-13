@@ -4,8 +4,8 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const { OAuth2Client } = require('google-auth-library');
-const CLIENT_ID = '491877709514-naq9vtgprh86qsun954ti1m21to4l1ro.apps.googleusercontent.com';
-const client = new OAuth2Client(CLIENT_ID);
+// const CLIENT_ID = '491877709514-naq9vtgprh86qsun954ti1m21to4l1ro.apps.googleusercontent.com';
+// const client = new OAuth2Client(CLIENT_ID);
 
 require('dotenv').config();
 

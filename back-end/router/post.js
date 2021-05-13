@@ -122,14 +122,14 @@ router.get('/user/:userId' ,async(req,res)=>{
 // dùng để đăng bài lên
 router.post('/', gateToken ,async(req,res)=>{
     const userid = req.userId // sau khi qua gateToken thì gateToken sẽ gắn userId sau khi decode với accessToken vào trong req
-    const{title , comment ,url, image} = req.body;
+    const{title,url, image} = req.body;
     // console.log(user,req.body)
     // console.log(req.body);
     if(!title){
         return res.status(404).json({success:false , message: 'Title is require'})
     }
     try{
-        const newPost = new Post({title , comment ,img:image,url,user:userid});
+        const newPost = new Post({title ,img:image,url,user:userid});
         await newPost.save();
         const result = await Post.find({_id: newPost._id}).populate('user')
         // console.log(result)
@@ -165,16 +165,17 @@ router.delete('/:id',gateToken, async(req,res)=>{
     const idPost = req.params.id;// tham số truyền vào cùng với đường dẫn
     const user = req.userId; // sau khi qua gateToken thì gateToken sẽ gắn userId sau khi decode với accessToken vào trong req
     try{
-        const deleteCondition = {_id : idPost , user: user};
-        const deletedPost = await Post.findByIdAndDelete(deleteCondition);
-        if(!deletedPost){
-            return res.status(401).json({sucess: false , message : 'post not found or not authorized'})
-        }
-            return res.json({success:true , message : "Xoa Thanh Cong", data: deletedPost});
+
+        const deletedPost = await Post.findByIdAndDelete({ _id : idPost , user: user});
+        console.log(deletedPost);
+        // if(Object.values(deletedPost).length === 0){
+        //     return res.status(401).json({sucess: false , message : 'post not found or not authorized'})
+        // }
+        //     return res.json({success:true , message : "Xoa Thanh Cong", data: deletedPost});
     }catch(err){
         res.json({success:false, message: err.message})
     }   
-    // res.json(idPost)
+    //res.json(idPost)
 })
 
 module.exports = router
