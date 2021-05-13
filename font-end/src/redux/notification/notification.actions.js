@@ -11,7 +11,7 @@ export const onCreateNotification = (data,fCallBack)=> {
             if (result.success) {
                 dispatch({
                     type: NotificationTypes.CREATE_NOTIFICATION_SUCCESS,
-                    payload: result
+                    payload: result.data
                 })
                 fCallBack && fCallBack(true)
             }else{
@@ -67,11 +67,12 @@ export const onGetNotification = (data,fCallBack)=> {
 }
 
 
-export const onUpdatePost = ({id,...data},fCallBack)=> {
+export const onUpdateNotify = ({id,...data},fCallBack)=> {
     return async (dispatch,getState) => {
         try {
             const {token} = getState().user
             // const id = getState().user.currentUser["_id"]
+            console.log(';;;;')
             const result = await api.notificationApi.updateNotification({id,token,data:{...data}})
             // console.log(result)
             if (result.success) {
@@ -90,7 +91,7 @@ export const onUpdatePost = ({id,...data},fCallBack)=> {
     }
 }
 
-export const onDeletePost = (id,fCallBack)=> {
+export const onDeleteNotify = (id,fCallBack)=> {
     return async (dispatch,getState) => {
         try {
             const {token} = getState().user

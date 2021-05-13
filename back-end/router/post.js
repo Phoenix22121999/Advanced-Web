@@ -133,7 +133,7 @@ router.post('/', gateToken ,async(req,res)=>{
         await newPost.save();
         const result = await Post.find({_id: newPost._id}).populate('user')
         // console.log(result)
-        res.json({success:true, message: "Them thanh Cong",post: newPost})
+        res.json({success:true, message: "Them thanh Cong",post: result})
     }catch(err){
         res.json({success:false, message: err.message})
     }
@@ -143,16 +143,14 @@ router.post('/', gateToken ,async(req,res)=>{
 router.put('/:id', gateToken ,async(req,res)=>{
     const user = req.userId // sau khi qua gateToken thì gateToken sẽ gắn userId sau khi decode với accessToken vào trong req
     const idPost = req.params.id
-    const{title ,url,image} = req.body;
-    console.log(req.userId , req.body)
+    const{title ,url,image:img} = req.body;
     if(!title){
         return res.status(404).json({success:false , message: 'Title is require'})
     }
     try{
-        let updatedPost = ({title ,image, url});
+        let updatedPost = ({title ,img, url});
         const updateCondition = {_id : idPost , user: user};
         updatedPost = await Post.findOneAndUpdate(updateCondition, updatedPost, {new: true}).populate('user',['name','email','_id','image']); 
-        // console.log(updated);
         if(!updatedPost){
             return res.status(401).json({sucess: false , message : 'post not found or not authorized'})
         }

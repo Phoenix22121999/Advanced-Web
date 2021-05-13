@@ -1,12 +1,23 @@
+@import "../../styles/variable.scss";
 .news-container{
     .news-contents{
-        margin-right: 0.5rem;
-        padding-right: 2rem;
+        // margin-right: 0.5rem;
+        // padding-right: 2rem;
         background-color: #fff ;
+        @include mq("lap"){
+            margin-right: 0.5rem;
+            padding-right: 2rem;
+        }
     }
     .site-layout-background{
         background-color: #fff ;
         padding: 1rem;
-
+        width: 0px;
+        min-width: 0px;
+        display: none;
+        @include mq("lap"){
+            width: 300px;
+            display: block;
+        }
     }
 }

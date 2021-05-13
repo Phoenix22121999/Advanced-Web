@@ -29,4 +29,8 @@ export class PostApi extends BaseApi {
         const rs = await this.put(`/${id}`,data,token)
         return rs
     }
+    getPostByUserId = async ({token,id}) => {
+        const rs = await this.get(`/user/${id}`,undefined,token)
+        return rs
+    }
 }

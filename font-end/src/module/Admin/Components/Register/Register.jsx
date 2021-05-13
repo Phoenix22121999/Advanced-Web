@@ -145,7 +145,7 @@ const Register = ({onRegister}) => {
 						mode="multiple"
 					>
 						{FACULTY.map((faculty) => {
-							return <Option value={faculty}>{faculty}</Option>;
+							return <Option key={faculty} value={faculty}>{faculty}</Option>;
 						})}
 					</Select>
 				</Form.Item>

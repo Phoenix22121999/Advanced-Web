@@ -22,11 +22,11 @@ const responsive = {
 	},
 	desktop: {
 		breakpoint: { max: 3000, min: 1024 },
-		items: 4,
+		items: 3,
 	},
 	tablet: {
 		breakpoint: { max: 1024, min: 464 },
-		items: 2,
+		items: 1,
 	},
 	mobile: {
 		breakpoint: { max: 464, min: 0 },
@@ -55,7 +55,7 @@ const Post = ({ post, edit, deletePost, user }) => {
 	const menu = (
 		<Menu>
 			<Menu.Item key="0">
-				<div type="primary" danger={true} onClick={onDelete}>
+				<div type="primary"  onClick={onDelete}>
 					Delete
 				</div>
 			</Menu.Item>
@@ -67,10 +67,11 @@ const Post = ({ post, edit, deletePost, user }) => {
 			</Menu.Item>
 		</Menu>
 	);
+	// console.log('post.user',post.user)
 	return (
 		<div className="post-wrapper">
 			<div className="post-header">
-				<Link to={`${ROUTES.DETAILL}/${post.user._id}`}>
+				<Link to={`${ROUTES.DETAILL}/${post.user?._id}`}>
 					<div className="post-header-left">
 						<Avatar src={post.user?.image?.data?.url} />
 						<div className="post-username">{post.user?.name}</div>
@@ -99,20 +100,33 @@ const Post = ({ post, edit, deletePost, user }) => {
 					>
 						{post.img &&
 							post.img.map((image, index) => {
+								console.log(index,image)
 								return (
 									<img
 										key={`image-${post._id}-${index}`}
 										className="image"
 										onClick={() =>
-											onImageClick(image.data.url)
+											onImageClick(image?.data?.url)
 										}
-										src={image.data.url}
+										src={image?.data?.url}
 										alt="1"
 									/>
 								);
 							})}
 					</Carousel>
 				</div>
+				{post.url && (
+					<div className="post-video">
+						<iframe
+							title={`video-${post.user._id}-${post.url}`}
+							className="post-video-youtube"
+							src={post.url}
+							frameBorder="0"
+							allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+							allowFullScreen
+						></iframe>
+					</div>
+				)}
 			</div>
 			<div className="post-footer">
 				{/* <Button type="primary" onClick={onEdit}>Edit</Button> */}

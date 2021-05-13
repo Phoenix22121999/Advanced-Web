@@ -113,8 +113,8 @@ export const onUpdateUser = (data,fCallBack)=> {
             const result = await api.userApi.updateUser(data,token)
             if (result.success) {
                 dispatch({
-                    type: UserTypes.GET_PROFILE_SUCCESS,
-                    payload: result
+                    type: UserTypes.UPDATE_PROFILE_SUCCESS,
+                    payload: result.data
                 })
                 fCallBack && fCallBack(true,result)
             }else{

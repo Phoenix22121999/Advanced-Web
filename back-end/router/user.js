@@ -139,7 +139,6 @@ router.post('/login', gateLogin, async (req, res) => {
   let result = validationResult(req);
   if (result.errors.length === 0) {
     let { email, password } = req.body;
-    console.log(email, password);
     try {
       const facul = await Faculty.findOne({ email });
       if (!facul) {
@@ -198,7 +197,6 @@ router.post('/loginAccessToken',gateToken, async(req,res)=>{
     if (!facul){
       facul = await User.findOne({_id: userId})
     } 
-    console.log(facul,userId)
     const accesToken = jwt.sign({ userid: facul._id }, process.env.ACCESS_TOKEN);
     res.json({success:true, data:facul,access: accesToken});
   }catch(error){
@@ -210,12 +208,12 @@ router.post('/loginAccessToken',gateToken, async(req,res)=>{
 
 router.put('/', gateToken, async (req, res) => {
   const userId = req.userId;
-  const { image, name , Class , faculty} = req.body;
+  const { image, name , userClass , faculty} = req.body;
   // if (!image || !name) {
   //   return res.status(404).json({ success: false, message: 'name or image is require' });
   // }
   try {
-    let updatedUser = ({ image, name ,class:Class ,faculty});
+    let updatedUser = ({ image, name ,userClass ,faculty});
     const updateCondition = { _id: userId };
     updatedUser = await User.findOneAndUpdate(updateCondition, updatedUser, { new: true });
     if (!updatedUser) {

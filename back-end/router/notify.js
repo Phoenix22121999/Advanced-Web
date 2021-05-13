@@ -78,7 +78,8 @@ router.post('/', gateToken, async (req, res) => {
     try {
         const newNotify = new Notify({ title, content, user: khoaId, faculty });
         await newNotify.save();
-        res.json({ success: true, message: "Them Thong Bao Thanh Công", data: newNotify });
+        const result = await Notify.find({_id: newNotify._id})
+        res.json({ success: true, message: "Them Thong Bao Thanh Công", data: result });
         io.emit("message",newNotify);
 
     } catch (err) {
@@ -103,8 +104,9 @@ router.put('/:idNotify', gateToken, async (req, res) => {
     }
     try {
         let updateNotify = ({ content, title });
-        const updateCondition = { _id: idNotify, faculty: khoaId };
-        updateNotify = await Notify.findOneAndUpdate(updateCondition, updateNotify, { new: true }).populate('faculty', ["_id", "email", "img", "faculty"]);
+        const updateCondition = { _id: idNotify, user: khoaId };
+        console.log(updateCondition)
+        updateNotify = await Notify.findOneAndUpdate(updateCondition, updateNotify, { new: true }).populate('user', ["_id", "email", "img", "faculty"]);
         if (!updateNotify) {
             return res.status(401).json({ sucess: false, message: 'Notify not found or not authorized' })
         }

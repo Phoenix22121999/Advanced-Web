@@ -33,4 +33,5 @@ export class UserApi extends BaseApi {
         const rs = await this.put('/',data,token)
         return rs
     }
+
 }

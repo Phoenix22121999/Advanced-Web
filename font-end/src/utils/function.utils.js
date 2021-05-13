@@ -18,15 +18,32 @@ export const getToken = () =>{
     return cookies.get("token")
 }
 
+export const turnLinkToEmbed = (rawLink) => {
+    if(!rawLink){
+        return ""
+    }
+    let tmp = rawLink.split("/");
+    if (tmp.includes("embed")) {
+        return rawLink;
+    } else if (tmp.includes("youtu.be")) {
+        return `https://www.youtube.com/embed/${tmp[tmp.length - 1]}`;
+    } else {
+        var url = new URL(rawLink);
+        var id = url.searchParams.get("v");
+        return `https://www.youtube.com/embed/${id}`
+    }
+};
+
+
 export const setToken = (value,) =>{
     cookies.set("token",value,{ path: "/" })
 }
 
 export const addDataInArr = (data, itemAdd) => {
     if (!data) {
-        return [{...itemAdd}]
+        return [...itemAdd]
     }
-    return [...data, {...itemAdd}]
+    return [...data, ...itemAdd]
 }
 
 export const updateDataInArr = (data, itemUpdate) => {

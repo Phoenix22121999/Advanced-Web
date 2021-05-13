@@ -1,4 +1,4 @@
-import { Button, Form, Input, message, Modal, Upload } from 'antd';
+import { Button, Form, Input, message, Modal, Select, Upload } from 'antd';
 import { getBase64 } from "../../../../utils/function.utils";
 import React,{useEffect, useState} from 'react';
 import { connect } from 'react-redux';
@@ -6,8 +6,10 @@ import { createStructuredSelector } from 'reselect';
 import api from '../../../../api/index.api';
 import { selectCurrentUser } from '../../../../redux/user/user.selector';
 import { onUpdateUser } from '../../../../redux/user/user.actions';
+import { USER_FACULTY } from '../../../../utils/constant';
+const { Option } = Select;
 
-const UserAccount = ({user}) => {
+const UserAccount = ({user,onUpdateUser}) => {
     const [form] = Form.useForm()
     const [previewImage, setPreviewImage] = useState();
     const [image, setImage] = useState();
@@ -34,18 +36,24 @@ const UserAccount = ({user}) => {
             }
         ])
         form.setFieldsValue(user)
-    }, [user])
+    }, [user,form])
     const onFinish = (value) => {
-        console.log(value)
-		// onUpdateUser()
+        // console.log(value)
+		onUpdateUser({image,...value},onUpdateUserCallback)
 	};
 
-    const onUpdatePasswordCallbacll = (isSuccess) => {
-        // if(isSuccess){
-		// 	form.resetFields()
-        //     message.success("Change Password Success")
-        // }
+    const onUpdateUserCallback = (isSuccess,rs) => {
+        if(isSuccess){
+            message.success("Update Success")
+        }
     }
+
+    // const onUpdatePasswordCallbacll = (isSuccess) => {
+    //     // if(isSuccess){
+	// 	// 	form.resetFields()
+    //     //     message.success("Change Password Success")
+    //     // }
+    // }
     const customRequest = async ({ file, onSuccess }) => {
 		// console.log(file)
 		const rs = await api.uploadApi.methodWithFormData({ image: file });
@@ -112,7 +120,7 @@ const UserAccount = ({user}) => {
 				</Form.Item>
 				<Form.Item
 					label="Class"
-					name="class"
+					name="userClass"
 					// rules={[
 					// 	{
 					// 		required: true,
@@ -127,7 +135,16 @@ const UserAccount = ({user}) => {
 					label="Faculty"
 					name="faculty"
 				>
-					<Input />
+					<Select
+						placeholder="Select faculty"
+						// onChange={onGenderChange}
+						allowClear
+						// mode="multiple"
+					>
+						{USER_FACULTY.map((faculty) => {
+							return <Option key={faculty} value={faculty}>{faculty}</Option>;
+						})}
+					</Select>
 				</Form.Item>
 				<Form.Item
 					label="Image"
@@ -177,7 +194,7 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = {
-	
+	onUpdateUser
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserAccount);

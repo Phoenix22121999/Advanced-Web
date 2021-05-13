@@ -1,11 +1,14 @@
+@import '../../../../styles/variable.scss';
 .post-wrapper{
     padding: 2rem;
     margin-bottom: 2rem;
-    -webkit-box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);
-    -moz-box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);
-    box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);
-    border-top: 1px solid rgba(0,0,0,0.75);
-    border-left: 1px solid rgba(0,0,0,0.75);
+    // -webkit-box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);
+    // -moz-box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);
+    // box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);
+    // border-top: 1px solid rgba(0,0,0,0.75);
+    // border-left: 1px solid rgba(0,0,0,0.75);
+    box-shadow: 0 6px 20px rgba(34,43,84, 15%);
+
     .post-header{
         display: flex;
         align-items: center;
@@ -42,7 +45,28 @@
                 box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);
             }
         }
-        
+        .post-video{
+            margin-top: 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 5rem;
+            height: 20rem;
+            .post-video-youtube{
+                margin: 0 auto;
+                width: 100%;
+                height: 100%;
+            }
+            @include mq("tablet"){
+                height: 40rem;
+            }
+            @include mq("desk"){
+                .post-video-youtube{
+                    width: 80%;
+                    
+                }
+            }
+        }        
     }
     .post-footer{
         display: flex;

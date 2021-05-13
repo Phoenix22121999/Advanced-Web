@@ -1,3 +1,4 @@
+@import '../../styles/variable.scss';
 .dashboard-container {
 	width: 100%;
 	height: 100%;
@@ -27,6 +28,31 @@
 			justify-content: center;
 			.ant-avatar.ant-avatar-circle.ant-avatar-image{
 				margin-left: 1rem ;
+			}
+		}
+		.dashboard-header-lap{
+			display: none;
+			position: absolute;
+			z-index: -5000;
+			@include mq("lap"){
+				display: block;
+				position: relative;
+				z-index: 2;
+			}
+		}
+		.dashboard-header-phone{
+			display: block;
+			position: relative;
+			z-index: 2;
+			.header-icon{
+				font-size: 3rem;
+				color: white;
+				cursor: pointer;
+			}
+			@include mq("lap"){
+				display: none;
+				position: absolute;
+				z-index: -5000;
 			}
 		}
 	}

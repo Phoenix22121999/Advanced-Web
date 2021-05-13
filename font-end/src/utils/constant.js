@@ -52,3 +52,14 @@ export const FACULTY =	['Công tác học sinh, sinh viên(CTHSV)',
 'Tài Chính Ngân Hàng',
 'Giáo Dục Quốc Tế',
 'Admin']
+
+export const USER_FACULTY = [
+	'Công Nghệ Thông Tin',
+	'Luật',
+	'Điện-Điện Tử',
+	'Mỹ Thuật Công Nghiệp',
+	'Quản Trị Kinh Doanh',
+	'Môi Trường và Bảo Hộ Lao Động',
+	'Lao Động Công Đoàn',
+	'Tài Chính Ngân Hàng',
+]

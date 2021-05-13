@@ -1,6 +1,5 @@
-import { Divider, Input, Upload } from "antd";
-import Modal from "antd/lib/modal/Modal";
-import Title from "antd/lib/skeleton/Title";
+import { Divider, Input, message, Modal, Upload } from "antd";
+import Title from "antd/lib/typography/Title";
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { useParams } from "react-router";
@@ -8,17 +7,21 @@ import { createStructuredSelector } from "reselect";
 import api from "../../api/index.api";
 import {
 	onDeletePost,
-	onGetPosts,
+	onGetPostByUserId,
 	onUpdatePost,
 } from "../../redux/post/post.actions";
-import { selectPostList } from "../../redux/post/post.selector";
+import { selectCurrentPostList, selectPostList } from "../../redux/post/post.selector";
 import Post from "../News/Components/Post/Post";
+import { useBottomScrollListener } from 'react-bottom-scroll-listener';
 
-const Detail = ({ posts, onGetPosts, onDeletePost, onUpdatePost }) => {
+const Detail = ({ posts, onGetPostByUserId, onDeletePost, onUpdatePost }) => {
 	let { id } = useParams();
+	const [filterPosts, setFilterPosts] = useState();
 	useEffect(() => {
-		onGetPosts(id);
-	}, [id, onGetPosts]);
+		let tmp = posts.filter((post)=>post.user._id===id)
+		setFilterPosts(tmp)
+		// onGetPostByUserId(id);
+	}, [id, onGetPostByUserId,posts]);
 
 	const [input, setInput] = useState("");
 	const [link, setLink] = useState("");
@@ -33,6 +36,22 @@ const Detail = ({ posts, onGetPosts, onDeletePost, onUpdatePost }) => {
 	const [previewImage, setPreviewImage] = useState();
 	const [isAdd, setIsAdd] = useState(false);
 	const [fileList, setFileList] = useState([]);
+	const [postNum, setPostNum] = useState(10)
+	const onBottom = () =>{
+		if(postNum<filterPosts.length){
+			message.info('Loading new post')
+			setTimeout(onSetPostNum,1000)
+		}
+	}
+	const onSetPostNum = () =>{
+		setPostNum(postNum+10)
+		message.success('Load more post success')
+	}
+
+	useBottomScrollListener(onBottom,{
+		offset:0,
+		debounce:1000
+	})
 	const handlePreview = async (file) => {
 		if (!file.url && !file.preview) {
 			file.preview = await getBase64(file.originFileObj);
@@ -68,8 +87,9 @@ const Detail = ({ posts, onGetPosts, onDeletePost, onUpdatePost }) => {
 				return {
 					uid: key,
 					name: `Image ${key + 1}`,
-					thumbUrl: img,
-					url: img,
+					thumbUrl: img.data.image.url,
+					url: img.data.image.url,
+					response:{data:img},
 					status: "done",
 				};
 			})
@@ -129,13 +149,18 @@ const Detail = ({ posts, onGetPosts, onDeletePost, onUpdatePost }) => {
 			image: images,
 			url: link,
 			id: selectedId,
-		});
+		},updateCallback);
 	};
+	const updateCallback = (isSuccess) => {
+		if(isSuccess){
+			setIsAdd(false)
+		}
+	}
 
 	return (
 		<div>
-			{posts &&
-				posts.map((post) => {
+			{filterPosts &&
+				filterPosts.slice(0,postNum).map((post) => {
 					return (
 						<Post
 							key={post._id}
@@ -202,7 +227,7 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = {
-	onGetPosts,
+	onGetPostByUserId,
 	onDeletePost,
 	onUpdatePost,
 };

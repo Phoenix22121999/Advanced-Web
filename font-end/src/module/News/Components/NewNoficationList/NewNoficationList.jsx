@@ -1,6 +1,14 @@
-import { List } from "antd";
+import { List, Menu } from "antd";
+import moment from "moment";
 import React from "react";
+import { Link } from "react-router-dom";
+import { ROUTES } from "../../../../utils/constant";
 import "./NewNoficationList.scss"
+import {
+	DesktopOutlined,
+	PieChartOutlined,
+	FileOutlined,
+  } from '@ant-design/icons';
 const NewNoficationList = ({ notifications }) => {
     // console.log('notifications',notifications)
 	const renderItem = (item) => {
@@ -9,8 +17,10 @@ const NewNoficationList = ({ notifications }) => {
 			<List.Item>
 				<List.Item.Meta
 					// avatar={<Avatar src="" />}
-					title={<div>{item.title}</div>}
-					description={item.faculty}
+					title={<Link to={`${ROUTES.NOTIFY_DETAIL}/${item._id}`}><div>{item.title}</div></Link>}
+					description={`${item.faculty} - ${moment(item.createdAt).format(
+						"MMMM Do YYYY, h:mm:ss a"
+					)} `}
 				/>
 			</List.Item>
 		);
@@ -21,9 +31,10 @@ const NewNoficationList = ({ notifications }) => {
             <div className="new-nofication-list-header">
                 Nofication
             </div>
+
 			<List
 				itemLayout="horizontal"
-				dataSource={notifications||[]}
+				dataSource={notifications?.slice(0,10)||[]}
 				renderItem={renderItem}
 			/>
 		</div>
