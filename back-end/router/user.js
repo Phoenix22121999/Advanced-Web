@@ -9,8 +9,8 @@ const gateLogin = require('../validator/validationLogin');
 const gateToken = require('../middleware/veriFy');
 const bcrypt = require('bcrypt');
 const multer = require('multer');
-const fs = require('fs');
-const fetch = require('node-fetch');
+// const fs = require('fs');
+// const fetch = require('node-fetch');
 const axios = require('axios').default;
 const FormData = require('form-data');
 require('dotenv').config();
@@ -165,7 +165,7 @@ router.post('/login', gateLogin, async (req, res) => {
     res.json({ code: 1, message: mess })
   }
 })
-
+// dung de thay doi password cua tai khoan khoa
 router.put('/changePassword',gateToken, async(req,res)=>{
   const userId = req.userId;
   const {oldPassword , newPassword} = req.body;
