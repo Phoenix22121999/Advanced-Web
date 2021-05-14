@@ -166,12 +166,14 @@ router.delete('/:id',gateToken, async(req,res)=>{
     const user = req.userId; // sau khi qua gateToken thì gateToken sẽ gắn userId sau khi decode với accessToken vào trong req
     try{
 
-        const deletedPost = await Post.findByIdAndDelete({ _id : idPost , user: user});
-        console.log(deletedPost);
-        // if(Object.values(deletedPost).length === 0){
-        //     return res.status(401).json({sucess: false , message : 'post not found or not authorized'})
-        // }
-        //     return res.json({success:true , message : "Xoa Thanh Cong", data: deletedPost});
+        // const deletedPost = await Post.findByIdAndDelete({ _id : idPost , user: req.userId});
+        const deleteCondition = { _id : idPost , user: user};
+        const deletedPost = await Post.findOneAndRemove(deleteCondition);
+        // console.log(deletedPost)
+        if(!deletedPost){
+            return res.status(401).json({sucess: false , message : 'post not found or not authorized'})
+        }
+            return res.json({success:true , message : "Xoa Thanh Cong", data: deletedPost});
     }catch(err){
         res.json({success:false, message: err.message})
     }   
