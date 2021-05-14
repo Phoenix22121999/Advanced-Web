@@ -11,7 +11,7 @@ import {
 	onUpdatePost,
 } from "../../redux/post/post.actions";
 import { selectPostList } from "../../redux/post/post.selector";
-import { selectToken } from "../../redux/user/user.selector";
+import { selectCurrentUser, selectToken } from "../../redux/user/user.selector";
 import Post from "./Components/Post/Post";
 import { PlusCircleOutlined } from "@ant-design/icons";
 import Title from "antd/lib/typography/Title";
@@ -32,6 +32,7 @@ const News = ({
 	onCreatePost,
 	notifications,
 	onGetNotificationList,
+	user,
 }) => {
 	useEffect(() => {
 		if (!posts) {
@@ -62,7 +63,6 @@ const News = ({
 	const [postNum, setPostNum] = useState(10);
 
 	const onBottom = () => {
-		console.log("aaa")
 		if (postNum < posts.length) {
 			message.info("Loading new post");
 			setTimeout(onSetPostNum, 1000);
@@ -211,14 +211,16 @@ const News = ({
 			<Layout>
 				<Layout>
 					<Content className="news-contents">
-						<Button
+						{
+							user.name &&
+							<Button
 							size="large"
 							shape="round"
 							icon={<PlusCircleOutlined />}
 							onClick={onClick}
 						>
 							Thêm Bài Viết
-						</Button>
+						</Button>}
 						<Divider />
 						{posts &&
 							posts.slice(0, postNum).map((post) => {
@@ -303,6 +305,7 @@ const mapStateToProps = createStructuredSelector({
 	token: selectToken,
 	posts: selectPostList,
 	notifications: selectNotificationList,
+	user:selectCurrentUser
 });
 
 const mapDispatchToProps = {

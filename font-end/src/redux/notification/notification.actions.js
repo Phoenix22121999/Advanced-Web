@@ -72,7 +72,6 @@ export const onUpdateNotify = ({id,...data},fCallBack)=> {
         try {
             const {token} = getState().user
             // const id = getState().user.currentUser["_id"]
-            console.log(';;;;')
             const result = await api.notificationApi.updateNotification({id,token,data:{...data}})
             // console.log(result)
             if (result.success) {

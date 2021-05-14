@@ -10,7 +10,7 @@ const gateToken = require('../middleware/veriFy')
 router.get('/:id/comment', async(req,res)=>{
     const postId = req.params.id;
     try{
-        const result = await Comment.find({post:postId}).populate('user');
+        const result = await Comment.find({post:postId}).populate('user').populate('faculty');
         //const result = await Comment.find({post:postId}).populate('post').populate('user');
         res.json({success:true, data:result});
     }catch(err){
@@ -27,9 +27,9 @@ router.post('/:id/comment',gateToken,async(req,res)=>{
         if(!post){
            return  res.status(400).json({success: false, message:"Khong tim thay bai viet"} )
         }
-        const newComment = new Comment({user:userId , post: postId ,content});
+        const newComment = new Comment({user:userId,faculty:userId , post: postId ,content});
         await newComment.save();
-        const result = await Comment.find({_id: newComment._id}).populate('user');
+        const result = await Comment.find({_id: newComment._id}).populate('user').populate('faculty');
         res.json({success:true, message:"Comment thanh Cong", data: result});
     }catch(err){
         res.json({success:false, message: e.message})

@@ -21,10 +21,9 @@ const LoginContainer = ({ onLoginWithGoogle, onLogin }) => {
 		},
 	};
 	const tailLayout = {
-		// wrapperCol: {
-		//   offset: 8,
-		//   span: 16,
-		// },
+		wrapperCol: {
+		  span: 24,
+		},
 	};
 	useEffect(() => {
 		if (checkLogin()) {
@@ -98,7 +97,7 @@ const LoginContainer = ({ onLoginWithGoogle, onLogin }) => {
 					<Form.Item {...tailLayout}>
 						<div className="login-button-group">
 							<Button type="primary" htmlType="submit">
-								Submit
+							Login
 							</Button>
 							{/* <LoginButton/> */}
 							<GoogleLogin

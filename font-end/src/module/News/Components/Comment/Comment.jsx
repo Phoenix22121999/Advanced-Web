@@ -62,29 +62,54 @@ const CommentComponent = ({postId,onGetComment,onCreateComment,user,onDeleteComm
 					Comment
 				</Button>
             </div>
-            {
-                commentList&&commentList.map((cmt,index)=>{
-                    return <Comment
-                        key={`${cmt.user.name}-${index}`}
-                        author={
-                            <div className='comment-name'>
-                                {
-                                    cmt.user.name
-                                }
-                            </div>
+            <div className="post-commnent-list">
+                {
+                    commentList&&commentList.map((cmt,index)=>{
+                        if(cmt.user){
+                            return <Comment
+                            key={`${cmt.user?.email}-${index}`}
+                            author={
+                                <div className='comment-name'>
+                                    {
+                                        cmt.user?.name
+                                    }
+                                </div>
+                            }
+                            actions={
+                                user._id=== cmt.user?._id&&[<DeleteComment key={`delete-${index}`} commentID={cmt._id} handleDeleteComent={handleDeleteComent}/>]
+                            }
+                            avatar={cmt.user?.image?.data.url}
+                            content={
+                                <p>
+                                    {cmt.content}
+                                </p>
+                            }
+                        />
+                        }else{
+                            return <Comment
+                            key={`${cmt.faculty?.email}-${index}`}
+                            author={
+                                <div className='comment-name'>
+                                    {
+                                        cmt.faculty?.email
+                                    }
+                                </div>
+                            }
+                            actions={
+                                user._id=== cmt.faculty?._id&&[<DeleteComment key={`delete-${index}`} commentID={cmt._id} handleDeleteComent={handleDeleteComent}/>]
+                            }
+                            avatar={cmt.faculty?.image?.data?.url||cmt.faculty?.image?.url}
+                            content={
+                                <p>
+                                    {cmt.content}
+                                </p>
+                            }
+                        />
                         }
-                        actions={
-                            user._id=== cmt.user._id&&[<DeleteComment key={`delete-${index}`} commentID={cmt._id} handleDeleteComent={handleDeleteComent}/>]
-                        }
-                        avatar={cmt.user?.image?.data.url}
-                        content={
-                            <p>
-                                {cmt.content}
-                            </p>
-                        }
-                    />
-                })
-            }
+                        
+                    })
+                }
+            </div>
             <Modal>
 
             </Modal>

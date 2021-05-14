@@ -1,4 +1,9 @@
 .post-commnent-wrapper{
+
+    .post-commnent-list{
+        max-height: 30rem;
+        overflow: auto;
+    }
     .post-commnent-input{
         display: flex;
     }
