@@ -43,7 +43,7 @@ export const addDataInArr = (data, itemAdd) => {
     if (!data) {
         return [...itemAdd]
     }
-    return [...data, ...itemAdd]
+    return [...itemAdd,...data ]
 }
 
 export const updateDataInArr = (data, itemUpdate) => {

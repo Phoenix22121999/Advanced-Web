@@ -17,7 +17,7 @@ const PostReducer = (state = INITIAL_STATE, action) => {
         case NotificationTypes.CREATE_NOTIFICATION_SUCCESS:
             return{
                 ...state,
-                notifications: addDataInArr(state.notifications,[payload])
+                notifications: addDataInArr(state.notifications,payload)
             }
         // case UserTypes.LOGOUT_SUCCESS:
         //     return {

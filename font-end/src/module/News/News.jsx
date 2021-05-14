@@ -1,4 +1,4 @@
-import { Button, Divider, Input, Menu, message, Upload } from "antd";
+import { Button, Divider, Input, message, Upload } from "antd";
 import "./News.scss";
 import Modal from "antd/lib/modal/Modal";
 import React, { useEffect, useState } from "react";
@@ -12,11 +12,6 @@ import {
 } from "../../redux/post/post.actions";
 import { selectPostList } from "../../redux/post/post.selector";
 import { selectToken } from "../../redux/user/user.selector";
-import {
-	DesktopOutlined,
-	PieChartOutlined,
-	FileOutlined,
-} from "@ant-design/icons";
 import Post from "./Components/Post/Post";
 import { PlusCircleOutlined } from "@ant-design/icons";
 import Title from "antd/lib/typography/Title";

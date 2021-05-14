@@ -10,7 +10,7 @@ import {
 	onGetPostByUserId,
 	onUpdatePost,
 } from "../../redux/post/post.actions";
-import { selectCurrentPostList, selectPostList } from "../../redux/post/post.selector";
+import { selectPostList } from "../../redux/post/post.selector";
 import Post from "../News/Components/Post/Post";
 import { useBottomScrollListener } from 'react-bottom-scroll-listener';
 

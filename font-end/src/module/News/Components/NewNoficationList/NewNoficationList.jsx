@@ -1,14 +1,9 @@
-import { List, Menu } from "antd";
+import { List } from "antd";
 import moment from "moment";
 import React from "react";
 import { Link } from "react-router-dom";
 import { ROUTES } from "../../../../utils/constant";
 import "./NewNoficationList.scss"
-import {
-	DesktopOutlined,
-	PieChartOutlined,
-	FileOutlined,
-  } from '@ant-design/icons';
 const NewNoficationList = ({ notifications }) => {
     // console.log('notifications',notifications)
 	const renderItem = (item) => {

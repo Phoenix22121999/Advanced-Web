@@ -2,9 +2,9 @@ import React from "react";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { Popconfirm } from "antd";
 export const DeleteNotification = ({ handleDelete, notification }) => {
-	const onClick = () => {
-		handleDelete(notification);
-	};
+	// const onClick = () => {
+	// 	handleDelete(notification);
+	// };
 	function confirm(e) {
         handleDelete(notification)
 	}
