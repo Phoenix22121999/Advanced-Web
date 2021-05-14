@@ -1,0 +1,2 @@
+export const  ATLAS_URI= "mongodb+srv://dat09:51702075Dat@clusterwebadvance.jx7dv.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+export const ACCESS_TOKEN = "ngominhhieu51702017nguyenhuutandat51702075";

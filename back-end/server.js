@@ -25,11 +25,11 @@ app.use(bodyParser.json());
 
 
 app.get('/', (req, res) => {
-    res.render('index');
+    res.json({message : "Welcome to my API"});
 })
-app.get('/login', (req, res) => {
-    res.render('login');
-})
+// app.get('/login', (req, res) => {
+//     res.render('login');
+// })
 
 
 
@@ -52,7 +52,7 @@ app.get('/login', (req, res) => {
 
 
 
-const uri = process.env.ATLAS_URI;
+const uri = "mongodb+srv://dat09:51702075Dat@clusterwebadvance.jx7dv.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true , useUnifiedTopology: true ,  useFindAndModify: false }
 );
 const connection = mongoose.connection;

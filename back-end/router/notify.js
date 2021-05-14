@@ -78,7 +78,7 @@ router.post('/', gateToken, async (req, res) => {
     try {
         const newNotify = new Notify({ title, content, user: khoaId, faculty });
         await newNotify.save();
-        const result = await Notify.find({_id: newNotify._id})
+        const result = await Notify.find({_id: newNotify._id}).populate('user', ["_id", "email", "image", "faculty"]);
         res.json({ success: true, message: "Them Thong Bao Thanh Công", data: result });
         io.emit("message",newNotify);
 
