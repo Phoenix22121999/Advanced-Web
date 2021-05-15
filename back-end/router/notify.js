@@ -34,7 +34,7 @@ router.get('/', async (req, res) => {
 // lấy thông tin của 1 bài viết 
 router.get('/:idNotify', async(req,res)=>{
     const notifyId = req.params.idNotify;
-    console.log(notifyId)
+    // console.log(notifyId)
     try{
         const result = await Notify.findOne({_id:notifyId }).populate('user', ["_id", "email", "image", "faculty"]);
         if(Object.values(result).length === 0){

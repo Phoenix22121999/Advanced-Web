@@ -44,6 +44,11 @@ const LoginContainer = ({ onLoginWithGoogle, onLogin }) => {
 			message.error("Phải đăng nhập bằng mail sinh viên");
 		}
 	};
+	const fail = (value) => {
+		// console.log("fail", value);
+		message.error(value);
+		
+	};
 	// console.log('render login')
 	const onFinish = (value) => {
 		onLogin(value, onLoginCallback);
@@ -106,7 +111,7 @@ const LoginContainer = ({ onLoginWithGoogle, onLogin }) => {
 								// isSignedIn={true}
 								onSuccess={responseGoogle}
 								// onRequest={onRequest}
-								// onFailure={responseGoogle}
+								onFailure={fail}
 								cookiePolicy={"single_host_origin"}
 								render={(renderProps) => (
 									<Button

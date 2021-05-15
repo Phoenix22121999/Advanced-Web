@@ -52,7 +52,7 @@ const Notification = ({ user, onCreateNotification, notifications,onDeleteNotify
 		if(mode===MODE.ADD){
 			onCreateNotification(value, onCreateNotificationCallback);
 		}else{
-			console.log("ịuhi")
+			// console.log("ịuhi")
 			onUpdateNotify({id:editNotify._id,...value},onCreateNotificationCallback)
 		}
 	};
@@ -189,7 +189,7 @@ const Notification = ({ user, onCreateNotification, notifications,onDeleteNotify
 				{filterList
 					?.slice((currentPage - 1) * 10, (currentPage - 1) * 10 + 10)
 					.map((notification) => {
-						console.log(notification.user.email,notification.user._id,user._id,notification.user._id===user._id)
+						// console.log(notification.user.email,notification.user._id,user._id,notification.user._id===user._id)
 
 						return (
 							<Card

@@ -87,7 +87,7 @@ export const onUpdatePassword = (data,fCallBack)=> {
     return async (dispatch,getState) => {
         try {
             const token = getState().user.token
-            console.log()
+            // console.log()
             const result = await api.userApi.updatePassword(data,token)
             if (result.success) {
                 // dispatch({
@@ -109,7 +109,7 @@ export const onUpdateUser = (data,fCallBack)=> {
     return async (dispatch,getState) => {
         try {
             const token = getState().user.token
-            console.log()
+            // console.log()
             const result = await api.userApi.updateUser(data,token)
             if (result.success) {
                 dispatch({

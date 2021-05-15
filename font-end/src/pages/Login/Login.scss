@@ -9,9 +9,13 @@
         flex-direction: column;
         align-items: center;
         background-color: $color-primary-2;
-        padding: 5rem 2rem 0 2rem ;
-        width: 30%;
+        padding: 5rem 0rem 0 0rem ;
+        width: 80%;
 		box-shadow: 6px 6px  8px 0 rgba($color: #000000, $alpha: 0.5);
+        @include mq('desk'){
+            padding: 5rem 2rem 0 2rem ;
+            width: 30%;
+        }
     }
     .login-button-group{
         display: flex;
