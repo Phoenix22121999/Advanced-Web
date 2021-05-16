@@ -126,12 +126,15 @@ const News = ({
 				image: images,
 				url: turnLinkToEmbed(link),
 				id: selectedId,
-			});
+			},onCreateSuccess);
 		}
 	};
 
 	const onCreateSuccess = (isSuccess) => {
 		if (isSuccess) {
+			setFileList([])
+			setInput('')
+			setLink('')
 			setIsAdd(false);
 		}
 	};

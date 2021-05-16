@@ -44,15 +44,15 @@ const CreatePost = ({onCreatePost}) => {
 		});
 	}
 
-	const onCreate = () =>{
-		console.log('fileList')
-		// const images = fileList.map((img)=>img.thumbUrl)
-		// onCreatePost({
-		// 	title:input,
-		// 	image:images,
-		// 	url:link,
-		// })
-	}
+	// const onCreate = () =>{
+	// 	// console.log('fileList')
+	// 	// const images = fileList.map((img)=>img.thumbUrl)
+	// 	// onCreatePost({
+	// 	// 	title:input,
+	// 	// 	image:images,
+	// 	// 	url:link,
+	// 	// })
+	// }
 
 	const onImageChange = ({ fileList: newFileList,file }) => {
 
@@ -73,7 +73,7 @@ const CreatePost = ({onCreatePost}) => {
     }
 
 	const ok = () =>{
-		console.log('ss')
+		// console.log('ss')
 	}
 
 	return (

@@ -69,7 +69,7 @@ export const onGetPosts = (data,fCallBack)=> {
 
 export const onGetPostByUserId = (data,fCallBack)=> {
     return async (dispatch,getState) => {
-        console.log("data")
+        // console.log("data")
         try {
             const {token} = getState().user
             const result = await api.postApi.getPostByUserId({id:data,token})

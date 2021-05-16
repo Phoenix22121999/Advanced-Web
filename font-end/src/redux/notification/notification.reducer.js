@@ -36,8 +36,8 @@ const PostReducer = (state = INITIAL_STATE, action) => {
                 notifications: updateDataInArr(state.notifications,payload)
             }
         case NotificationTypes.DELETE_NOTIFICATION_SUCCESS:
-            console.log(payload)
-            console.log(deleteDataInArr(state.notifications,payload))
+            // console.log(payload)
+            // console.log(deleteDataInArr(state.notifications,payload))
             return {
                 ...state,
                 notifications: deleteDataInArr(state.notifications,payload)

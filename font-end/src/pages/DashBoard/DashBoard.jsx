@@ -63,7 +63,7 @@ const DashBoardContainer = ({ user, onGetProfile, onGetNotificationList }) => {
 		}
 	}, [user, onGetNotificationList]);
 	const onSelect = ({ key }) => {
-		console.log(key);
+		// console.log(key);
 		setSelectedKey(key);
 	};
 	const menu = (

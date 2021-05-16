@@ -10,14 +10,14 @@ const NotifyDetail = ({onGetNotification}) => {
     const [notify, setNotify] = useState(null)
     useEffect(() => {
         const onGetNotificationCallback = (isSuccess,rs) => {
-            console.log(rs)
+            // console.log(rs)
             if (isSuccess){
                 setNotify(rs)
             }
         }
         onGetNotification(id,onGetNotificationCallback)
     }, [id,onGetNotification,setNotify])
-    console.log(notify)
+    // console.log(notify)
     return (
         <div className="notifycation-detail-wrapper">
             {
