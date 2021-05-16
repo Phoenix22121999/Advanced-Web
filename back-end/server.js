@@ -25,11 +25,12 @@ app.use(bodyParser.json());
 
 
 app.get('/', (req, res) => {
-    res.json({message : "Welcome to my API"});
+    // res.json({message : "Welcome to my API"});
+    res.render('index');
 })
-// app.get('/login', (req, res) => {
-//     res.render('login');
-// })
+app.get('/login', (req, res) => {
+    res.render('login');
+})
 
 
 

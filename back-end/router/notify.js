@@ -24,7 +24,7 @@ router.get('/', async (req, res) => {
     // const khoaId = req.userId;
     try {
         // const result = await Notify.find()
-        const result = await Notify.find().populate('user', ["_id", "email", "image", "faculty"]);
+        const result = await Notify.find().sort({createdAt: -1}).populate('user', ["_id", "email", "image", "faculty"]);
         res.json({ success: true, data: result })
     } catch (err) {
         res.json({ success: false, message: err.message })
@@ -121,7 +121,7 @@ router.delete('/:idNotify', gateToken, async (req, res) => {
     const khoaId = req.userId;
     try {
         const deleteCondition = { _id: idNotify, faculty: khoaId };
-        const deletedNotify = await Notify.findByIdAndDelete(deleteCondition);
+        const deletedNotify = await Notify.findOneAndRemove(deleteCondition);
         if (!deletedNotify) {
             return res.status(401).json({ sucess: false, message: 'Notify not found or not authorized' })
         }

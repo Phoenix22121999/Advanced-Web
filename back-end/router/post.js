@@ -75,6 +75,16 @@ router.delete('/:PostId/comment/:CommentId',gateToken, async(req,res)=>{
     }   
     // res.json(idPost)
 })
+// router.delete("/:PostId/comment", async(req,res)=>{
+//     const postId = req.params.PostId;
+//     try{
+//         const result = await Comment.find({post:postId}).remove();
+//         //const result = await Comment.find({post:postId}).populate('post').populate('user');
+//         res.json({success:true, data:result});
+//     }catch(err){
+//         res.json({success:false, message:err.message})
+//     }
+// })
 
 //-------------------------------------------------------------BÀI VIẾT--------------------------------------------------------------
 //-----------------------------------------------------------------------------------------------------------------------------------
@@ -83,7 +93,7 @@ router.delete('/:PostId/comment/:CommentId',gateToken, async(req,res)=>{
 // dùng để lấy tất cả bài post 
 router.get('/getAll', async(req,res)=>{
     try{
-        const result = await Post.find().populate('user');
+        const result = await Post.find().sort({timePost:-1}).populate('user');
         res.json({success:true, data:result})
     }catch(error){
         res.json({success:false, message: error.message })
@@ -169,6 +179,7 @@ router.delete('/:id',gateToken, async(req,res)=>{
         // const deletedPost = await Post.findByIdAndDelete({ _id : idPost , user: req.userId});
         const deleteCondition = { _id : idPost , user: user};
         const deletedPost = await Post.findOneAndRemove(deleteCondition);
+        const result = await Comment.find({post:idPost}).deleteMany();
         // console.log(deletedPost)
         if(!deletedPost){
             return res.status(401).json({sucess: false , message : 'post not found or not authorized'})
